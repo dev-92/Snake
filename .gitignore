@@ -1,4 +1,9 @@
 .vs/
+
+# Snake proj
 Snake/bin/
 Snake/obj/
 
+# SnakeTests proj
+SnakeTests/bin/
+SnakeTests/obj/
