@@ -1,6 +1,6 @@
-﻿namespace SnakeTests
+﻿namespace SnakeTests.MVVMTests.ModelTests
 {
-    public class UnitTest1
+    public class CellModelTests
     {
         [Fact]
         public void Test1()
