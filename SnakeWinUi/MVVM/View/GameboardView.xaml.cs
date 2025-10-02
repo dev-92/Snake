@@ -6,6 +6,7 @@ using SnakeWinUi.Controller;
 using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.MVVM.ViewModel;
 using SnakeWinUi.UpdateService;
+using SnakeWinUi.Config;
 using System;
 using System.Collections.Generic;
 
@@ -13,15 +14,9 @@ namespace SnakeWinUi.MVVM.View
 {
     public sealed partial class GameboardView : UserControl, IUpdateEntity
     {
-        private const int CELL_HEIGHT = 50;
-        private const int CELL_WIDTH = 50;
-
-        private int _cellAmount { get; set; }
         public int SideLength { get; set; }
 
         private SolidColorBrush _strokeColor { get; set; } = new SolidColorBrush(Colors.Pink);
-        private const double BORDER_THICKNESS = 1;
-        private const double CORNER_RADIUS = 10;
 
         public List<CellViewModel> CellViewModels { get; set; } = new List<CellViewModel>();
         public Dictionary<Position2D, CellModel> CellLookup { get; set; } = new Dictionary<Position2D, CellModel>();
@@ -44,7 +39,6 @@ namespace SnakeWinUi.MVVM.View
         {
             this.InitializeComponent();
 
-            this._cellAmount = 100;
             this.SetSideLength();
 
             this.BuildGameboardStructure();
@@ -73,8 +67,8 @@ namespace SnakeWinUi.MVVM.View
         {
             for (int i = 0; i < this.SideLength; i++)
             {
-                this.GameboardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(GameboardView.CELL_HEIGHT) });
-                this.GameboardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(GameboardView.CELL_WIDTH) });
+                this.GameboardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Constants.CELL_HEIGHT) });
+                this.GameboardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(Constants.CELL_WIDTH) });
             }
         }
 
@@ -84,9 +78,9 @@ namespace SnakeWinUi.MVVM.View
             {
                 Border border = new Border
                 {
-                    CornerRadius = new CornerRadius(GameboardView.CORNER_RADIUS),
+                    CornerRadius = new CornerRadius(Constants.CORNER_RADIUS),
                     BorderBrush = this._strokeColor,
-                    BorderThickness = new Thickness(GameboardView.BORDER_THICKNESS)
+                    BorderThickness = new Thickness(Constants.BORDER_THICKNESS)
                 };
 
                 border.SetBinding(Border.BackgroundProperty, new Microsoft.UI.Xaml.Data.Binding
@@ -108,7 +102,7 @@ namespace SnakeWinUi.MVVM.View
 
         private void SetSideLength()
         {
-            this.SideLength = (int)Math.Sqrt(this._cellAmount);
+            this.SideLength = (int)Math.Sqrt(Constants.CELL_AMOUNT);
         }
 
         private void ClearBoard()
@@ -129,6 +123,10 @@ namespace SnakeWinUi.MVVM.View
                 int currentTailPieceIndex = tailPiece.X * GameboardView.Instance.SideLength + tailPiece.Y;
                 GameboardView.Instance.CellViewModels[currentTailPieceIndex].CellModel.CellStatus = CellModel.Status.Snake;
             }
+        }
+
+        private void HandleWallCollision(int headIndex) // ToDo
+        {
         }
 
         public void Update()

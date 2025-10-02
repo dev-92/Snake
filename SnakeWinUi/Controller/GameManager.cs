@@ -1,4 +1,4 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml.Media;
 using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.MVVM.View;
 using SnakeWinUi.UpdateService;
@@ -8,17 +8,19 @@ namespace SnakeWinUi.Controller
 {
     internal class GameManager
     {
-        private const int UPDATE_SPEED_MILLIS = 1000;
+        private const int UPDATE_SPEED_MILLIS = 100;
+
         private UpdateGroup _updateGroup { get; set; }
 
-        public DispatcherTimer GameTimer { get; set; }
+        private DateTime _lastUpdate { get; set; }
+        private bool _isRunning { get; set; } = false;
 
         private static GameManager? _instance;
         public static GameManager Instance
         {
             get
             {
-                if(GameManager._instance == null)
+                if (GameManager._instance == null)
                 {
                     GameManager._instance = new GameManager();
                 }
@@ -30,10 +32,9 @@ namespace SnakeWinUi.Controller
         private GameManager()
         {
             this._updateGroup = new UpdateGroup();
+            this._lastUpdate = DateTime.Now;
 
-            this.GameTimer = new DispatcherTimer();
-            this.GameTimer.Interval = TimeSpan.FromMilliseconds(GameManager.UPDATE_SPEED_MILLIS);
-            this.GameTimer.Tick += (s, e) => this.Update();
+            CompositionTarget.Rendering += this.OnRendering;
         }
 
         /// <summary>
@@ -47,12 +48,29 @@ namespace SnakeWinUi.Controller
 
         public void StartGame()
         {
-            this.GameTimer.Start();
+            this._isRunning = true;
         }
 
         public void PauseGame()
         {
-            this.GameTimer.Stop();
+            this._isRunning = false;
+        }
+
+        private void OnRendering(object? sender, object e)
+        {
+            if (!this._isRunning)
+            {
+                return;
+            }
+
+            var now = DateTime.Now;
+            var delta = (now - this._lastUpdate).TotalMilliseconds;
+
+            if (delta >= GameManager.UPDATE_SPEED_MILLIS)
+            {
+                this.Update();
+                this._lastUpdate = now;
+            }
         }
 
         public void Update()
