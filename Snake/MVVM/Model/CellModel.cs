@@ -1,10 +1,10 @@
-﻿using Snake.UpdateService;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Snake.MVVM.Model
 {
-    internal class CellModel : IUpdateEntity, INotifyPropertyChanged
+    public class CellModel : INotifyPropertyChanged
     {
         public enum Status
         {
@@ -13,7 +13,7 @@ namespace Snake.MVVM.Model
             Snake
         }
 
-        private Status _cellStatus { get; set; } = Status.Empty;
+        private Status _cellStatus = Status.Empty;
         public Status CellStatus
         {
             get
@@ -23,27 +23,22 @@ namespace Snake.MVVM.Model
             set
             {
                 this._cellStatus = value;
-                this.OnPropertyChanged(nameof(CellStatus));
+                this.OnPropertyChanged();
             }
         }
 
-        public Vector2 Position { get; set; }
+        public Position2D Position { get; set; }
 
-        public CellModel(Vector2 position) 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public CellModel(Position2D position) 
         { 
             this.Position = position;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }

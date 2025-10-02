@@ -1,9 +1,8 @@
 ﻿using Snake.UpdateService;
-using System.Numerics;
 
 namespace Snake.MVVM.Model
 {
-    internal class SnakeModel : IUpdateEntity
+    public class SnakeModel : IUpdateEntity
     {
         public enum Direction
         {
@@ -14,9 +13,9 @@ namespace Snake.MVVM.Model
         }
         private Direction _curHeadDirection { get; set; } = Direction.Up;
 
-        private Vector2 _head { get; set; }
-        private Vector2 _startPosition { get; set; }
-        private List<Vector2> _tail { get; set; }
+        public Position2D Head { get; set; }
+        private Position2D _startPosition { get; set; }
+        public List<Position2D> Tail { get; set; }
 
 
         private static SnakeModel? _instance;
@@ -24,71 +23,73 @@ namespace Snake.MVVM.Model
         {
             get 
             { 
-                if(_instance == null)
+                if(SnakeModel._instance == null)
                 {
-                    _instance = new SnakeModel();
+                    SnakeModel._instance = new SnakeModel();
                 }
-                return _instance; 
+                return SnakeModel._instance; 
             }
         }
 
         private SnakeModel()
         {
-            this._tail = new List<Vector2>();
-            this._head = new Vector2();
+            this.Tail = new List<Position2D>();
+            this.Head = new Position2D();
 
             this.SetHeadStartingPosition();
         }
 
         private void SetHeadStartingPosition()
         {
-            this._startPosition = Vector2.Zero;  // Do something random later on
-            this._head = this._startPosition;
+            this._startPosition = new Position2D(5,5);  // Do something random later on
+            this.Head = this._startPosition;
         }
 
         private void MoveHead()
         {
-            this._head += this.GetCurrentDirectionVector();
+            this.Head += this.GetCurrentDirectionVector();
         }
 
         private void MoveTail()
         {
-            for(int i = 0; i < this._tail.Count - 1; i++)
+            for(int i = 1; i < this.Tail.Count; i++)
             {
-                this._tail[i + 1] = this._tail[i];
+                int currentPieceIndex = i;
+                int previousPieceIndex = i - 1;
+
+                this.Tail[currentPieceIndex] = this.Tail[previousPieceIndex];
             }
         }
 
-        private Vector2 GetCurrentDirectionVector()
+        private Position2D GetCurrentDirectionVector()
         {
             switch (this._curHeadDirection)
             {
                 case Direction.Up:
-                    return new Vector2(0, 1);
+                    return new Position2D(0, 1);
 
                 case Direction.Right:
-                    return new Vector2(1, 0);
+                    return new Position2D(1, 0);
 
                 case Direction.Down:
-                    return new Vector2(0, -1);
+                    return new Position2D(0, -1);
 
                 case Direction.Left:
-                    return new Vector2(-1, 0);
+                    return new Position2D(-1, 0);
 
                 default:
-                    return Vector2.Zero;
+                    return Position2D.Zero;
             }
         }
 
         private void SetCurrentDirection()
         {
             // check if direction is possible
-
         }
 
-        private void ExtendTail()
+        private void ExtendTail()  // 
         {
-            this._tail.Add(new Vector2(0, 0));
+            this.Tail.Add(new Position2D(0, 0));
         }
 
         public void Update()

@@ -1,49 +1,66 @@
 ﻿using Snake.MVVM.Model;
-using Snake.UpdateService;
 using System.ComponentModel;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Snake.MVVM.ViewModel
 {
-    internal class CellViewModel
+    public class CellViewModel : INotifyPropertyChanged
     {
-        private CellModel CellModel { get; set; }
-        private Border CellVisualization { get; set; }
+        public CellModel CellModel { get; set; }
 
-        private Color EmptyColor { get; } = new Color();
-        private Color SnakeColor { get; } = new Color();
-        private Color PreyColor { get; } = new Color();
+        private Color _backgroundColor {  get; set; } = Colors.White;
+        public Color BackgroundColor
+        {
+            get
+            {
+                return this._backgroundColor;
+            }
+            set
+            {
+                this._backgroundColor = value;
+                this.OnPropertyChanged();
+            }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        public CellViewModel(Vector2 cellModelPosition)
+        private Color EmptyColor { get; } = Colors.White;
+        private Color SnakeColor { get; } = Colors.Green;
+        private Color PreyColor { get; } = Colors.Red;
+
+        public CellViewModel(Position2D cellModelPosition)
         {
             this.CellModel = new CellModel(cellModelPosition);
-            this.CellVisualization = new Border();
-
             this.CellModel.PropertyChanged += this.CellModelOnPropertyChanged;
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void CellModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(CellModel.CellStatus))
             {
-                this.UpdateCellVisualizationColor();
+                this.UpdateBackgroundColor();
             }
         }
 
-        private void UpdateCellVisualizationColor()
+        private void UpdateBackgroundColor()
         {
             switch (this.CellModel.CellStatus)
             {
                 case CellModel.Status.Empty:
-                    this.CellVisualization.BackgroundColor = this.EmptyColor;
+                    this.BackgroundColor = this.EmptyColor;
                     break;
 
                 case CellModel.Status.Snake:
-                    this.CellVisualization.BackgroundColor = this.SnakeColor;
+                    this.BackgroundColor = this.SnakeColor;
                     break;
 
                 case CellModel.Status.Prey:
-                    this.CellVisualization.BackgroundColor = this.PreyColor;
+                    this.BackgroundColor = this.PreyColor;
                     break;
 
                 default:
