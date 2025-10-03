@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml.Controls;
 using SnakeWinUi.Controller;
 using SnakeWinUi.MVVM.Model;
-using static SnakeWinUi.MVVM.Model.SnakeModel;
+using SnakeWinUi.Enums;
 
 namespace SnakeWinUi.MVVM.View
 {

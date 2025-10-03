@@ -1,15 +1,14 @@
 ﻿using Microsoft.UI.Xaml.Media;
+using SnakeWinUi.Config;
 using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.MVVM.View;
-using SnakeWinUi.UpdateService;
+using SnakeWinUi.Services.UpdateService;
 using System;
 
 namespace SnakeWinUi.Controller
 {
     internal class GameManager
     {
-        private const int UPDATE_SPEED_MILLIS = 100;
-
         private UpdateGroup _updateGroup { get; set; }
 
         private DateTime _lastUpdate { get; set; }
@@ -66,7 +65,7 @@ namespace SnakeWinUi.Controller
             var now = DateTime.Now;
             var delta = (now - this._lastUpdate).TotalMilliseconds;
 
-            if (delta >= GameManager.UPDATE_SPEED_MILLIS)
+            if (delta >= GameSettings.UpdateSpeedMillis)
             {
                 this.Update();
                 this._lastUpdate = now;

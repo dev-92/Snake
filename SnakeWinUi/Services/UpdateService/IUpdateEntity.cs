@@ -1,6 +1,4 @@
-﻿
-
-namespace SnakeWinUi.UpdateService
+﻿namespace SnakeWinUi.Services.UpdateService
 {
     internal interface IUpdateEntity
     {

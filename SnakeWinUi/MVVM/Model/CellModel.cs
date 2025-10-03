@@ -1,20 +1,14 @@
-﻿using System.ComponentModel;
-using System.Numerics;
+﻿
+using SnakeWinUi.Enums;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SnakeWinUi.MVVM.Model
 {
     public class CellModel : INotifyPropertyChanged
     {
-        public enum Status
-        {
-            Empty, 
-            Prey,
-            Snake
-        }
-
-        private Status _cellStatus = Status.Empty;
-        public Status CellStatus
+        private CellStatus _cellStatus = CellStatus.Empty;
+        public CellStatus CellStatus
         {
             get
             {

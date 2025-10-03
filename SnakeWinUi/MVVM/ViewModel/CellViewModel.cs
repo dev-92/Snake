@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using SnakeWinUi.MVVM.Model;
+using SnakeWinUi.Enums;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -54,15 +55,15 @@ namespace SnakeWinUi.MVVM.ViewModel
         {
             switch (this.CellModel.CellStatus)
             {
-                case CellModel.Status.Empty:
+                case CellStatus.Empty:
                     this.BackgroundColor = this.EmptyColor;
                     break;
 
-                case CellModel.Status.Snake:
+                case CellStatus.Snake:
                     this.BackgroundColor = this.SnakeColor;
                     break;
 
-                case CellModel.Status.Prey:
+                case CellStatus.Prey:
                     this.BackgroundColor = this.PreyColor;
                     break;
 
