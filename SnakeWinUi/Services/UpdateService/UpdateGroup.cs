@@ -1,7 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace SnakeWinUi.UpdateService
+namespace SnakeWinUi.Services.UpdateService
 {
     /// <summary>
     /// Creates a group where entities can be added. Entities can be updated simultaneously.
@@ -24,7 +23,7 @@ namespace SnakeWinUi.UpdateService
         /// </summary>
         public void Update()
         {
-            foreach(IUpdateEntity updateParticipant in this._updateEntities)
+            foreach(IUpdateEntity updateParticipant in _updateEntities)
             {
                 updateParticipant.Update();
             }

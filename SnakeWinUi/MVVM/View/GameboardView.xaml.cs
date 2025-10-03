@@ -5,17 +5,16 @@ using Microsoft.UI.Xaml.Media;
 using SnakeWinUi.Controller;
 using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.MVVM.ViewModel;
-using SnakeWinUi.UpdateService;
 using SnakeWinUi.Config;
+using SnakeWinUi.Enums;
 using System;
 using System.Collections.Generic;
+using SnakeWinUi.Services.UpdateService;
 
 namespace SnakeWinUi.MVVM.View
 {
     public sealed partial class GameboardView : UserControl, IUpdateEntity
     {
-        public int SideLength { get; set; }
-
         private SolidColorBrush _strokeColor { get; set; } = new SolidColorBrush(Colors.Pink);
 
         public List<CellViewModel> CellViewModels { get; set; } = new List<CellViewModel>();
@@ -39,8 +38,6 @@ namespace SnakeWinUi.MVVM.View
         {
             this.InitializeComponent();
 
-            this.SetSideLength();
-
             this.BuildGameboardStructure();
             this.BuildGameboardGrid();
 
@@ -50,9 +47,9 @@ namespace SnakeWinUi.MVVM.View
 
         private void BuildGameboardStructure()
         {
-            for (int row = 0; row < this.SideLength; row++)
+            for (int row = 0; row < GameSettings.SideLength; row++)
             {
-                for (int col = 0; col < this.SideLength; col++)
+                for (int col = 0; col < GameSettings.SideLength; col++)
                 {
                     Position2D position = new Position2D(row, col);
                     this.CellViewModels.Add(new CellViewModel(position));
@@ -65,7 +62,7 @@ namespace SnakeWinUi.MVVM.View
 
         private void BuildGameboardGrid()
         {
-            for (int i = 0; i < this.SideLength; i++)
+            for (int i = 0; i < GameSettings.SideLength; i++)
             {
                 this.GameboardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Constants.CELL_HEIGHT) });
                 this.GameboardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(Constants.CELL_WIDTH) });
@@ -100,33 +97,29 @@ namespace SnakeWinUi.MVVM.View
             }
         }
 
-        private void SetSideLength()
-        {
-            this.SideLength = (int)Math.Sqrt(Constants.CELL_AMOUNT);
-        }
-
         private void ClearBoard()
         {
             foreach (CellViewModel cellViewModel in this.CellViewModels)
             {
-                cellViewModel.CellModel.CellStatus = CellModel.Status.Empty;
+                cellViewModel.CellModel.CellStatus = CellStatus.Empty;
             }
         }
 
         private void DrawSnake()
         {
-            int headIndex = SnakeModel.Instance.Head.X * GameboardView.Instance.SideLength + SnakeModel.Instance.Head.Y;
-            GameboardView.Instance.CellViewModels[headIndex].CellModel.CellStatus = CellModel.Status.Snake;
+            int headIndex = this.GetHeadIndex();
+            GameboardView.Instance.CellViewModels[headIndex].CellModel.CellStatus = CellStatus.Snake;
 
             foreach (Position2D tailPiece in SnakeModel.Instance.Tail)
             {
-                int currentTailPieceIndex = tailPiece.X * GameboardView.Instance.SideLength + tailPiece.Y;
-                GameboardView.Instance.CellViewModels[currentTailPieceIndex].CellModel.CellStatus = CellModel.Status.Snake;
+                int currentTailPieceIndex = tailPiece.X * GameSettings.SideLength + tailPiece.Y;
+                GameboardView.Instance.CellViewModels[currentTailPieceIndex].CellModel.CellStatus = CellStatus.Snake;
             }
         }
 
-        private void HandleWallCollision(int headIndex) // ToDo
+        private int GetHeadIndex()
         {
+            return SnakeModel.Instance.Head.Y * GameSettings.SideLength + SnakeModel.Instance.Head.X;
         }
 
         public void Update()

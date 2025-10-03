@@ -1,23 +1,17 @@
 ﻿using SnakeWinUi.Controller;
-using SnakeWinUi.UpdateService;
+using SnakeWinUi.Services.UpdateService;
+using SnakeWinUi.Enums;
 using System.Collections.Generic;
+using SnakeWinUi.Config;
+using System;
 
 namespace SnakeWinUi.MVVM.Model
 {
     public class SnakeModel : IUpdateEntity
     {
-        public enum Direction
-        {
-            Up, 
-            Right,
-            Down, 
-            Left,
-        }
-        private Direction _curHeadDirection { get; set; } = Direction.Up;
+        public Direction CurrentDirection { get; set; } = Direction.Up;
         public Position2D Head { get; set; }
-        private Position2D _startPosition { get; set; }
         public List<Position2D> Tail { get; set; }
-
 
         private static SnakeModel? _instance;
         public static SnakeModel Instance
@@ -37,19 +31,75 @@ namespace SnakeWinUi.MVVM.Model
             this.Tail = new List<Position2D>();
             this.Head = new Position2D();
 
-            this.SetHeadStartingPosition();
+            this.SetRandomStartPosition();
+            this.SetRandomStartDirection();
+
             this.RegisterAtUpdateGroup();
         }
 
-        private void SetHeadStartingPosition()
+        private void SetRandomStartPosition()
         {
-            this._startPosition = new Position2D(5,10);  // Do something random later on
-            this.Head = this._startPosition;
+            Random random = new Random();
+
+            int xPos = random.Next(0, GameSettings.SideLength - 1);
+            int yPos = random.Next(0, GameSettings.SideLength - 1);
+
+            this.Head = new Position2D(xPos, yPos);
+        }
+
+        private void SetRandomStartDirection()
+        {
+            int maxDirectionVariances = 4;
+
+            Random random = new Random();
+            int randomDirectionInt = random.Next(0, maxDirectionVariances);
+
+            switch(randomDirectionInt)
+            {
+                case (int)Direction.Up:
+                    this.CurrentDirection = Direction.Up;
+                    break;
+
+                case (int)Direction.Right:
+                    this.CurrentDirection = Direction.Right;
+                    break;
+
+                case (int)Direction.Down:
+                    this.CurrentDirection = Direction.Down;
+                    break;
+
+                case (int)Direction.Left:
+                    this.CurrentDirection = Direction.Left;
+                    break;
+            }
         }
 
         private void MoveHead()
         {
             this.Head += this.GetCurrentDirection();
+        }
+
+        private void HandleWallWrapping()
+        {
+            if (this.Head.Y <= 0 && this.CurrentDirection == Direction.Up)
+            {
+                this.Head.Y = GameSettings.SideLength;
+            }
+
+            if (this.Head.X >= GameSettings.SideLength - 1 && this.CurrentDirection == Direction.Right)
+            {
+                this.Head.X = - 1;
+            }
+
+            if (this.Head.Y >= GameSettings.SideLength - 1 && this.CurrentDirection == Direction.Down)
+            {
+                this.Head.Y = - 1 ;
+            }
+
+            if (this.Head.X <= 0 && this.CurrentDirection == Direction.Left)
+            {
+                this.Head.X = GameSettings.SideLength;
+            }
         }
 
         private void MoveTail()
@@ -63,9 +113,9 @@ namespace SnakeWinUi.MVVM.Model
             }
         }
 
-        private Position2D GetCurrentDirection() 
+        public Position2D GetCurrentDirection() 
         {
-            switch (this._curHeadDirection)
+            switch (this.CurrentDirection)
             {
                 case Direction.Up:
                     return DirectionVector.Up;
@@ -86,7 +136,7 @@ namespace SnakeWinUi.MVVM.Model
 
         public void SetDirection(Direction newDirection)
         {
-            this._curHeadDirection = newDirection;
+            this.CurrentDirection = newDirection;
         }
 
         private void ExtendTail()  // 
@@ -96,7 +146,10 @@ namespace SnakeWinUi.MVVM.Model
 
         public void Update()
         {
+            this.HandleWallWrapping();
+
             this.MoveHead();
+
             this.MoveTail();
         }
 
