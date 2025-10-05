@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SnakeWinUi.MVVM.Model
+﻿
+namespace SnakeWinUi.MVVM.Model.ValueObject
 {
     public class Position2D
     {
@@ -35,5 +30,9 @@ namespace SnakeWinUi.MVVM.Model
             return new Position2D(firstPos.X + secPos.X, firstPos.Y + secPos.Y);
         }
 
+        public static Position2D operator -(Position2D firstPos, Position2D secPos)
+        {
+            return new Position2D(firstPos.X - secPos.X, firstPos.Y - secPos.Y);
+        }
     }
 }

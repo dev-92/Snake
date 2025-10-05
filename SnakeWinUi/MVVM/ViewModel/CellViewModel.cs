@@ -1,19 +1,22 @@
 ﻿using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
-using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.Enums;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Windows.UI;
+using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.MVVM.Model.Entity;
 
 namespace SnakeWinUi.MVVM.ViewModel
 {
-    public class CellViewModel : INotifyPropertyChanged
+    public partial class CellViewModel : INotifyPropertyChanged
     {
         public CellModel CellModel { get; set; }
+        private SolidColorBrush _emptyColor { get; } = new(Colors.DarkGray);
+        private SolidColorBrush _snakeColor { get; } = new(Colors.DarkGreen);
+        private SolidColorBrush _preyColor { get; } = new(Colors.DarkRed);
 
-        private SolidColorBrush _backgroundColor {  get; set; } = new SolidColorBrush(Colors.White);
+        private SolidColorBrush _backgroundColor {  get; set; } = new(Colors.DarkGray);
         public SolidColorBrush BackgroundColor
         {
             get
@@ -28,13 +31,9 @@ namespace SnakeWinUi.MVVM.ViewModel
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private SolidColorBrush EmptyColor { get; } = new SolidColorBrush(Color.FromArgb(255, 39, 174, 96));
-        private SolidColorBrush SnakeColor { get; } = new SolidColorBrush(Color.FromArgb(255, 192, 57, 43));
-        private SolidColorBrush PreyColor { get; } = new SolidColorBrush(Color.FromArgb(255, 127, 140, 141));
-
         public CellViewModel(Position2D cellModelPosition)
         {
-            this.CellModel = new CellModel(cellModelPosition);
+            this.CellModel = new(cellModelPosition);
             this.CellModel.PropertyChanged += this.CellModelOnPropertyChanged;
         }
 
@@ -45,7 +44,7 @@ namespace SnakeWinUi.MVVM.ViewModel
 
         private void CellModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CellModel.CellStatus))
+            if (e.PropertyName == nameof(this.CellModel.CellStatus))
             {
                 this.UpdateBackgroundColor();
             }
@@ -56,15 +55,15 @@ namespace SnakeWinUi.MVVM.ViewModel
             switch (this.CellModel.CellStatus)
             {
                 case CellStatus.Empty:
-                    this.BackgroundColor = this.EmptyColor;
+                    this.BackgroundColor = this._emptyColor;
                     break;
 
                 case CellStatus.Snake:
-                    this.BackgroundColor = this.SnakeColor;
+                    this.BackgroundColor = this._snakeColor;
                     break;
 
                 case CellStatus.Prey:
-                    this.BackgroundColor = this.PreyColor;
+                    this.BackgroundColor = this._preyColor;
                     break;
 
                 default:

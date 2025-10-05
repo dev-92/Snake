@@ -1,9 +1,9 @@
-﻿
-using SnakeWinUi.Enums;
+﻿using SnakeWinUi.Enums;
+using SnakeWinUi.MVVM.Model.ValueObject;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SnakeWinUi.MVVM.Model
+namespace SnakeWinUi.MVVM.Model.Entity
 {
     public class CellModel : INotifyPropertyChanged
     {

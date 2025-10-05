@@ -4,8 +4,9 @@ using SnakeWinUi.Enums;
 using System.Collections.Generic;
 using SnakeWinUi.Config;
 using System;
+using SnakeWinUi.MVVM.Model.ValueObject;
 
-namespace SnakeWinUi.MVVM.Model
+namespace SnakeWinUi.MVVM.Model.Entity
 {
     public class SnakeModel : IUpdateEntity
     {
@@ -20,7 +21,7 @@ namespace SnakeWinUi.MVVM.Model
             { 
                 if(SnakeModel._instance == null)
                 {
-                    SnakeModel._instance = new SnakeModel();
+                    SnakeModel._instance = new();
                 }
                 return SnakeModel._instance; 
             }
@@ -35,6 +36,10 @@ namespace SnakeWinUi.MVVM.Model
             this.SetRandomStartDirection();
 
             this.RegisterAtUpdateGroup();
+
+            this.Tail.Add(new Position2D(5, 5));
+            this.Tail.Add(new Position2D(5, 6));
+            this.Tail.Add(new Position2D(5, 7));
         }
 
         private void SetRandomStartPosition()
@@ -51,7 +56,7 @@ namespace SnakeWinUi.MVVM.Model
         {
             int maxDirectionVariances = 4;
 
-            Random random = new Random();
+            Random random = new();
             int randomDirectionInt = random.Next(0, maxDirectionVariances);
 
             switch(randomDirectionInt)
@@ -106,10 +111,13 @@ namespace SnakeWinUi.MVVM.Model
         {
             for(int i = 1; i < this.Tail.Count; i++)
             {
+                this.Tail[i] = this.Head + this.GetCurrentDirection();
+                /*
                 int currentPieceIndex = i;
                 int previousPieceIndex = i - 1;
 
                 this.Tail[currentPieceIndex] = this.Tail[previousPieceIndex];
+                */
             }
         }
 

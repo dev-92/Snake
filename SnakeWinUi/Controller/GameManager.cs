@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Media;
 using SnakeWinUi.Config;
-using SnakeWinUi.MVVM.Model;
+using SnakeWinUi.MVVM.Model.Entity;
 using SnakeWinUi.MVVM.View;
 using SnakeWinUi.Services.UpdateService;
 using System;

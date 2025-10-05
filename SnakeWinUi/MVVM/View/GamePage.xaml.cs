@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml.Controls;
 using SnakeWinUi.Controller;
-using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.Enums;
+using SnakeWinUi.MVVM.Model.Entity;
 
 namespace SnakeWinUi.MVVM.View
 {
@@ -32,7 +32,7 @@ namespace SnakeWinUi.MVVM.View
             GameManager.Instance.Init();
             GameManager.Instance.StartGame();
 
-            this.KeyDown += GamePage_OnKeyDown;
+            this.KeyDown += this.GamePage_OnKeyDown;
         }
 
         private void GamePage_OnKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
