@@ -2,11 +2,11 @@
 using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.Enums;
 using SnakeWinUi.Config;
-using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.Extensions;
 
 using System;
 using System.Collections.Generic;
+using SnakeWinUi.MVVM.Model.ValueObject;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Snake
 {
@@ -36,15 +36,13 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
 
         private SnakeModel()
         {
-            this.Head = new SnakeElement(SnakeModel.GetRandomStartPosition());
+            this.Head = new SnakeElement(GetRandomStartPosition());
             this.Tail = new List<SnakeElement>();
 
             this.SetRandomStartDirection();
 
             this.RegisterAtUpdateComposite();
 
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
@@ -166,9 +164,10 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
         /// Adds a new segment to the tail.
         /// Currently not used.
         /// </summary>
-        private void ExtendTail()
+        public void ExtendTail()
         {
-            //this.Tail.Add(new Position2D(0, 0));
+            SnakeElement lastTailElement = this.Tail[this.Tail.Count - 1];
+            this.Tail.Add(new SnakeElement(lastTailElement.PreviousPosition));
         }
 
         /// <summary>

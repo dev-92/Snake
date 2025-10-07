@@ -1,11 +1,17 @@
 ﻿using Microsoft.UI.Xaml.Media;
 
 using SnakeWinUi.Config;
+using SnakeWinUi.Extensions;
+using SnakeWinUi.MVVM.Model.Entity.Prey;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.View;
 using SnakeWinUi.Services.UpdateService;
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SnakeWinUi.Controller
 {
@@ -20,6 +26,8 @@ namespace SnakeWinUi.Controller
 
         private DateTime _lastUpdate { get; set; }
         private bool _isRunning { get; set; } = false;
+
+        private List<Prey> _preys = new List<Prey>();
 
         private static GameManager? _instance;
         public static GameManager Instance
@@ -96,7 +104,23 @@ namespace SnakeWinUi.Controller
         /// Calls the Update method on all participants registered in the UpdateGroup.
         /// </summary>
         public void Update()
-        {
+        {         
+            if(this._preys.IsEmpty())
+            {
+                this.CreatePrey();
+            }
+
+            if(this.HasSnakeEatenPrey(this._preys[0]))
+            {
+                this.RemovePrey();
+                this.CreatePrey();
+            }
+
+            if(this.HasHeadCollidedWithTail())
+            {
+                this.PauseGame();
+            }
+
             this._updateGroup.Update();
         }
 
@@ -108,6 +132,50 @@ namespace SnakeWinUi.Controller
         public void AddToUpdateGroup(IUpdateable participant)
         {
             this._updateGroup.AddParticipant(participant);
+        }
+
+        private void CreatePrey()
+        {
+            Prey newPrey = new(this.GetRandomFreePosition());
+            this._preys.Add(newPrey);
+
+            GameboardView.Instance.DrawPrey(newPrey);          
+        }
+
+        private Position2D GetRandomFreePosition()
+        {
+            Random random = new();
+            Position2D freePosition;
+
+            do
+            {
+                int xPos = random.Next(0, GameSettings.SideLength - 1);
+                int yPos = random.Next(0, GameSettings.SideLength - 1);
+
+                freePosition = new Position2D(xPos, yPos);
+            }
+            while (SnakeModel.Instance.Tail.Any(s => s.CurrentPosition == freePosition) ||
+                   SnakeModel.Instance.Head.CurrentPosition == freePosition);
+
+            return freePosition;
+        }
+
+        private bool HasSnakeEatenPrey(Prey prey)
+        {
+            return SnakeModel.Instance.Head.CurrentPosition == prey.Position;
+        }
+
+        private void RemovePrey()
+        {
+            GameboardView.Instance.ErasePrey(this._preys[0]);
+            this._preys.Remove(this._preys[0]);
+
+            SnakeModel.Instance.ExtendTail();
+        }
+
+        private bool HasHeadCollidedWithTail()
+        {
+            return SnakeModel.Instance.Tail.Any(s => s.CurrentPosition == SnakeModel.Instance.Head.CurrentPosition);
         }
     }
 }
