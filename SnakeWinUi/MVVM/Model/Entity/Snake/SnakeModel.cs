@@ -36,10 +36,8 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             this.SetRandomStartDirection();
 
             this.RegisterAtUpdateGroup();
-
-            
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            
+           
+            this.Tail.Add(new SnakeElement(Position2D.Zero));        
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
@@ -54,41 +52,59 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             int xPos = random.Next(0, GameSettings.SideLength - 1);
             int yPos = random.Next(0, GameSettings.SideLength - 1);
 
-            //return new Position2D(xPos, yPos);
-            return new Position2D(3, 6);
+            return new Position2D(xPos, yPos);
         }
 
         private void SetRandomStartDirection()
         {
-            Random random = new();
-            int randomDirectionInt = random.Next(0, Constants.MAX_DIRECTIONS_VARIANCE);
+            int randomDirectionInt = new Random().Next(0, Constants.MAX_DIRECTIONS_VARIANCE);
 
-            switch(randomDirectionInt)
+            this.CurrentDirection = randomDirectionInt switch
             {
-                case (int)Direction.Up:
-                    this.CurrentDirection = Direction.Up;
-                    break;
-
-                case (int)Direction.Right:
-                    this.CurrentDirection = Direction.Right;
-                    break;
-
-                case (int)Direction.Down:
-                    this.CurrentDirection = Direction.Down;
-                    break;
-
-                case (int)Direction.Left:
-                    this.CurrentDirection = Direction.Left;
-                    break;
-            }
-
-            this.CurrentDirection = Direction.Left;
+                (int)Direction.Up    => Direction.Up,
+                (int)Direction.Right => Direction.Right,
+                (int)Direction.Down  => Direction.Down,
+                (int)Direction.Left  => Direction.Left,
+                _                    => Direction.Up,
+            };
         }
 
         private void MoveHead()
         {
             this.Head.PreviousPosition = this.Head.CurrentPosition;
             this.Head.CurrentPosition += this.GetCurrentDirection();
+        }
+
+        public Position2D GetCurrentDirection()
+        {
+            return this.CurrentDirection switch
+            {
+                Direction.Up    => DirectionVector.Up,
+                Direction.Right => DirectionVector.Right,
+                Direction.Down  => DirectionVector.Down,
+                Direction.Left  => DirectionVector.Left,
+                _               => Position2D.Zero
+            };
+        }
+
+        public void SetDirection(Direction newDirection)
+        {
+            if (this.IsOppositeOfCurrentDirection(newDirection)) return;
+
+            this.CurrentDirection = newDirection;
+        }
+
+        private bool IsOppositeOfCurrentDirection(Direction newDirection)
+        {
+            if (this.CurrentDirection == Direction.Up && newDirection == Direction.Down) return true;
+
+            if (this.CurrentDirection == Direction.Right && newDirection == Direction.Left) return true;
+
+            if (this.CurrentDirection == Direction.Down && newDirection == Direction.Up) return true;
+
+            if (this.CurrentDirection == Direction.Left && newDirection == Direction.Right) return true;
+
+            return false;
         }
 
         private void HandleWallWrapping()
@@ -112,7 +128,6 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             {
                 this.Head.CurrentPosition.Y -= GameSettings.SideLength;
             }
-
         }
 
         private void MoveTail()
@@ -128,34 +143,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
                 this.Tail[i + 1].CurrentPosition = this.Tail[i].PreviousPosition;
             }
         }
-
-        public Position2D GetCurrentDirection() 
-        {
-            switch (this.CurrentDirection)
-            {
-                case Direction.Up:
-                    return DirectionVector.Up;
-
-                case Direction.Right:
-                    return DirectionVector.Right;
-
-                case Direction.Down:
-                    return DirectionVector.Down;
-
-                case Direction.Left:
-                    return DirectionVector.Left;
-
-                default:
-                    return Position2D.Zero;
-            }
-        }
-
-        public void SetDirection(Direction newDirection)
-        {
-            this.CurrentDirection = newDirection;
-        }
-
-        private void ExtendTail()  
+        private void ExtendTail()
         {
             //this.Tail.Add(new Position2D(0, 0));
         }

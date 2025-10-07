@@ -6,7 +6,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Prey
 {
     internal class Prey
     {
-        public int Score { get; set; } = 5;
+        public int Score { get; set; }
         public Position2D Position { get; set; } = Position2D.Zero;
 
         public Prey() 

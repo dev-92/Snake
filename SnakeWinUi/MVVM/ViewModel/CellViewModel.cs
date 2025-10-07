@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.Model.Entity;
+using Windows.UI.Notifications;
 
 namespace SnakeWinUi.MVVM.ViewModel
 {
@@ -53,23 +54,13 @@ namespace SnakeWinUi.MVVM.ViewModel
 
         private void UpdateBackgroundColor()
         {
-            switch (this.CellModel.CellStatus)
+            this.BackgroundColor = this.CellModel.CellStatus switch
             {
-                case CellStatus.Empty:
-                    this.BackgroundColor = this._emptyColor;
-                    break;
-
-                case CellStatus.Snake:
-                    this.BackgroundColor = this._snakeColor;
-                    break;
-
-                case CellStatus.Prey:
-                    this.BackgroundColor = this._preyColor;
-                    break;
-
-                default:
-                    throw new ArgumentException("Invalid cellstatus");
-            }
+                CellStatus.Empty => this._emptyColor,
+                CellStatus.Snake => this._snakeColor,
+                CellStatus.Prey  => this._preyColor,
+                _                => this._emptyColor
+            };       
         }
     }
 }
