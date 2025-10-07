@@ -1,15 +1,21 @@
 ﻿using SnakeWinUi.Controller;
 using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.Enums;
-using System.Collections.Generic;
 using SnakeWinUi.Config;
-using System;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.Extensions;
 
+using System;
+using System.Collections.Generic;
+
 namespace SnakeWinUi.MVVM.Model.Entity.Snake
 {
-    public class SnakeModel : IUpdateEntity
+    /// <summary>
+    /// Represents the snake in the game, including its head, tail, and movement logic.
+    /// Implements <see cref="IUpdateable"/> to be updated each game tick.
+    /// Uses the singleton pattern to ensure only one snake instance exists.
+    /// </summary>
+    public class SnakeModel : IUpdateable
     {
         public Direction CurrentDirection { get; set; } = Direction.Up;
         public SnakeElement Head { get; set; }
@@ -18,34 +24,37 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
         private static SnakeModel? _instance;
         public static SnakeModel Instance
         {
-            get 
-            { 
-                if(_instance == null)
+            get
+            {
+                if (_instance == null)
                 {
                     _instance = new();
                 }
-                return _instance; 
+                return _instance;
             }
         }
 
         private SnakeModel()
         {
-            this.Head = new SnakeElement(this.GetRandomStartPosition());
+            this.Head = new SnakeElement(SnakeModel.GetRandomStartPosition());
             this.Tail = new List<SnakeElement>();
 
             this.SetRandomStartDirection();
 
-            this.RegisterAtUpdateGroup();
-           
-            this.Tail.Add(new SnakeElement(Position2D.Zero));        
+            this.RegisterAtUpdateComposite();
+
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
             this.Tail.Add(new SnakeElement(Position2D.Zero));
-            
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
         }
 
-        private Position2D GetRandomStartPosition()
+        /// <summary>
+        /// Generates a random starting position for the snake on the game board.
+        /// </summary>
+        /// <returns>A <see cref="Position2D"/> representing the start position.</returns>
+        private static Position2D GetRandomStartPosition()
         {
             Random random = new Random();
 
@@ -55,6 +64,9 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             return new Position2D(xPos, yPos);
         }
 
+        /// <summary>
+        /// Sets a random starting direction for the snake.
+        /// </summary>
         private void SetRandomStartDirection()
         {
             int randomDirectionInt = new Random().Next(0, Constants.MAX_DIRECTIONS_VARIANCE);
@@ -69,12 +81,19 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             };
         }
 
+        /// <summary>
+        /// Moves the snake's head one step in the current direction.
+        /// </summary>
         private void MoveHead()
         {
             this.Head.PreviousPosition = this.Head.CurrentPosition;
             this.Head.CurrentPosition += this.GetCurrentDirection();
         }
 
+        /// <summary>
+        /// Returns the movement vector corresponding to the current direction.
+        /// </summary>
+        /// <returns>A <see cref="Position2D"/> representing the direction vector.</returns>
         public Position2D GetCurrentDirection()
         {
             return this.CurrentDirection switch
@@ -87,6 +106,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             };
         }
 
+        /// <summary>
+        /// Sets a new movement direction for the snake.
+        /// Ignores the input if it is opposite to the current direction.
+        /// </summary>
+        /// <param name="newDirection">The desired direction.</param>
         public void SetDirection(Direction newDirection)
         {
             if (this.IsOppositeOfCurrentDirection(newDirection)) return;
@@ -94,70 +118,74 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             this.CurrentDirection = newDirection;
         }
 
+        /// <summary>
+        /// Determines whether the given direction is opposite to the current direction.
+        /// </summary>
+        /// <param name="newDirection">The direction to check.</param>
+        /// <returns>True if opposite, otherwise false.</returns>
         private bool IsOppositeOfCurrentDirection(Direction newDirection)
         {
             if (this.CurrentDirection == Direction.Up && newDirection == Direction.Down) return true;
-
             if (this.CurrentDirection == Direction.Right && newDirection == Direction.Left) return true;
-
             if (this.CurrentDirection == Direction.Down && newDirection == Direction.Up) return true;
-
             if (this.CurrentDirection == Direction.Left && newDirection == Direction.Right) return true;
 
             return false;
         }
 
-        private void HandleWallWrapping()
+        /// <summary>
+        /// Wraps the snake around the board if it crosses the boundaries.
+        /// </summary>
+        private void HandleBoundaryCrossing()
         {
-            if (this.Head.CurrentPosition.X < 0)
-            {
-                this.Head.CurrentPosition.X += GameSettings.SideLength;
-            }
+            if (this.Head.CurrentPosition.X < 0) this.Head.CurrentPosition.X += GameSettings.SideLength;
+            if (this.Head.CurrentPosition.Y < 0) this.Head.CurrentPosition.Y += GameSettings.SideLength;
 
-            if (this.Head.CurrentPosition.X >= GameSettings.SideLength)
-            {
-                this.Head.CurrentPosition.X -= GameSettings.SideLength;
-            }
-
-            if (this.Head.CurrentPosition.Y < 0)
-            {
-                this.Head.CurrentPosition.Y += GameSettings.SideLength;
-            }
-
-            if (this.Head.CurrentPosition.Y >= GameSettings.SideLength)
-            {
-                this.Head.CurrentPosition.Y -= GameSettings.SideLength;
-            }
+            if (this.Head.CurrentPosition.X >= GameSettings.SideLength) this.Head.CurrentPosition.X -= GameSettings.SideLength;
+            if (this.Head.CurrentPosition.Y >= GameSettings.SideLength) this.Head.CurrentPosition.Y -= GameSettings.SideLength;
         }
 
+        /// <summary>
+        /// Updates the tail segments to follow the head.
+        /// </summary>
         private void MoveTail()
         {
             if (this.Tail.IsEmpty()) return;
 
             this.Tail[0].PreviousPosition = this.Tail[0].CurrentPosition;
             this.Tail[0].CurrentPosition = this.Head.PreviousPosition;
-    
-            for(int i = 0; i < this.Tail.Count - 1; i++)
+
+            for (int i = 0; i < this.Tail.Count - 1; i++)
             {
                 this.Tail[i + 1].PreviousPosition = this.Tail[i + 1].CurrentPosition;
                 this.Tail[i + 1].CurrentPosition = this.Tail[i].PreviousPosition;
             }
         }
+
+        /// <summary>
+        /// Adds a new segment to the tail.
+        /// Currently not used.
+        /// </summary>
         private void ExtendTail()
         {
             //this.Tail.Add(new Position2D(0, 0));
         }
 
+        /// <summary>
+        /// Updates the snake for the current game tick.
+        /// Moves the head, wraps around walls, and moves the tail.
+        /// </summary>
         public void Update()
         {
             this.MoveHead();
-
-            this.HandleWallWrapping();
-
+            this.HandleBoundaryCrossing();
             this.MoveTail();
         }
 
-        public void RegisterAtUpdateGroup()
+        /// <summary>
+        /// Registers the snake in the GameManager's update loop.
+        /// </summary>
+        public void RegisterAtUpdateComposite()
         {
             GameManager.Instance.AddToUpdateGroup(this);
         }

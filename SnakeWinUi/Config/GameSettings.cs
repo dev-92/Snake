@@ -2,6 +2,9 @@
 
 namespace SnakeWinUi.Config
 {
+    /// <summary>
+    /// Holds game values, which can be altered while the runtime is live.
+    /// </summary>
     internal static class GameSettings
     {
         private static int _updateSpeedMillis { get; set; } = 100;

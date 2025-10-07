@@ -1,7 +1,8 @@
-﻿
-
-namespace SnakeWinUi.Config
+﻿namespace SnakeWinUi.Config
 {
+    /// <summary>
+    /// Holds constant game values.
+    /// </summary>
     internal static class Constants
     {
         public const int CELL_HEIGHT = 20;
