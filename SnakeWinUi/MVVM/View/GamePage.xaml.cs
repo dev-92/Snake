@@ -1,13 +1,16 @@
 using Microsoft.UI.Xaml.Controls;
+
 using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
+
 using Windows.System;
 
 namespace SnakeWinUi.MVVM.View
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Represents the main game page, hosting the game board and handling keyboard input.
+    /// Implements a singleton pattern to ensure only one instance exists.
     /// </summary>
     public sealed partial class GamePage : Page
     {
@@ -36,6 +39,12 @@ namespace SnakeWinUi.MVVM.View
             this.Content = GameboardView.Instance;
         }
 
+        /// <summary>
+        /// Handles key press events to change the snake's direction.
+        /// Ignores keys that do not correspond to a movement direction.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">Key event arguments.</param>
         private void GamePage_OnKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             Direction? newDirection = e.Key switch

@@ -2,20 +2,26 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+
 using SnakeWinUi.Controller;
 using SnakeWinUi.MVVM.ViewModel;
 using SnakeWinUi.Config;
 using SnakeWinUi.Enums;
-using System.Collections.Generic;
 using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.MVVM.Model.ValueObject;
-using SnakeWinUi.MVVM.Model.Entity;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.Extensions;
 
+using System.Collections.Generic;
+
+
 namespace SnakeWinUi.MVVM.View
 {
-    public sealed partial class GameboardView : UserControl, IUpdateEntity
+    /// <summary>
+    /// Represents the game board UI and handles rendering of cells and the snake.
+    /// Implements <see cref="IUpdateable"/> to update the board every game tick.
+    /// </summary>
+    public sealed partial class GameboardView : UserControl, IUpdateable
     {
         private SolidColorBrush _strokeColor { get; set; } = new(Colors.Pink);
 
@@ -43,21 +49,27 @@ namespace SnakeWinUi.MVVM.View
             this.BuildGameboardGrid();
 
             this.BuildBorderElements();
-            this.RegisterAtUpdateGroup();
+            this.RegisterAtUpdateComposite();
         }
 
+        /// <summary>
+        /// Creates the internal data structure for all cells on the game board.
+        /// </summary>
         private void BuildGameboardStructure()
         {
             for (int row = 0; row < GameSettings.SideLength; row++)
             {
                 for (int col = 0; col < GameSettings.SideLength; col++)
-                { 
+                {
                     Position2D position = new(col, row);
                     this.CellViewModels.Add(new CellViewModel(position));
                 }
             }
         }
 
+        /// <summary>
+        /// Builds the visual grid layout for the game board using RowDefinitions and ColumnDefinitions.
+        /// </summary>
         private void BuildGameboardGrid()
         {
             for (int i = 0; i < GameSettings.SideLength; i++)
@@ -67,6 +79,9 @@ namespace SnakeWinUi.MVVM.View
             }
         }
 
+        /// <summary>
+        /// Adds border elements to each cell and binds their background to the respective <see cref="CellViewModel"/>.
+        /// </summary>
         private void BuildBorderElements()
         {
             foreach (CellViewModel cellViewModel in this.CellViewModels)
@@ -95,6 +110,9 @@ namespace SnakeWinUi.MVVM.View
             }
         }
 
+        /// <summary>
+        /// Draws the snake on the board by setting the relevant cells to <see cref="CellStatus.Snake"/>.
+        /// </summary>
         private void DrawSnake()
         {
             int headIndex = this.GetSnakeElementIndex(SnakeModel.Instance.Head);
@@ -112,7 +130,8 @@ namespace SnakeWinUi.MVVM.View
         }
 
         /// <summary>
-        /// Sets the last peice of tail to cell.empty so a general (slow) board-cleanup method can be avoided
+        /// Clears the last tail cell by setting its status to <see cref="CellStatus.Empty"/>.
+        /// This avoids a full board cleanup each tick.
         /// </summary>
         private void ClearLastTailCell()
         {
@@ -121,17 +140,28 @@ namespace SnakeWinUi.MVVM.View
             this.CellViewModels[lastTailIndex].CellModel.CellStatus = CellStatus.Empty;
         }
 
+        /// <summary>
+        /// Calculates the index of a given snake element in the cell list.
+        /// </summary>
+        /// <param name="snakeElement">The snake element to find.</param>
+        /// <returns>The index of the element in <see cref="CellViewModels"/>.</returns>
         private int GetSnakeElementIndex(SnakeElement snakeElement)
         {
             return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
         }
 
+        /// <summary>
+        /// Updates the game board by drawing the snake in its current position.
+        /// </summary>
         public void Update()
         {
             this.DrawSnake();
         }
 
-        public void RegisterAtUpdateGroup()
+        /// <summary>
+        /// Registers this view in the <see cref="GameManager"/> update loop.
+        /// </summary>
+        public void RegisterAtUpdateComposite()
         {
             GameManager.Instance.AddToUpdateGroup(this);
         }
