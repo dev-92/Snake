@@ -9,5 +9,7 @@ namespace SnakeWinUi.Config
 
         public const double BORDER_THICKNESS = 1;
         public const double CORNER_RADIUS = 4;
+
+        public const int MAX_DIRECTIONS_VARIANCE = 4;
     }
 }

@@ -23,7 +23,7 @@ namespace SnakeWinUi.Services.UpdateService
         /// </summary>
         public void Update()
         {
-            foreach(IUpdateEntity updateParticipant in _updateEntities)
+            foreach(IUpdateEntity updateParticipant in this._updateEntities)
             {
                 updateParticipant.Update();
             }

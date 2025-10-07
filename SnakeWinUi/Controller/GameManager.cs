@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Media;
 using SnakeWinUi.Config;
-using SnakeWinUi.MVVM.Model;
+using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.View;
 using SnakeWinUi.Services.UpdateService;
 using System;
@@ -41,8 +41,8 @@ namespace SnakeWinUi.Controller
         /// </summary>
         public void Init()
         {
-            _ = SnakeModel.Instance;
             _ = GameboardView.Instance;
+            _ = SnakeModel.Instance;
         }
 
         public void StartGame()

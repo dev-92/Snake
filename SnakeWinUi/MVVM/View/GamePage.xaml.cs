@@ -1,7 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
 using SnakeWinUi.Controller;
-using SnakeWinUi.MVVM.Model;
 using SnakeWinUi.Enums;
+using SnakeWinUi.MVVM.Model.Entity.Snake;
+using Windows.System;
 
 namespace SnakeWinUi.MVVM.View
 {
@@ -27,34 +28,28 @@ namespace SnakeWinUi.MVVM.View
         public GamePage()
         {
             this.InitializeComponent();
-            this.Content = GameboardView.Instance;
 
             GameManager.Instance.Init();
             GameManager.Instance.StartGame();
 
-            this.KeyDown += GamePage_OnKeyDown;
+            this.KeyDown += this.GamePage_OnKeyDown;
+            this.Content = GameboardView.Instance;
         }
 
         private void GamePage_OnKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
-            switch (e.Key)
+            Direction? newDirection = e.Key switch
             {
-                case Windows.System.VirtualKey.Up:
-                    SnakeModel.Instance.SetDirection(Direction.Up);
-                    break;
+                VirtualKey.Up    => Direction.Up,
+                VirtualKey.Down  => Direction.Down,
+                VirtualKey.Left  => Direction.Left,
+                VirtualKey.Right => Direction.Right,
+                _                => null
+            };
 
-                case Windows.System.VirtualKey.Down:
-                    SnakeModel.Instance.SetDirection(Direction.Down);
-                    break;
-
-                case Windows.System.VirtualKey.Left:
-                    SnakeModel.Instance.SetDirection(Direction.Left);
-                    break;
-
-                case Windows.System.VirtualKey.Right:
-                    SnakeModel.Instance.SetDirection(Direction.Right);
-                    break;
-
+            if (newDirection.HasValue)
+            {
+                SnakeModel.Instance.SetDirection(newDirection.Value);
             }
         }
     }
