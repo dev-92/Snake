@@ -5,59 +5,63 @@ using System.Collections.Generic;
 using SnakeWinUi.Config;
 using System;
 using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.Extensions;
 
-namespace SnakeWinUi.MVVM.Model.Entity
+namespace SnakeWinUi.MVVM.Model.Entity.Snake
 {
     public class SnakeModel : IUpdateEntity
     {
         public Direction CurrentDirection { get; set; } = Direction.Up;
-        public Position2D Head { get; set; }
-        public List<Position2D> Tail { get; set; }
+        public SnakeElement Head { get; set; }
+        public List<SnakeElement> Tail { get; set; }
 
         private static SnakeModel? _instance;
         public static SnakeModel Instance
         {
             get 
             { 
-                if(SnakeModel._instance == null)
+                if(_instance == null)
                 {
-                    SnakeModel._instance = new();
+                    _instance = new();
                 }
-                return SnakeModel._instance; 
+                return _instance; 
             }
         }
 
         private SnakeModel()
         {
-            this.Tail = new List<Position2D>();
-            this.Head = new Position2D();
+            this.Head = new SnakeElement(this.GetRandomStartPosition());
+            this.Tail = new List<SnakeElement>();
 
-            this.SetRandomStartPosition();
             this.SetRandomStartDirection();
 
             this.RegisterAtUpdateGroup();
 
-            this.Tail.Add(new Position2D(5, 5));
-            this.Tail.Add(new Position2D(5, 6));
-            this.Tail.Add(new Position2D(5, 7));
+            
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            
         }
 
-        private void SetRandomStartPosition()
+        private Position2D GetRandomStartPosition()
         {
             Random random = new Random();
 
             int xPos = random.Next(0, GameSettings.SideLength - 1);
             int yPos = random.Next(0, GameSettings.SideLength - 1);
 
-            this.Head = new Position2D(xPos, yPos);
+            //return new Position2D(xPos, yPos);
+            return new Position2D(3, 6);
         }
 
         private void SetRandomStartDirection()
         {
-            int maxDirectionVariances = 4;
-
             Random random = new();
-            int randomDirectionInt = random.Next(0, maxDirectionVariances);
+            int randomDirectionInt = random.Next(0, Constants.MAX_DIRECTIONS_VARIANCE);
 
             switch(randomDirectionInt)
             {
@@ -77,47 +81,51 @@ namespace SnakeWinUi.MVVM.Model.Entity
                     this.CurrentDirection = Direction.Left;
                     break;
             }
+
+            this.CurrentDirection = Direction.Left;
         }
 
         private void MoveHead()
         {
-            this.Head += this.GetCurrentDirection();
+            this.Head.PreviousPosition = this.Head.CurrentPosition;
+            this.Head.CurrentPosition += this.GetCurrentDirection();
         }
 
         private void HandleWallWrapping()
         {
-            if (this.Head.Y <= 0 && this.CurrentDirection == Direction.Up)
+            if (this.Head.CurrentPosition.X < 0)
             {
-                this.Head.Y = GameSettings.SideLength;
+                this.Head.CurrentPosition.X += GameSettings.SideLength;
             }
 
-            if (this.Head.X >= GameSettings.SideLength - 1 && this.CurrentDirection == Direction.Right)
+            if (this.Head.CurrentPosition.X >= GameSettings.SideLength)
             {
-                this.Head.X = - 1;
+                this.Head.CurrentPosition.X -= GameSettings.SideLength;
             }
 
-            if (this.Head.Y >= GameSettings.SideLength - 1 && this.CurrentDirection == Direction.Down)
+            if (this.Head.CurrentPosition.Y < 0)
             {
-                this.Head.Y = - 1 ;
+                this.Head.CurrentPosition.Y += GameSettings.SideLength;
             }
 
-            if (this.Head.X <= 0 && this.CurrentDirection == Direction.Left)
+            if (this.Head.CurrentPosition.Y >= GameSettings.SideLength)
             {
-                this.Head.X = GameSettings.SideLength;
+                this.Head.CurrentPosition.Y -= GameSettings.SideLength;
             }
+
         }
 
         private void MoveTail()
         {
-            for(int i = 1; i < this.Tail.Count; i++)
-            {
-                this.Tail[i] = this.Head + this.GetCurrentDirection();
-                /*
-                int currentPieceIndex = i;
-                int previousPieceIndex = i - 1;
+            if (this.Tail.IsEmpty()) return;
 
-                this.Tail[currentPieceIndex] = this.Tail[previousPieceIndex];
-                */
+            this.Tail[0].PreviousPosition = this.Tail[0].CurrentPosition;
+            this.Tail[0].CurrentPosition = this.Head.PreviousPosition;
+    
+            for(int i = 0; i < this.Tail.Count - 1; i++)
+            {
+                this.Tail[i + 1].PreviousPosition = this.Tail[i + 1].CurrentPosition;
+                this.Tail[i + 1].CurrentPosition = this.Tail[i].PreviousPosition;
             }
         }
 
@@ -147,16 +155,16 @@ namespace SnakeWinUi.MVVM.Model.Entity
             this.CurrentDirection = newDirection;
         }
 
-        private void ExtendTail()  // 
+        private void ExtendTail()  
         {
-            this.Tail.Add(new Position2D(0, 0));
+            //this.Tail.Add(new Position2D(0, 0));
         }
 
         public void Update()
         {
-            this.HandleWallWrapping();
-
             this.MoveHead();
+
+            this.HandleWallWrapping();
 
             this.MoveTail();
         }

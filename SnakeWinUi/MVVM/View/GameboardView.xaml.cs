@@ -10,7 +10,8 @@ using System.Collections.Generic;
 using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.Model.Entity;
-using SnakeWinUi.MVVM.Model.Entity.Prey;
+using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeWinUi.Extensions;
 
 namespace SnakeWinUi.MVVM.View
 {
@@ -19,8 +20,6 @@ namespace SnakeWinUi.MVVM.View
         private SolidColorBrush _strokeColor { get; set; } = new(Colors.Pink);
 
         public List<CellViewModel> CellViewModels { get; set; } = new();
-
-        private Prey _prey { get; set; } = new();
 
         private static GameboardView? _instance;
         public static GameboardView Instance
@@ -53,10 +52,8 @@ namespace SnakeWinUi.MVVM.View
             {
                 for (int col = 0; col < GameSettings.SideLength; col++)
                 { 
-                    Position2D position = new(row, col);
+                    Position2D position = new(col, row);
                     this.CellViewModels.Add(new CellViewModel(position));
-
-                    CellModel cellModel = new(position);
                 }
             }
         }
@@ -89,48 +86,48 @@ namespace SnakeWinUi.MVVM.View
                 });
 
                 int borderPosX = (int)cellViewModel.CellModel.Position.X;
-                int borderPosY = (int)cellViewModel.CellModel.  Position.Y;
+                int borderPosY = (int)cellViewModel.CellModel.Position.Y;
 
-                Grid.SetRow(border, borderPosX);
-                Grid.SetColumn(border, borderPosY);
+                Grid.SetColumn(border, borderPosX);
+                Grid.SetRow(border, borderPosY);
 
                 this.GameboardGrid.Children.Add(border);
             }
         }
 
-        private void ClearBoard()
-        {
-            foreach (CellViewModel cellViewModel in this.CellViewModels)
-            {
-                cellViewModel.CellModel.CellStatus = CellStatus.Empty;
-            }
-        }
-
         private void DrawSnake()
         {
-            int headIndex = this.GetHeadIndex();
+            int headIndex = this.GetSnakeElementIndex(SnakeModel.Instance.Head);
             this.CellViewModels[headIndex].CellModel.CellStatus = CellStatus.Snake;
 
-            foreach (Position2D tailPiece in SnakeModel.Instance.Tail)
+            if (SnakeModel.Instance.Tail.IsEmpty()) return;
+
+            foreach (SnakeElement tailPiece in SnakeModel.Instance.Tail)
             {
-                int currentTailPieceIndex = tailPiece.X * GameSettings.SideLength + tailPiece.Y;
-                this.CellViewModels[currentTailPieceIndex].CellModel.CellStatus = CellStatus.Snake;
+                int currentTailIndex = this.GetSnakeElementIndex(tailPiece);
+                this.CellViewModels[currentTailIndex].CellModel.CellStatus = CellStatus.Snake;
             }
+
+            this.ClearLastTailCell();
         }
 
-        private void DrawPrey()
+        /// <summary>
+        /// Sets the last peice of tail to cell.empty so a general (slow) board-cleanup method can be avoided
+        /// </summary>
+        private void ClearLastTailCell()
         {
-
+            SnakeElement lastTailElement = SnakeModel.Instance.Tail[SnakeModel.Instance.Tail.Count - 1];
+            int lastTailIndex = this.GetSnakeElementIndex(lastTailElement);
+            this.CellViewModels[lastTailIndex].CellModel.CellStatus = CellStatus.Empty;
         }
 
-        private int GetHeadIndex()
+        private int GetSnakeElementIndex(SnakeElement snakeElement)
         {
-            return SnakeModel.Instance.Head.Y * GameSettings.SideLength + SnakeModel.Instance.Head.X;
+            return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
         }
 
         public void Update()
         {
-            this.ClearBoard();
             this.DrawSnake();
         }
 

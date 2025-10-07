@@ -12,6 +12,7 @@ namespace SnakeWinUi.MVVM.ViewModel
     public partial class CellViewModel : INotifyPropertyChanged
     {
         public CellModel CellModel { get; set; }
+
         private SolidColorBrush _emptyColor { get; } = new(Colors.DarkGray);
         private SolidColorBrush _snakeColor { get; } = new(Colors.DarkGreen);
         private SolidColorBrush _preyColor { get; } = new(Colors.DarkRed);
