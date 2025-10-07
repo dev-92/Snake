@@ -1,27 +1,24 @@
 ﻿using SnakeWinUi.Config;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Prey
 {
-    internal class Prey
+    public class Prey
     {
         public int Score { get; set; }
         public Position2D Position { get; set; } = Position2D.Zero;
 
-        public Prey() 
+        public Prey(Position2D position) 
         {
-
+            this.Position = position;
         }   
 
-        public void SetRandomPosition()
+        public void SpawnPrey(Position2D spawnPosition)
         {
-            Random random = new();
-
-            int xPos = random.Next(0, GameSettings.SideLength - 1);
-            int yPos = random.Next(0, GameSettings.SideLength - 1);
-
-            this.Position = new Position2D(xPos, yPos);
+            this.Position = spawnPosition;
         }
 
     }

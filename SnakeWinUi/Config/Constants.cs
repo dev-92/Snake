@@ -1,4 +1,5 @@
-﻿namespace SnakeWinUi.Config
+﻿
+namespace SnakeWinUi.Config
 {
     /// <summary>
     /// Holds constant game values.
@@ -8,8 +9,8 @@
         public const int CELL_HEIGHT = 20;
         public const int CELL_WIDTH = 20;
 
-        public const double BORDER_THICKNESS = 1;
-        public const double CORNER_RADIUS = 4;
+        public const double BORDER_THICKNESS = 0;
+        public const double CORNER_RADIUS = 5;
 
         public const int MAX_DIRECTIONS_VARIANCE = 4;
     }

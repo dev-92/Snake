@@ -13,6 +13,7 @@ using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.Extensions;
 
 using System.Collections.Generic;
+using SnakeWinUi.MVVM.Model.Entity.Prey;
 
 
 namespace SnakeWinUi.MVVM.View
@@ -148,6 +149,18 @@ namespace SnakeWinUi.MVVM.View
         private int GetSnakeElementIndex(SnakeElement snakeElement)
         {
             return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
+        }
+
+        public void DrawPrey(Prey prey)
+        {
+            int preyIndex = prey.Position.Y * GameSettings.SideLength + prey.Position.X;
+            this.CellViewModels[preyIndex].CellModel.CellStatus = CellStatus.Prey;
+        }
+
+        public void ErasePrey(Prey prey)
+        {
+            int preyIndex = prey.Position.Y * GameSettings.SideLength + prey.Position.X;
+            this.CellViewModels[preyIndex].CellModel.CellStatus = CellStatus.Empty;
         }
 
         /// <summary>

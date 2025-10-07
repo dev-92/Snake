@@ -8,11 +8,9 @@ namespace SnakeWinUi.Config
     internal static class GameSettings
     {
         private static int _updateSpeedMillis { get; set; } = 100;
-        private static int _cellAmount { get; set; } = 1000;
-        private static int _sideLength { get; set; } = (int)Math.Sqrt(GameSettings._cellAmount);
-
         public static int UpdateSpeedMillis => GameSettings._updateSpeedMillis;
 
+        private static int _cellAmount { get; set; } = 1000;
         public static int CellAmount
         {
             get
@@ -26,7 +24,12 @@ namespace SnakeWinUi.Config
             }
         }
 
+        private static int _sideLength { get; set; } = (int)Math.Sqrt(GameSettings._cellAmount);
         public static int SideLength => GameSettings._sideLength;
+
+
+
+
 
     }
 }

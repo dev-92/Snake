@@ -44,5 +44,20 @@
         {
             return new Position2D(firstPos.X - secPos.X, firstPos.Y - secPos.Y);
         }
+
+        public static bool operator ==(Position2D firstPos, Position2D secPos)
+        {
+            return firstPos.X == secPos.X && firstPos.Y == secPos.Y;
+        }
+
+        public static bool operator !=(Position2D firstPos, Position2D secPos)
+        {
+            return !(firstPos == secPos);
+        }
+
+        public override string ToString()
+        {
+            return $"[{this.X}:{this.Y}]";
+        }
     }
 }
