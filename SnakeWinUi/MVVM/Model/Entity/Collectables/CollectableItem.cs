@@ -25,7 +25,9 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
             return new ImageBrush
             {
                 ImageSource = bitmapImage,
-                Stretch = Stretch.UniformToFill
+                Stretch = Stretch.Uniform,
+                AlignmentX = AlignmentX.Center,
+                AlignmentY = AlignmentY.Center
             };
         }
         protected abstract bool WasCollected();

@@ -10,7 +10,7 @@ namespace SnakeWinUi.Config
         private static int _updateSpeedMillis { get; set; } = 100;
         public static int UpdateSpeedMillis => GameSettings._updateSpeedMillis;
 
-        private static int _cellAmount { get; set; } = 1000;
+        private static int _cellAmount { get; set; } = 500;
         public static int CellAmount
         {
             get

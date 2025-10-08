@@ -13,10 +13,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\Collectables\apple.png" />
     <Content Remove="Assets\Collectables\bird.png" />
     <Content Remove="Assets\Collectables\bomb.png" />
     <Content Remove="Assets\Collectables\mouse.png" />
+    <Content Remove="Assets\Collectables\Originals\apple.png" />
     <Content Remove="Assets\Collectables\rabbit.png" />
   </ItemGroup>
   <ItemGroup>

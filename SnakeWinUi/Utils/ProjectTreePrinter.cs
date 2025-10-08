@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace SnakeWinUi.Helper
+namespace SnakeWinUi.Utils
 {
     class ProjectTreePrinter
     {
@@ -19,7 +19,7 @@ namespace SnakeWinUi.Helper
             foreach (var dir in Directory.GetDirectories(path))
             {
                 Debug.WriteLine(indent + "[D] " + Path.GetFileName(dir));
-                ProjectTreePrinter.PrintProjectTree(dir, indent + "    "); // recursive call
+                PrintProjectTree(dir, indent + "    "); // recursive call
             }
 
             // Print files

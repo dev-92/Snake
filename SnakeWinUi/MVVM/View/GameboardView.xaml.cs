@@ -151,11 +151,19 @@ namespace SnakeWinUi.MVVM.View
             return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
         }
 
-        public void DrawCollectableItem(CollectableItem item)                                       // Hier weitermachen 
+        public void DrawCollectableItem(CollectableItem item)
         {
             int itemIndex = item.Position.Y * GameSettings.SideLength + item.Position.X;
+
             this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.CollectAble;
-            (this.GameboardGrid.Children[itemIndex] as Border).Background = item.ImageBrush;
+
+            var border = this.GameboardGrid.Children[itemIndex] as Border;
+            if (border == null) return;
+
+            // Wenn du eine Farbe drüberlegen willst:
+            // Wir nutzen eine CompositionEffectBrush, aber nur, wenn du WinUI 3 (.NET 8+) hast
+            // Sonst einfach das Bild direkt anzeigen:
+            border.Background = item.ImageBrush;
         }
 
         public void EraseCollectableItem(CollectableItem item)

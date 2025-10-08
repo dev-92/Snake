@@ -2,8 +2,8 @@ using Microsoft.UI.Xaml.Controls;
 
 using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
-using SnakeWinUi.Helper;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeWinUi.Utils;
 using Windows.System;
 
 namespace SnakeWinUi.MVVM.View

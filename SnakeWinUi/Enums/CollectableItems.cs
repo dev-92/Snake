@@ -6,6 +6,7 @@ namespace SnakeWinUi.Enums
         Apple,
         Bird,
         Bomb,
+        Cherry,
         Mouse,
         Rabbit
     }
