@@ -1,7 +1,9 @@
 ﻿using SnakeWinUi.Config;
 using SnakeWinUi.Controller;
+using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.Services.Audio;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -19,6 +21,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         protected override void HandleCollected()
         {
             GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Apple.APPLE_SPEED_FACTOR);
+            SoundManager.Instance.PlayEffect(SoundEffectType.AppleCollected);
         }
 
     }

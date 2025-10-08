@@ -7,6 +7,7 @@ using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.View;
+using SnakeWinUi.Services.Audio;
 using SnakeWinUi.Services.UpdateService;
 
 using System;
@@ -59,6 +60,7 @@ namespace SnakeWinUi.Controller
         {
             _ = GameboardView.Instance;
             _ = SnakeModel.Instance;
+            _ = SoundManager.Instance;
         }
 
         /// <summary>
@@ -68,6 +70,7 @@ namespace SnakeWinUi.Controller
         public void StartGame()
         {
             this._gameState = GameState.Running;
+            SoundManager.Instance.PlayMusic(GameMusicType.GameLoop1);
         }
 
         /// <summary>
@@ -77,6 +80,8 @@ namespace SnakeWinUi.Controller
         public void PauseGame()
         {
             this._gameState = GameState.Paused;
+            SoundManager.Instance.StopMusic();
+
         }
 
         /// <summary>
@@ -112,11 +117,16 @@ namespace SnakeWinUi.Controller
             this._updateGroup.Update();
         }
 
+        private void HandleCollectableCollected(CollectableItem item)
+        {
+
+        }
+
         private void UpdateCollectables()
         {
             while (this._collectableItems.Count < GameManager.MAX_ITEMS)
             {
-                this.CreateCollectable();
+                this.SpawnCollectable();
             }
 
             foreach (CollectableItem item in this._collectableItems.ToList())
@@ -125,7 +135,7 @@ namespace SnakeWinUi.Controller
 
                 if (this.HasSnakeCollectedItem(item))
                 {
-                    item.Collect();
+                    item.OnCollected();
                     shouldBeRemoved = true;
                 }
                 else if (item.IsExpired())
@@ -158,7 +168,7 @@ namespace SnakeWinUi.Controller
             this._updateGroup.AddParticipant(participant);
         }
 
-        private void CreateCollectable()
+        private void SpawnCollectable()
         {           
             CollectableItem newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRandomFreePosition());
             this._collectableItems.Add(newItem);

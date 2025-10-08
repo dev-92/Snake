@@ -12,12 +12,12 @@ namespace SnakeWinUi.Config
             public const double APPLE_SPEED_FACTOR = 1.1;
         }
 
-        public static class Bird
+        public static class Duck
         {
             public const int SCORE = 2;
             public const int PARTS_ADDED = 2;
 
-            public const double BIRD_LIFETIME_MILLIS = 2000;
+            public const double Duck_LIFETIME_MILLIS = 2000;
         }
 
         public static class Bomb

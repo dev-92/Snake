@@ -4,7 +4,7 @@ namespace SnakeWinUi.Enums
     public enum CollectableItems
     {
         Apple,
-        Bird,
+        Duck,
         Bomb,
         Cherry,
         Mouse,

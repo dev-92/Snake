@@ -1,6 +1,7 @@
 ﻿using SnakeWinUi.Config;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.Services.Audio;
 using System;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
@@ -20,6 +21,8 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
             {
                 SnakeModel.Instance.ExtendTail();
             }
+
+            SoundManager.Instance.PlayEffect(Enums.SoundEffectType.CollectedItem);
         }
     }
 }

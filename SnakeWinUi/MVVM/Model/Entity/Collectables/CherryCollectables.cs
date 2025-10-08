@@ -1,5 +1,7 @@
 ﻿using SnakeWinUi.Config;
+using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.Services.Audio;
 using System;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
@@ -15,6 +17,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         protected override void HandleCollected()
         {
             GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Cherry.CHERRY_SPEED_FACTOR);
+            SoundManager.Instance.PlayEffect(SoundEffectType.CherryCollected);
         }
     }
 }
