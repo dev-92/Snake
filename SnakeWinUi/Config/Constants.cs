@@ -18,6 +18,5 @@ namespace SnakeWinUi.Config
         public const string COLLECTABLE_CELL_HEX_COLOR = "#7f8c8d";
         public const string SNAKE_HEX_COLOR = "#7f8c8d";
 
-
     }
 }

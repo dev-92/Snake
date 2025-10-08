@@ -12,10 +12,14 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public Position2D Position {  get; set; }
         public ImageBrush? ImageBrush { get; set; }
 
+        public double LifetimeMillis { get; set; } = 0;
+        private DateTime _spawnTime;
         public CollectableItem(string imagePath, Position2D position)
         {
             this._imagePath = imagePath;
             this.Position = position;
+
+            this._spawnTime = DateTime.Now;
             this.ImageBrush = this.GetImageBrush();
         }
 
@@ -29,11 +33,16 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
                 AlignmentX = AlignmentX.Center,
                 AlignmentY = AlignmentY.Center
             };
-        }
+        }   
 
         public void Collect()
         {
             this.HandleCollected();
+        }
+
+        public bool IsExpired()
+        {
+            return (DateTime.Now - this._spawnTime).TotalMilliseconds >= this.LifetimeMillis;
         }
 
         protected abstract void HandleCollected();

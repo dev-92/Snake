@@ -16,5 +16,6 @@ namespace SnakeWinUi
         // Soll das CellViewModel die Images der collectables handlen ?
         // kommentieren 
         // UnitTests
+        // relative bilderpaths
     }
 }

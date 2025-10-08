@@ -9,7 +9,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public static CollectableItem CreateRandomCollectableItem(Position2D freePosition)
         {
             int possibleOptions = Enum.GetValues(typeof(CollectableItems)).Length;
-
+            
             return new Random().Next(0, possibleOptions) switch
             {
                 (int)CollectableItems.Apple     => new AppleCollectable(freePosition),
@@ -19,7 +19,8 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
                 (int)CollectableItems.Mouse     => new MouseCollectable(freePosition),
                 (int)CollectableItems.Rabbit    => new RabbitCollectable(freePosition),
                 _                               => new MouseCollectable(freePosition),
-            };        
+            };       
+            
         }
 
     }

@@ -22,6 +22,7 @@ namespace SnakeWinUi.Controller
     /// </summary>
     internal class GameManager
     {
+        private const int MAX_ITEMS = 5;
         private UpdateComposite _updateGroup { get; set; }
         private List<CollectableItem> _collectableItems { get; set; } = new();
 
@@ -103,25 +104,48 @@ namespace SnakeWinUi.Controller
         /// Calls the Update method on all participants registered in the UpdateGroup.
         /// </summary>
         public void Update()
-        {         
-            if(this._collectableItems.IsEmpty())
+        {
+            this.UpdateCollectables();
+
+            this.CheckCollision();
+            
+            this._updateGroup.Update();
+        }
+
+        private void UpdateCollectables()
+        {
+            while (this._collectableItems.Count < GameManager.MAX_ITEMS)
             {
                 this.CreateCollectable();
             }
 
-            if(this.HasSnakeCollectedItem(this._collectableItems[0]))
+            foreach (CollectableItem item in this._collectableItems.ToList())
             {
-                this._collectableItems[0].Collect();
-                this.RemoveColectableItem();
-                this.CreateCollectable();
-            }
+                bool shouldBeRemoved = false;
 
-            if(this.HasHeadCollidedWithTail())
+                if (this.HasSnakeCollectedItem(item))
+                {
+                    item.Collect();
+                    shouldBeRemoved = true;
+                }
+                else if (item.IsExpired())
+                {
+                    shouldBeRemoved = true;
+                }
+
+                if (shouldBeRemoved)
+                {
+                    this.RemoveCollectableItem(item);
+                }
+            }
+        }
+
+        private void CheckCollision()
+        {
+            if (this.HasHeadCollidedWithTail())
             {
                 this.PauseGame();
             }
-
-            this._updateGroup.Update();
         }
 
         /// <summary>
@@ -165,10 +189,10 @@ namespace SnakeWinUi.Controller
             return SnakeModel.Instance.Head.CurrentPosition == item.Position;
         }
 
-        private void RemoveColectableItem()
+        private void RemoveCollectableItem(CollectableItem item)
         {
-            GameboardView.Instance.EraseCollectableItem(this._collectableItems[0]);
-            this._collectableItems.Remove(this._collectableItems[0]);
+            GameboardView.Instance.EraseCollectableItem(item);
+            this._collectableItems.Remove(item);
         }
 
         private bool HasHeadCollidedWithTail()
