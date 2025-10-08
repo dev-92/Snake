@@ -24,8 +24,6 @@ namespace SnakeWinUi.MVVM.View
     /// </summary>
     public sealed partial class GameboardView : UserControl, IUpdateable
     {
-        private SolidColorBrush _strokeColor { get; set; } = new(Colors.Pink);
-
         public List<CellViewModel> CellViewModels { get; set; } = new();
 
         private static GameboardView? _instance;
@@ -90,7 +88,6 @@ namespace SnakeWinUi.MVVM.View
                 Border border = new()
                 {
                     CornerRadius = new CornerRadius(Constants.CORNER_RADIUS),
-                    BorderBrush = this._strokeColor,
                     BorderThickness = new Thickness(Constants.BORDER_THICKNESS)
                 };
 
