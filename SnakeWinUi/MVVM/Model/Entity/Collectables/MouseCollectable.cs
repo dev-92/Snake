@@ -1,4 +1,5 @@
-﻿using SnakeWinUi.MVVM.Model.ValueObject;
+﻿using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeWinUi.MVVM.Model.ValueObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
     internal class MouseCollectable : CollectableItem
     {
         private const string IMAGE_PATH = @"C:\Users\ty-ro\source\repos\Snake\SnakeWinUi\Assets\Collectables\mouse.png";
-        private const int SCORING_POINTS = 1;
+        private const int SCORE = 1;
 
         public MouseCollectable(Position2D position) : base(MouseCollectable.IMAGE_PATH, position)
         {
@@ -19,12 +20,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
 
         protected override void HandleCollected()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < MouseCollectable.SCORE; i++)
+            {
+                SnakeModel.Instance.ExtendTail();
+            }
         }
 
-        protected override bool WasCollected()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

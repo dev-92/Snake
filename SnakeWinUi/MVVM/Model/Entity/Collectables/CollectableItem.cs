@@ -10,8 +10,8 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         protected readonly string _imagePath;
 
         public Position2D Position {  get; set; }
-        public ImageBrush? ImageBrush { get; set; } 
-        
+        public ImageBrush? ImageBrush { get; set; }
+
         public CollectableItem(string imagePath, Position2D position)
         {
             this._imagePath = imagePath;
@@ -30,7 +30,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
                 AlignmentY = AlignmentY.Center
             };
         }
-        protected abstract bool WasCollected();
+
+        public void Collect()
+        {
+            this.HandleCollected();
+        }
 
         protected abstract void HandleCollected();
     }

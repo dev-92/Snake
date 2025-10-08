@@ -26,11 +26,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
         {
             get
             {
-                if (_instance == null)
+                if (SnakeModel._instance == null)
                 {
-                    _instance = new();
+                    SnakeModel._instance = new();
                 }
-                return _instance;
+                return SnakeModel._instance;
             }
         }
 

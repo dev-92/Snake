@@ -1,4 +1,5 @@
 ﻿using SnakeWinUi.Enums;
+using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.ValueObject;
 
 using System.ComponentModel;
@@ -13,22 +14,30 @@ namespace SnakeWinUi.MVVM.Model.Entity
     /// </summary>
     public partial class CellModel : INotifyPropertyChanged
     {
+        private CollectableItem? _collectableItem {  get; set; }
+        public CollectableItem? CollectableItem
+        {
+            get => this._collectableItem;
+            set
+            {
+                this._collectableItem = value;
+                this.CellStatus = value != null ? CellStatus.Collectable : CellStatus.Empty;
+            }
+        }
+
         private CellStatus _cellStatus = CellStatus.Empty;
         public CellStatus CellStatus
         {
-            get
-            {
-                return this._cellStatus;
-            }
+            get => this._cellStatus;      
             set
             {
                 this._cellStatus = value;
                 this.OnPropertyChanged();
             }
         }
-        public Position2D Position { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public Position2D Position { get; set; }
 
         public CellModel(Position2D position)
         {

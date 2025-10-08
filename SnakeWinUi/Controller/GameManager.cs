@@ -111,6 +111,7 @@ namespace SnakeWinUi.Controller
 
             if(this.HasSnakeCollectedItem(this._collectableItems[0]))
             {
+                this._collectableItems[0].Collect();
                 this.RemoveColectableItem();
                 this.CreateCollectable();
             }
@@ -168,8 +169,6 @@ namespace SnakeWinUi.Controller
         {
             GameboardView.Instance.EraseCollectableItem(this._collectableItems[0]);
             this._collectableItems.Remove(this._collectableItems[0]);
-
-            SnakeModel.Instance.ExtendTail();
         }
 
         private bool HasHeadCollidedWithTail()

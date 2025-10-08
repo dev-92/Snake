@@ -18,12 +18,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
 
         protected override void HandleCollected()
         {
-            throw new NotImplementedException();
-        }
-
-        protected override bool WasCollected()
-        {
-            throw new NotImplementedException();
+           
         }
     }
 }

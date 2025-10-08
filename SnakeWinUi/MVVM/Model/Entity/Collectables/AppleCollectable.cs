@@ -1,4 +1,5 @@
-﻿using SnakeWinUi.MVVM.Model.ValueObject;
+﻿using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeWinUi.MVVM.Model.ValueObject;
 using System;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
@@ -14,12 +15,9 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
 
         protected override void HandleCollected()
         {
-            throw new NotImplementedException();
+            
         }
 
-        protected override bool WasCollected()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
