@@ -34,3 +34,6 @@ This separation ensures **testability** and **scalability**.
 - Pull requests for code review
 - Automated tests on push using CI/CD
 - Automatic tagging of releases for version management
+
+## Special thanks
+GameSounds - MFCC => https://pixabay.com/de/users/mfcc-28627740/
