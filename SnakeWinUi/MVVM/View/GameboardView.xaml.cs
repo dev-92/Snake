@@ -116,14 +116,14 @@ namespace SnakeWinUi.MVVM.View
         /// </summary>
         private void DrawSnake()
         {
-            int headIndex = this.GetSnakeElementIndex(SnakeModel.Instance.Head);
+            int headIndex = this.GetCellIndex(SnakeModel.Instance.Head.CurrentPosition);
             this.CellViewModels[headIndex].CellModel.CellStatus = CellStatus.Snake;
 
             if (SnakeModel.Instance.Tail.IsEmpty()) return;
 
             foreach (SnakeElement tailPiece in SnakeModel.Instance.Tail)
             {
-                int currentTailIndex = this.GetSnakeElementIndex(tailPiece);
+                int currentTailIndex = this.GetCellIndex(tailPiece.CurrentPosition);
                 this.CellViewModels[currentTailIndex].CellModel.CellStatus = CellStatus.Snake;
             }
 
@@ -137,8 +137,26 @@ namespace SnakeWinUi.MVVM.View
         private void ClearLastTailCell()
         {
             SnakeElement lastTailElement = SnakeModel.Instance.Tail[SnakeModel.Instance.Tail.Count - 1];
-            int lastTailIndex = this.GetSnakeElementIndex(lastTailElement);
+            int lastTailIndex = this.GetCellIndex(lastTailElement.CurrentPosition);
             this.CellViewModels[lastTailIndex].CellModel.CellStatus = CellStatus.Empty;
+        }
+
+        public void DrawCollectableItem(CollectableItem item)
+        {
+            int itemIndex = this.GetCellIndex(item.Position);
+
+            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.Collectable;
+
+            var border = this.GameboardGrid.Children[itemIndex] as Border;
+            if (border == null) return;
+
+            border.Background = item.ImageBrush;
+        }
+
+        public void EraseCollectableItem(CollectableItem item)
+        {
+            int itemIndex = this.GetCellIndex(item.Position);
+            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.Empty;
         }
 
         /// <summary>
@@ -146,30 +164,9 @@ namespace SnakeWinUi.MVVM.View
         /// </summary>
         /// <param name="snakeElement">The snake element to find.</param>
         /// <returns>The index of the element in <see cref="CellViewModels"/>.</returns>
-        private int GetSnakeElementIndex(SnakeElement snakeElement)
+        private int GetCellIndex(Position2D position)
         {
-            return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
-        }
-
-        public void DrawCollectableItem(CollectableItem item)
-        {
-            int itemIndex = item.Position.Y * GameSettings.SideLength + item.Position.X;
-
-            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.CollectAble;
-
-            var border = this.GameboardGrid.Children[itemIndex] as Border;
-            if (border == null) return;
-
-            // Wenn du eine Farbe drüberlegen willst:
-            // Wir nutzen eine CompositionEffectBrush, aber nur, wenn du WinUI 3 (.NET 8+) hast
-            // Sonst einfach das Bild direkt anzeigen:
-            border.Background = item.ImageBrush;
-        }
-
-        public void EraseCollectableItem(CollectableItem item)
-        {
-            int itemIndex = item.Position.Y * GameSettings.SideLength + item.Position.X;            // Funktion mit GetSnakeElementIndex zusammenlegen
-            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.Empty;
+            return position.Y * GameSettings.SideLength + position.X;
         }
 
         /// <summary>

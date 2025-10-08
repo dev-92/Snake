@@ -14,7 +14,7 @@ namespace SnakeWinUi.Enums
         /// <summary>
         /// The cell contains a prey (food) that the snake can eat.
         /// </summary>
-        CollectAble,
+        Collectable,
 
         /// <summary>
         /// The cell is occupied by part of the snake.

@@ -19,7 +19,7 @@ namespace SnakeWinUi.Utils
             foreach (var dir in Directory.GetDirectories(path))
             {
                 Debug.WriteLine(indent + "[D] " + Path.GetFileName(dir));
-                PrintProjectTree(dir, indent + "    "); // recursive call
+                ProjectTreePrinter.PrintProjectTree(dir, indent + "    "); // recursive call
             }
 
             // Print files

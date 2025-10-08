@@ -1,16 +1,11 @@
-﻿using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.VisualBasic;
-using SnakeWinUi.Config;
+﻿using Microsoft.UI.Xaml.Media;
+
 using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.Entity;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.Utils;
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
-using Windows.UI;
 
 namespace SnakeWinUi.MVVM.ViewModel
 {
@@ -23,9 +18,9 @@ namespace SnakeWinUi.MVVM.ViewModel
     {
         
         public CellModel CellModel { get; set; }
+
         private SolidColorBrush _emptyColor { get; } = new(HexColorConverter.ColorFromHex(Config.Constants.EMPTY_CELL_HEX_COLOR));
         private SolidColorBrush _snakeColor { get; } = new(HexColorConverter.ColorFromHex(Config.Constants.SNAKE_HEX_COLOR));
-        private SolidColorBrush _collectAble { get; } = new(HexColorConverter.ColorFromHex(Config.Constants.COLLECTABLE_CELL_HEX_COLOR));
 
         private SolidColorBrush _backgroundColor { get; set; } = new(HexColorConverter.ColorFromHex(Config.Constants.EMPTY_CELL_HEX_COLOR));
         public SolidColorBrush BackgroundColor
@@ -79,7 +74,6 @@ namespace SnakeWinUi.MVVM.ViewModel
             {
                 CellStatus.Empty => this._emptyColor,
                 CellStatus.Snake => this._snakeColor,
-                CellStatus.CollectAble  => this._collectAble,
                 _                => this._emptyColor
             };
         }

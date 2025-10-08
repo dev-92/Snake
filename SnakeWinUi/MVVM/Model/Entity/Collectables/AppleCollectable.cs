@@ -1,5 +1,4 @@
-﻿using Microsoft.UI.Content;
-using SnakeWinUi.MVVM.Model.ValueObject;
+﻿using SnakeWinUi.MVVM.Model.ValueObject;
 using System;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
