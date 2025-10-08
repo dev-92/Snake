@@ -13,6 +13,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\Collectables\apple.png" />
+    <Content Remove="Assets\Collectables\bird.png" />
+    <Content Remove="Assets\Collectables\bomb.png" />
+    <Content Remove="Assets\Collectables\mouse.png" />
+    <Content Remove="Assets\Collectables\rabbit.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="MVVM\View\GameboardView.xaml" />
     <None Remove="MVVM\View\GamePage.xaml" />
   </ItemGroup>
@@ -69,5 +76,6 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 </Project>

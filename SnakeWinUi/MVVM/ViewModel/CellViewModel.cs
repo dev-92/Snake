@@ -75,7 +75,7 @@ namespace SnakeWinUi.MVVM.ViewModel
             {
                 CellStatus.Empty => this._emptyColor,
                 CellStatus.Snake => this._snakeColor,
-                CellStatus.Prey  => this._preyColor,
+                CellStatus.CollectAble  => this._preyColor,
                 _                => this._emptyColor
             };
         }

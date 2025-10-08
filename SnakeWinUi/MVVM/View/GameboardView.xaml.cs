@@ -13,7 +13,7 @@ using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.Extensions;
 
 using System.Collections.Generic;
-using SnakeWinUi.MVVM.Model.Entity.Prey;
+using SnakeWinUi.MVVM.Model.Entity.Collectables;
 
 
 namespace SnakeWinUi.MVVM.View
@@ -151,16 +151,17 @@ namespace SnakeWinUi.MVVM.View
             return snakeElement.CurrentPosition.Y * GameSettings.SideLength + snakeElement.CurrentPosition.X;
         }
 
-        public void DrawPrey(Prey prey)
+        public void DrawCollectableItem(CollectableItem item)                                       // Hier weitermachen 
         {
-            int preyIndex = prey.Position.Y * GameSettings.SideLength + prey.Position.X;
-            this.CellViewModels[preyIndex].CellModel.CellStatus = CellStatus.Prey;
+            int itemIndex = item.Position.Y * GameSettings.SideLength + item.Position.X;
+            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.CollectAble;
+            (this.GameboardGrid.Children[itemIndex] as Border).Background = item.ImageBrush;
         }
 
-        public void ErasePrey(Prey prey)
+        public void EraseCollectableItem(CollectableItem item)
         {
-            int preyIndex = prey.Position.Y * GameSettings.SideLength + prey.Position.X;
-            this.CellViewModels[preyIndex].CellModel.CellStatus = CellStatus.Empty;
+            int itemIndex = item.Position.Y * GameSettings.SideLength + item.Position.X;            // Funktion mit GetSnakeElementIndex zusammenlegen
+            this.CellViewModels[itemIndex].CellModel.CellStatus = CellStatus.Empty;
         }
 
         /// <summary>

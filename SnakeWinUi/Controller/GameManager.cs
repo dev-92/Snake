@@ -1,8 +1,9 @@
 ﻿using Microsoft.UI.Xaml.Media;
 
 using SnakeWinUi.Config;
+using SnakeWinUi.Enums;
 using SnakeWinUi.Extensions;
-using SnakeWinUi.MVVM.Model.Entity.Prey;
+using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.View;
@@ -10,7 +11,6 @@ using SnakeWinUi.Services.UpdateService;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace SnakeWinUi.Controller
@@ -23,11 +23,10 @@ namespace SnakeWinUi.Controller
     internal class GameManager
     {
         private UpdateComposite _updateGroup { get; set; }
+        private List<CollectableItem> _collectableItems { get; set; } = new();
 
         private DateTime _lastUpdate { get; set; }
-        private bool _isRunning { get; set; } = false;
-
-        private List<Prey> _preys = new List<Prey>();
+        private GameState _gameState { get; set; } = GameState.Paused;
 
         private static GameManager? _instance;
         public static GameManager Instance
@@ -67,7 +66,7 @@ namespace SnakeWinUi.Controller
         /// </summary>
         public void StartGame()
         {
-            this._isRunning = true;
+            this._gameState = GameState.Running;
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace SnakeWinUi.Controller
         /// </summary>
         public void PauseGame()
         {
-            this._isRunning = false;
+            this._gameState = GameState.Paused;
         }
 
         /// <summary>
@@ -85,7 +84,7 @@ namespace SnakeWinUi.Controller
         /// </summary>
         private void OnRendering(object? sender, object e)
         {
-            if (!this._isRunning)
+            if (this._gameState == GameState.Paused)
             {
                 return;
             }
@@ -105,15 +104,15 @@ namespace SnakeWinUi.Controller
         /// </summary>
         public void Update()
         {         
-            if(this._preys.IsEmpty())
+            if(this._collectableItems.IsEmpty())
             {
-                this.CreatePrey();
+                this.CreateCollectable();
             }
 
-            if(this.HasSnakeEatenPrey(this._preys[0]))
+            if(this.HasSnakeCollectedItem(this._collectableItems[0]))
             {
-                this.RemovePrey();
-                this.CreatePrey();
+                this.RemoveColectableItem();
+                this.CreateCollectable();
             }
 
             if(this.HasHeadCollidedWithTail())
@@ -134,12 +133,12 @@ namespace SnakeWinUi.Controller
             this._updateGroup.AddParticipant(participant);
         }
 
-        private void CreatePrey()
-        {
-            Prey newPrey = new(this.GetRandomFreePosition());
-            this._preys.Add(newPrey);
+        private void CreateCollectable()
+        {           
+            CollectableItem newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRandomFreePosition());
+            this._collectableItems.Add(newItem);
 
-            GameboardView.Instance.DrawPrey(newPrey);          
+            GameboardView.Instance.DrawCollectableItem(newItem);          
         }
 
         private Position2D GetRandomFreePosition()
@@ -160,15 +159,15 @@ namespace SnakeWinUi.Controller
             return freePosition;
         }
 
-        private bool HasSnakeEatenPrey(Prey prey)
+        private bool HasSnakeCollectedItem(CollectableItem item)
         {
-            return SnakeModel.Instance.Head.CurrentPosition == prey.Position;
+            return SnakeModel.Instance.Head.CurrentPosition == item.Position;
         }
 
-        private void RemovePrey()
+        private void RemoveColectableItem()
         {
-            GameboardView.Instance.ErasePrey(this._preys[0]);
-            this._preys.Remove(this._preys[0]);
+            GameboardView.Instance.EraseCollectableItem(this._collectableItems[0]);
+            this._collectableItems.Remove(this._collectableItems[0]);
 
             SnakeModel.Instance.ExtendTail();
         }
