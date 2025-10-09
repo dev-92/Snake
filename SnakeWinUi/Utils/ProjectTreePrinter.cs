@@ -15,14 +15,12 @@ namespace SnakeWinUi.Utils
                 return;
             }
 
-            // Print directories first
             foreach (var dir in Directory.GetDirectories(path))
             {
                 Debug.WriteLine(indent + "[D] " + Path.GetFileName(dir));
-                ProjectTreePrinter.PrintProjectTree(dir, indent + "    "); // recursive call
+                ProjectTreePrinter.PrintProjectTree(dir, indent + "    "); 
             }
 
-            // Print files
             foreach (var file in Directory.GetFiles(path))
             {
                 Debug.WriteLine(indent + "[F] " + Path.GetFileName(file));
