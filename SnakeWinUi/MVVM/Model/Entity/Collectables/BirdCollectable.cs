@@ -13,16 +13,15 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public DuckCollectable(Position2D position) : base(DuckCollectable.IMAGE_PATH, position)
         {
             this.LifetimeMillis = CollectableConfig.Duck.Duck_LIFETIME_MILLIS;
+            this.SoundEffect = SoundEffectType.DuckCollected;
         }
 
         protected override void HandleCollected()
         {
-            for(int i = 0; i < CollectableConfig.Duck.SCORE; i++)
+            for(int i = 0; i < CollectableConfig.Duck.BASE_SCORE; i++)
             {
                 SnakeModel.Instance.ExtendTail();
             }
-
-            SoundManager.Instance.PlayEffect(SoundEffectType.DuckCollected);
         }
     }
 }

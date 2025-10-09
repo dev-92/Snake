@@ -3,7 +3,6 @@ using Microsoft.UI.Xaml.Controls;
 using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
-using SnakeWinUi.Utils;
 using Windows.System;
 
 namespace SnakeWinUi.MVVM.View
@@ -30,8 +29,6 @@ namespace SnakeWinUi.MVVM.View
 
         public GamePage()
         {
-            ProjectTreePrinter.PrintProjectTree(@"C:\Users\ty-ro\source\repos\SnakeWinUi");
-
             this.InitializeComponent();
 
             GameManager.Instance.Init();

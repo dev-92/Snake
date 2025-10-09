@@ -1,4 +1,5 @@
 ﻿using SnakeWinUi.Config;
+using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.Services.Audio;
@@ -13,16 +14,15 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public RabbitCollectable(Position2D position) : base(RabbitCollectable.IMAGE_PATH, position)
         {
             this.LifetimeMillis = CollectableConfig.Rabbit.RABBIT_LIFETIME_MILLIS;
+            this.SoundEffect = SoundEffectType.CollectedItem;
         }
 
         protected override void HandleCollected()
         {
-            for (int i = 0; i < CollectableConfig.Rabbit.SCORE; i++)
+            for (int i = 0; i < CollectableConfig.Rabbit.BASE_SCORE; i++)
             {
                 SnakeModel.Instance.ExtendTail();
             }
-
-            SoundManager.Instance.PlayEffect(Enums.SoundEffectType.CollectedItem);
         }
     }
 }

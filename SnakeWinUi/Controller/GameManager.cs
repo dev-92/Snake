@@ -2,7 +2,6 @@
 
 using SnakeWinUi.Config;
 using SnakeWinUi.Enums;
-using SnakeWinUi.Extensions;
 using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
@@ -69,7 +68,7 @@ namespace SnakeWinUi.Controller
         /// </summary>
         public void StartGame()
         {
-            this._gameState = GameState.Running;
+            this._gameState = GameState.Running;            
             SoundManager.Instance.PlayMusic(GameMusicType.GameLoop1);
         }
 
@@ -117,11 +116,6 @@ namespace SnakeWinUi.Controller
             this._updateGroup.Update();
         }
 
-        private void HandleCollectableCollected(CollectableItem item)
-        {
-
-        }
-
         private void UpdateCollectables()
         {
             while (this._collectableItems.Count < GameManager.MAX_ITEMS)
@@ -136,6 +130,7 @@ namespace SnakeWinUi.Controller
                 if (this.HasSnakeCollectedItem(item))
                 {
                     item.OnCollected();
+                    SoundManager.Instance.PlayEffect(item.SoundEffect);
                     shouldBeRemoved = true;
                 }
                 else if (item.IsExpired())

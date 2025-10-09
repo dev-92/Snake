@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Automation.Peers;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using System;
 
@@ -9,6 +10,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
     public abstract class CollectableItem
     {
         protected readonly string _imagePath;
+        public SoundEffectType SoundEffect { get; protected set; }
 
         public Position2D Position {  get; set; }
         public ImageBrush? ImageBrush { get; set; }

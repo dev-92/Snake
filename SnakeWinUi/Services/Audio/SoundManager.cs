@@ -1,9 +1,7 @@
 ﻿using SnakeWinUi.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Windows.Media.Core;
 using Windows.Media.Playback;
 
@@ -11,7 +9,7 @@ namespace SnakeWinUi.Services.Audio
 {
     internal class SoundManager
     {
-        private static SoundManager _instance;
+        private static SoundManager? _instance;
         public static SoundManager Instance
         {
             get
@@ -32,17 +30,25 @@ namespace SnakeWinUi.Services.Audio
         private readonly List<MediaPlayer> _activeEffects = new();
         private SoundManager()
         {
-            this._effectPaths = new()
+            this._effectPaths = this.GetEffectPaths();
+            this._musicPaths = this.GetMusicPaths();
+        }
+
+        private Dictionary<SoundEffectType, string> GetEffectPaths()
+        {
+            return new()
             {
                 { SoundEffectType.AppleCollected, "ms-appx:///Assets/Sounds/SlowDownSound.mp3" },
                 { SoundEffectType.CherryCollected, "ms-appx:///Assets/Sounds/BoostSound.mp3" },
                 { SoundEffectType.BombCollected, "ms-appx:///Assets/Sounds/ExplosionSound.mp3" },
                 { SoundEffectType.DuckCollected, "ms-appx:///Assets/Sounds/DuckCollectedSound.mp3" },
                 { SoundEffectType.CollectedItem, "ms-appx:///Assets/Sounds/PreyCollectedSound.mp3" },
-  
             };
+        }
 
-            this._musicPaths = new()
+        private Dictionary<GameMusicType, string> GetMusicPaths()
+        {
+            return new()
             {
                 { GameMusicType.GameLoop1, "ms-appx:///Assets/Sounds/GameSoundLoop1.mp3" },
                 { GameMusicType.GameLoop2, "ms-appx:///Assets/Sounds/GameSoundLoop2.mp3" }

@@ -18,16 +18,15 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public MouseCollectable(Position2D position) : base(MouseCollectable.IMAGE_PATH, position)
         {
             this.LifetimeMillis = CollectableConfig.Mouse.MOUSE_LIFETIME_MILLIS;
+            this.SoundEffect = SoundEffectType.CollectedItem;
         }
 
         protected override void HandleCollected()
         {
-            for (int i = 0; i < CollectableConfig.Mouse.SCORE; i++)
+            for (int i = 0; i < CollectableConfig.Mouse.BASE_SCORE; i++)
             {
                 SnakeModel.Instance.ExtendTail();
             }
-
-            SoundManager.Instance.PlayEffect(SoundEffectType.CollectedItem);
         }
 
     }

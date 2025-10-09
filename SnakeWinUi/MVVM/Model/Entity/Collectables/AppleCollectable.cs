@@ -16,12 +16,12 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public AppleCollectable(Position2D position) : base(AppleCollectable.IMAGE_PATH, position)
         {
           this.LifetimeMillis = CollectableConfig.Apple.APPLE_LIFETIME_MILLIS;
+          this.SoundEffect = SoundEffectType.AppleCollected;
         }
 
         protected override void HandleCollected()
         {
             GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Apple.APPLE_SPEED_FACTOR);
-            SoundManager.Instance.PlayEffect(SoundEffectType.AppleCollected);
         }
 
     }

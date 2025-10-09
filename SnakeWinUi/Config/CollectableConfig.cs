@@ -5,7 +5,7 @@ namespace SnakeWinUi.Config
     {
         public static class Apple
         {
-            public const int SCORE = -2;
+            public const int BASE_SCORE = -2;
             public const int PARTS_ADDED = 0;
 
             public const double APPLE_LIFETIME_MILLIS = 1000;
@@ -14,7 +14,7 @@ namespace SnakeWinUi.Config
 
         public static class Duck
         {
-            public const int SCORE = 2;
+            public const int BASE_SCORE = 2;
             public const int PARTS_ADDED = 2;
 
             public const double Duck_LIFETIME_MILLIS = 2000;
@@ -22,7 +22,7 @@ namespace SnakeWinUi.Config
 
         public static class Bomb
         {
-            public const int SCORE = -30;
+            public const int BASE_SCORE = -30;
             public const int PARTS_ADDED = 0;
 
             public const double BOMB_LIFETIME_MILLIS = 3000;
@@ -30,7 +30,7 @@ namespace SnakeWinUi.Config
 
         public static class Cherry
         {
-            public const int SCORE = +3;
+            public const int BASE_SCORE = +3;
             public const int PARTS_ADDED = 0;
 
             public const double CHERRY_LIFETIME_MILLIS = 4000;
@@ -39,7 +39,7 @@ namespace SnakeWinUi.Config
 
         public static class Mouse
         {
-            public const int SCORE = 1;
+            public const int BASE_SCORE = 1;
             public const int PARTS_ADDED = 1;
 
             public const double MOUSE_LIFETIME_MILLIS = 5000;
@@ -47,7 +47,7 @@ namespace SnakeWinUi.Config
 
         public static class Rabbit
         {
-            public const int SCORE = 3;
+            public const int BASE_SCORE = 3;
             public const int PARTS_ADDED = 3;
 
             public const double RABBIT_LIFETIME_MILLIS = 6000;

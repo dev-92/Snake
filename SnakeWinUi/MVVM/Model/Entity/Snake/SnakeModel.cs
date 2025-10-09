@@ -36,23 +36,23 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
 
         private SnakeModel()
         {
-            this.Head = new SnakeElement(GetRandomStartPosition());
-            this.Tail = new List<SnakeElement>();
+            this.Head = new SnakeElement(this.GetRandomStartPosition());
+            this.Tail = new()
+            {
+                new SnakeElement(Position2D.Zero),
+                new SnakeElement(Position2D.Zero),
+                new SnakeElement(Position2D.Zero)
+            };
 
             this.SetRandomStartDirection();
-
             this.RegisterAtUpdateComposite();
-
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
         }
 
         /// <summary>
         /// Generates a random starting position for the snake on the game board.
         /// </summary>
         /// <returns>A <see cref="Position2D"/> representing the start position.</returns>
-        private static Position2D GetRandomStartPosition()
+        private Position2D GetRandomStartPosition()
         {
             Random random = new Random();
 

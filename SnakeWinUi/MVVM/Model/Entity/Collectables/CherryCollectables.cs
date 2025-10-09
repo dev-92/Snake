@@ -1,8 +1,6 @@
 ﻿using SnakeWinUi.Config;
 using SnakeWinUi.Enums;
 using SnakeWinUi.MVVM.Model.ValueObject;
-using SnakeWinUi.Services.Audio;
-using System;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
 {
@@ -12,12 +10,12 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         public CherryCollectable(Position2D position) : base(CherryCollectable.IMAGE_PATH, position)
         {
             this.LifetimeMillis = CollectableConfig.Cherry.CHERRY_LIFETIME_MILLIS;
+            this.SoundEffect = SoundEffectType.CherryCollected;
         }
 
         protected override void HandleCollected()
         {
             GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Cherry.CHERRY_SPEED_FACTOR);
-            SoundManager.Instance.PlayEffect(SoundEffectType.CherryCollected);
         }
     }
 }
