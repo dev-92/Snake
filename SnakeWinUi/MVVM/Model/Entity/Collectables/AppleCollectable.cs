@@ -1,11 +1,6 @@
 ﻿using SnakeWinUi.Config;
-using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
-using SnakeWinUi.Services.Audio;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace SnakeWinUi.MVVM.Model.Entity.Collectables
 {
@@ -18,11 +13,5 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
           this.LifetimeMillis = CollectableConfig.Apple.APPLE_LIFETIME_MILLIS;
           this.SoundEffect = SoundEffectType.AppleCollected;
         }
-
-        protected override void HandleCollected()
-        {
-            GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Apple.APPLE_SPEED_FACTOR);
-        }
-
     }
 }

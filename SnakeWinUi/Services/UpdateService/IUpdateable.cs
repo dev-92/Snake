@@ -10,10 +10,5 @@
         /// Performs the update logic for the entity, called on each game tick.
         /// </summary>
         void Update();
-
-        /// <summary>
-        /// Registers this entity with the game's update loop managed by <see cref="GameManager"/>.
-        /// </summary>
-        void RegisterAtUpdateComposite();
     }
 }

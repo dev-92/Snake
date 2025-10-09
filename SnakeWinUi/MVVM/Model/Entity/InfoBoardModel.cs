@@ -1,7 +1,7 @@
 ﻿
 namespace SnakeWinUi.MVVM.Model.Entity
 {
-    internal class ScoreBoardModel
+    internal class InfoBoardModel
     {
         public double Score;
         public double Speed;

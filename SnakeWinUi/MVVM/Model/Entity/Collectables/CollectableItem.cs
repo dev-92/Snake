@@ -43,12 +43,5 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
         {
             return (DateTime.Now - this._spawnTime).TotalMilliseconds >= this.LifetimeMillis;
         }
-
-        public void OnCollected()
-        {
-            this.HandleCollected();
-        }
-
-        protected abstract void HandleCollected();
     }
 }

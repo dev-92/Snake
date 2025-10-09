@@ -20,21 +20,7 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
         public Direction CurrentDirection { get; set; } = Direction.Up;
         public SnakeElement Head { get; set; }
         public List<SnakeElement> Tail { get; set; }
-
-        private static SnakeModel? _instance;
-        public static SnakeModel Instance
-        {
-            get
-            {
-                if (SnakeModel._instance == null)
-                {
-                    SnakeModel._instance = new();
-                }
-                return SnakeModel._instance;
-            }
-        }
-
-        private SnakeModel()
+        public SnakeModel()
         {
             this.Head = new SnakeElement(this.GetRandomStartPosition());
             this.Tail = new()
@@ -45,7 +31,6 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             };
 
             this.SetRandomStartDirection();
-            this.RegisterAtUpdateComposite();
         }
 
         /// <summary>
@@ -71,11 +56,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
 
             this.CurrentDirection = randomDirectionInt switch
             {
-                (int)Direction.Up    => Direction.Up,
+                (int)Direction.Up => Direction.Up,
                 (int)Direction.Right => Direction.Right,
-                (int)Direction.Down  => Direction.Down,
-                (int)Direction.Left  => Direction.Left,
-                _                    => Direction.Up,
+                (int)Direction.Down => Direction.Down,
+                (int)Direction.Left => Direction.Left,
+                _ => Direction.Up,
             };
         }
 
@@ -179,14 +164,6 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             this.MoveHead();
             this.HandleBoundaryCrossing();
             this.MoveTail();
-        }
-
-        /// <summary>
-        /// Registers the snake in the GameManager's update loop.
-        /// </summary>
-        public void RegisterAtUpdateComposite()
-        {
-            GameManager.Instance.AddToUpdateGroup(this);
         }
     }
 }

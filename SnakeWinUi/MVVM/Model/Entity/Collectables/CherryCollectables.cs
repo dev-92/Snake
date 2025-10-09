@@ -12,10 +12,5 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
             this.LifetimeMillis = CollectableConfig.Cherry.CHERRY_LIFETIME_MILLIS;
             this.SoundEffect = SoundEffectType.CherryCollected;
         }
-
-        protected override void HandleCollected()
-        {
-            GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Cherry.CHERRY_SPEED_FACTOR);
-        }
     }
 }

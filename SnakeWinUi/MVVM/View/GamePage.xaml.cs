@@ -2,7 +2,6 @@ using Microsoft.UI.Xaml.Controls;
 
 using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.Model.Entity.Snake;
 using Windows.System;
 
 namespace SnakeWinUi.MVVM.View
@@ -31,11 +30,11 @@ namespace SnakeWinUi.MVVM.View
         {
             this.InitializeComponent();
 
-            GameManager.Instance.Init();
+            _ = GameManager.Instance;
             GameManager.Instance.StartGame();
 
             this.KeyDown += this.GamePage_OnKeyDown;
-            this.Content = GameboardView.Instance;
+            this.Content = GameManager.Instance.GameboardView;
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace SnakeWinUi.MVVM.View
 
             if (newDirection.HasValue)
             {
-                SnakeModel.Instance.SetDirection(newDirection.Value);
+                GameManager.Instance.SetDirection(newDirection.Value);
             }
         }
     }

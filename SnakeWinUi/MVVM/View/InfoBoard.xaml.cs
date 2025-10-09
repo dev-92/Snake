@@ -22,7 +22,7 @@ namespace SnakeWinUi.MVVM.View
     {
         public ScoreBoard()
         {
-            this.InitializeComponent();
+            //this.InitializeComponent();
         }
     }
 }

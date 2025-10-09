@@ -20,14 +20,5 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
             this.LifetimeMillis = CollectableConfig.Mouse.MOUSE_LIFETIME_MILLIS;
             this.SoundEffect = SoundEffectType.CollectedItem;
         }
-
-        protected override void HandleCollected()
-        {
-            for (int i = 0; i < CollectableConfig.Mouse.BASE_SCORE; i++)
-            {
-                SnakeModel.Instance.ExtendTail();
-            }
-        }
-
     }
 }

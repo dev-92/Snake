@@ -13,10 +13,5 @@ namespace SnakeWinUi.MVVM.Model.Entity.Collectables
             this.LifetimeMillis = CollectableConfig.Bomb.BOMB_LIFETIME_MILLIS;
             this.SoundEffect = SoundEffectType.BombCollected;
         }
-
-        protected override void HandleCollected()
-        {
-
-        }
     }
 }

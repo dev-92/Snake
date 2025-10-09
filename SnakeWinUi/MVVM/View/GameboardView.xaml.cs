@@ -1,20 +1,16 @@
-using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 
-using SnakeWinUi.Controller;
 using SnakeWinUi.Config;
 using SnakeWinUi.Enums;
 using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.Extensions;
-
-using System.Collections.Generic;
 using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.Entity;
 
+using System.Collections.Generic;
 
 namespace SnakeWinUi.MVVM.View
 {
@@ -25,30 +21,17 @@ namespace SnakeWinUi.MVVM.View
     public sealed partial class GameboardView : UserControl, IUpdateable
     {
         public List<CellViewModel> CellViewModels { get; set; } = new();
+        private SnakeModel _snake {  get; set; }
 
-        private static GameboardView? _instance;
-        public static GameboardView Instance
-        {
-            get
-            {
-                if (GameboardView._instance == null)
-                {
-                    GameboardView._instance = new GameboardView();
-                }
-
-                return GameboardView._instance;
-            }
-        }
-
-        private GameboardView()
+        public GameboardView(SnakeModel snake)
         {
             this.InitializeComponent();
+            this._snake = snake;
 
             this.BuildGameboardStructure();
             this.BuildGameboardGrid();
 
             this.BuildAndAppendBorderElementsToGrid();
-            this.RegisterAtUpdateComposite();
         }
 
         /// <summary>
@@ -113,12 +96,12 @@ namespace SnakeWinUi.MVVM.View
         /// </summary>
         private void DrawSnake()
         {
-            int headIndex = this.GetCellIndex(SnakeModel.Instance.Head.CurrentPosition);
+            int headIndex = this.GetCellIndex(this._snake.Head.CurrentPosition);
             this.CellViewModels[headIndex].CellModel.CellStatus = CellStatus.Snake;
 
-            if (SnakeModel.Instance.Tail.IsEmpty()) return;
+            if (this._snake.Tail.IsEmpty()) return;
 
-            foreach (SnakeElement tailPiece in SnakeModel.Instance.Tail)
+            foreach (SnakeElement tailPiece in this._snake.Tail)
             {
                 int currentTailIndex = this.GetCellIndex(tailPiece.CurrentPosition);
                 this.CellViewModels[currentTailIndex].CellModel.CellStatus = CellStatus.Snake;
@@ -133,7 +116,7 @@ namespace SnakeWinUi.MVVM.View
         /// </summary>
         private void ClearLastTailCell()
         {
-            SnakeElement lastElementOfTail = SnakeModel.Instance.Tail[SnakeModel.Instance.Tail.Count - 1];
+            SnakeElement lastElementOfTail = this._snake.Tail[this._snake.Tail.Count - 1];
 
             int lastTailIndex = this.GetCellIndex(lastElementOfTail.CurrentPosition);
             CellModel tailCellModel = this.CellViewModels[lastTailIndex].CellModel;
@@ -173,14 +156,6 @@ namespace SnakeWinUi.MVVM.View
         public void Update()
         {
             this.DrawSnake();
-        }
-
-        /// <summary>
-        /// Registers this view in the <see cref="GameManager"/> update loop.
-        /// </summary>
-        public void RegisterAtUpdateComposite()
-        {
-            GameManager.Instance.AddToUpdateGroup(this);
         }
     }
 }

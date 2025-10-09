@@ -20,5 +20,6 @@ namespace SnakeWinUi
         // Aktuelle Länge der Schlange
 
         // speed_factor ist missverständlich
+        // GamePage greift direkt auf die snake vom GameManager zu !
     }
 }
