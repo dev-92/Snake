@@ -33,7 +33,7 @@ namespace SnakeWinUi.MVVM.View
 
         public GamePage()
         {
-            this.InitializeComponent();           
+            this.InitializeComponent();
 
             this._snake = new SnakeModel();
             this._gameboardView = new GameboardView(this._snake);
@@ -50,8 +50,8 @@ namespace SnakeWinUi.MVVM.View
             this.AddInfoboardTo(this.UiLayout);
 
             this.Content = this.UiLayout;
+            this.UiLayout.Focus(Microsoft.UI.Xaml.FocusState.Programmatic);
 
-            this.KeyDown += this.GamePage_OnKeyDown;
             GameManager.Instance.StartGame();
         }
 
@@ -71,27 +71,9 @@ namespace SnakeWinUi.MVVM.View
             uiLayout.Children.Add(this._infoboardView);
         }
 
-        /// <summary>
-        /// Handles key press events to change the snake's direction.
-        /// Ignores keys that do not correspond to a movement direction.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">Key event arguments.</param>
-        private void GamePage_OnKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        public void SetCurrentDirection(Direction newDirection)
         {
-            Direction? newDirection = e.Key switch
-            {
-                VirtualKey.Up    => Direction.Up,
-                VirtualKey.Down  => Direction.Down,
-                VirtualKey.Left  => Direction.Left,
-                VirtualKey.Right => Direction.Right,
-                _                => null
-            };
-
-            if (newDirection.HasValue)
-            {
-                GameManager.Instance.SetNewDirection(newDirection.Value);
-            }
+            GameManager.Instance.SetNewDirection(newDirection);
         }
     }
 }

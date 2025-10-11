@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SnakeWinUi
 {
     internal class TODO_NOTES
@@ -12,12 +7,10 @@ namespace SnakeWinUi
         // Eingangsbildschirm mit Steuerung und optionen
         // kommentieren 
         // UnitTests
-        //
+        // Game over einbauen
 
-        // Score counter , Speed counter, verschiedene Gameloopsounds
-
-        // gehört direction in den head ?
-
+        // Game Icon,Resizing
+        // Infobar ansprechender gestalten mit Hintergrund
         // alles was unabhängig vom konstruktor ist bereits außerhalb initialisieren
         // private set ? => Zugriffsmodifier checken
     }

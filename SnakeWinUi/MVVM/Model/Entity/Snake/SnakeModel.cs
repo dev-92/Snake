@@ -1,5 +1,4 @@
-﻿using SnakeWinUi.Controller;
-using SnakeWinUi.Services.UpdateService;
+﻿using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.Enums;
 using SnakeWinUi.Config;
 using SnakeWinUi.Extensions;
