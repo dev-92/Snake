@@ -26,7 +26,7 @@ namespace SnakeWinUi.Services.Audio
         private readonly Dictionary<SoundEffectType, string> _effectPaths;
         private readonly Dictionary<GameMusicType, string> _musicPaths;
 
-        private MediaPlayer? _musicPlayer;
+        private MediaPlayer? _musicPlayer { get; set; }
         private readonly List<MediaPlayer> _activeEffects = new();
         private SoundManager()
         {

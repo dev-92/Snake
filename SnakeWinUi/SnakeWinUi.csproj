@@ -103,7 +103,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MVVM\View\InfoBoard.xaml">
+    <Page Update="MVVM\View\InfoboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SnakeWinUi.Config;
+using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeWinUi.MVVM.ViewModel
 {
-    internal class InfoboardViewModel : INotifyPropertyChanged
+    public class InfoboardViewModel : INotifyPropertyChanged
     {
+        public const double SPEED_UI_FACTOR = 1.5;
+
         private double _score { get; set; } = 0;
         public double Score
         {
             get => this._score;
             set
             {
-                this.Score = value;
+                this._score = Math.Round(value);
                 this.OnPropertyChanged(nameof(this.Score));
             }
         }
@@ -27,12 +26,12 @@ namespace SnakeWinUi.MVVM.ViewModel
             get => this._speedFactor;
             set
             {
-                this._speedFactor = value;
+                this._speedFactor = Math.Round(value, 2);
                 this.OnPropertyChanged(nameof(this.SpeedFactor));
             }
         }
 
-        private int _lengthOfSnake { get; set; } = 0;
+        private int _lengthOfSnake { get; set; } = Constants.INITIAL_SNAKE_LENGTH;
         public int LengthOfSnake
         {
             get => this._lengthOfSnake;

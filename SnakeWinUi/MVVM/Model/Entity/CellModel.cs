@@ -37,7 +37,7 @@ namespace SnakeWinUi.MVVM.Model.Entity
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public Position2D Position { get; set; }
+        public Position2D Position { get; private set; }
 
         public CellModel(Position2D position)
         {

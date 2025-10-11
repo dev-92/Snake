@@ -20,7 +20,7 @@ namespace SnakeWinUi.MVVM.View
     /// </summary>
     public sealed partial class GameboardView : UserControl, IUpdateable
     {
-        public List<CellViewModel> CellViewModels { get; set; } = new();
+        public List<CellViewModel> CellViewModels { get; private set; } = new();
         private SnakeModel _snake {  get; set; }
 
         public GameboardView(SnakeModel snake)

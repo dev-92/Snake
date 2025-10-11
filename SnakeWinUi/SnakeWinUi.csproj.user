@@ -8,7 +8,7 @@
     <None Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </None>
-    <Page Update="MVVM\View\InfoBoard.xaml">
+    <Page Update="MVVM\View\InfoboardView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\GamePage.xaml">

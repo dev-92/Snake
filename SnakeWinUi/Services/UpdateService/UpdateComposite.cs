@@ -8,7 +8,7 @@ namespace SnakeWinUi.Services.UpdateService
     /// </summary>
     internal class UpdateComposite
     {
-        private List<IUpdateable> _updateEntities = new List<IUpdateable>();
+        private List<IUpdateable> _updateEntities { get; set; } = new List<IUpdateable>();
 
         /// <summary>
         /// Adds an entity to the update group so it will be included in subsequent updates.

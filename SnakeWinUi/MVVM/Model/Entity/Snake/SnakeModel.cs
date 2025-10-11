@@ -17,20 +17,27 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
     /// </summary>
     public class SnakeModel : IUpdateable
     {
-        public Direction CurrentDirection { get; set; } = Direction.Up;
-        public SnakeElement Head { get; set; }
-        public List<SnakeElement> Tail { get; set; }
+        public Direction CurrentDirection { get; private set; } = Direction.Up;
+        public SnakeElement Head { get; private set; }
+        public List<SnakeElement> Tail { get; private set; }
         public SnakeModel()
         {
             this.Head = new SnakeElement(this.GetRandomStartPosition());
-            this.Tail = new()
-            {
-                new SnakeElement(Position2D.Zero),
-                new SnakeElement(Position2D.Zero),
-                new SnakeElement(Position2D.Zero)
-            };
+            this.Tail = this.InitSnakeTail();
 
             this.SetRandomStartDirection();
+        }
+
+        private List<SnakeElement> InitSnakeTail()
+        {
+            List<SnakeElement> snakeElements = new List<SnakeElement>();
+
+            for(int i = 0; i < Constants.INITIAL_SNAKE_LENGTH; i++)
+            {
+                snakeElements.Add(new SnakeElement(Position2D.Zero));
+            }
+
+            return snakeElements;
         }
 
         /// <summary>

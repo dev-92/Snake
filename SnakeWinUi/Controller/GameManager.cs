@@ -6,6 +6,7 @@ using SnakeWinUi.MVVM.Model.Entity.Collectables;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.View;
+using SnakeWinUi.MVVM.ViewModel;
 using SnakeWinUi.Services.Audio;
 using SnakeWinUi.Services.UpdateService;
 
@@ -23,21 +24,17 @@ namespace SnakeWinUi.Controller
     internal class GameManager
     {
         private const int MAX_ITEMS = 5;
-        private UpdateComposite _updateGroup { get; set; }
+        private UpdateComposite _updateGroup { get; set; } = new UpdateComposite();
         private List<CollectableItem> _collectableItems { get; set; } = new();
 
-        public SnakeModel Snake {  get; set; }
         public GameboardView GameboardView { get; private set; }
+        private SnakeModel _snake {  get; set; }
+        private InfoboardViewModel _infoboardViewModel { get; set; }
+        private CollectableHandler _collectableHandler { get; set; }
 
-        public Direction CurrentDirection
-        {
-            set
-            {
-                this.Snake.SetDirection(value);
-            }
-        }
+        private Direction _currentDirection { get; set; }
 
-        private DateTime _lastUpdate { get; set; }
+        private DateTime _lastUpdate { get; set; } = DateTime.Now;
         private GameState _gameState { get; set; } = GameState.Paused;
 
         private static GameManager? _instance;
@@ -57,14 +54,19 @@ namespace SnakeWinUi.Controller
 
         private GameManager()
         {
-            this.Snake = new SnakeModel();
-            this.GameboardView = new GameboardView(this.Snake);
 
-            this._updateGroup = new UpdateComposite();
-            this._updateGroup.AddParticipant(this.Snake);
+        }
+
+        public void Initialize(GameboardView gameboardView, InfoboardViewModel infoboardViewModel, SnakeModel snake)
+        {
+            this._snake = snake;
+            this.GameboardView = gameboardView;
+
+            this._infoboardViewModel = infoboardViewModel;
+            this._collectableHandler = new CollectableHandler(this._snake, this._infoboardViewModel);
+
+            this._updateGroup.AddParticipant(this._snake);
             this._updateGroup.AddParticipant(this.GameboardView);
-
-            this._lastUpdate = DateTime.Now;
 
             CompositionTarget.Rendering += this.OnRendering;
         }
@@ -89,9 +91,14 @@ namespace SnakeWinUi.Controller
             SoundManager.Instance.StopMusic();
         }
 
-        public void SetDirection(Direction direction)
+        public void SetNewDirection(Direction newDirection)
         {
-            this.Snake.CurrentDirection = direction;
+            this._currentDirection = newDirection;
+        }
+
+        private void SetSnakeDirection()
+        {
+            this._snake.SetDirection(this._currentDirection);
         }
 
         /// <summary>
@@ -121,10 +128,10 @@ namespace SnakeWinUi.Controller
         public void Update()
         {
             this.UpdateCollectables();
-
             this.CheckCollision();
             
             this._updateGroup.Update();
+            this.SetSnakeDirection();
         }
 
         private void UpdateCollectables()
@@ -142,6 +149,7 @@ namespace SnakeWinUi.Controller
                 {
                     this.HandleItemCollected(item);
                     SoundManager.Instance.PlayEffect(item.SoundEffect);
+
                     shouldBeRemoved = true;
                 }
                 else if (item.IsExpired())
@@ -154,6 +162,11 @@ namespace SnakeWinUi.Controller
                     this.RemoveCollectableItem(item);
                 }
             }
+        }
+
+        private void HandleItemCollected(CollectableItem item)
+        {
+            this._collectableHandler.Handle(item);
         }
 
         private void CheckCollision()
@@ -194,15 +207,15 @@ namespace SnakeWinUi.Controller
 
                 freePosition = new Position2D(xPos, yPos);
             }
-            while (this.Snake.Tail.Any(s => s.CurrentPosition == freePosition) ||
-                   this.Snake.Head.CurrentPosition == freePosition);
+            while (this._snake.Tail.Any(s => s.CurrentPosition == freePosition) ||
+                   this._snake.Head.CurrentPosition == freePosition);
 
             return freePosition;
         }
 
         private bool HasSnakeCollectedItem(CollectableItem item)
         {
-            return this.Snake.Head.CurrentPosition == item.Position;
+            return this._snake.Head.CurrentPosition == item.Position;
         }
 
         private void RemoveCollectableItem(CollectableItem item)
@@ -213,46 +226,7 @@ namespace SnakeWinUi.Controller
 
         private bool HasHeadCollidedWithTail()
         {
-            return this.Snake.Tail.Any(s => s.CurrentPosition == this.Snake.Head.CurrentPosition);
-        }
-
-        private void HandleItemCollected(CollectableItem item)
-        {
-            switch(item)
-            {
-                case AppleCollectable:
-                    GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Apple.APPLE_SPEED_FACTOR);
-                    break;
-                
-                case BombCollectable:
-
-                    break;
-
-                case CherryCollectable:
-                    GameSettings.UpdateSpeedMillis = (int)(GameSettings.UpdateSpeedMillis * CollectableConfig.Cherry.CHERRY_SPEED_FACTOR);
-                    break;
-
-                case DuckCollectable:
-                    for (int i = 0; i < CollectableConfig.Duck.BASE_SCORE; i++)
-                    {
-                        this.Snake.ExtendTail();
-                    }
-                    break;
-
-                case MouseCollectable:
-                    for (int i = 0; i < CollectableConfig.Mouse.BASE_SCORE; i++)
-                    {
-                        this.Snake.ExtendTail();
-                    }
-                    break;
-
-                case RabbitCollectable:
-                    for (int i = 0; i < CollectableConfig.Rabbit.BASE_SCORE; i++)
-                    {
-                        this.Snake.ExtendTail();
-                    }
-                    break;
-            }
+            return this._snake.Tail.Any(s => s.CurrentPosition == this._snake.Head.CurrentPosition);
         }
     }
 }

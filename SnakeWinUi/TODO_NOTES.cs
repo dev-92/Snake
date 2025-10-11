@@ -15,11 +15,10 @@ namespace SnakeWinUi
         //
 
         // Score counter , Speed counter, verschiedene Gameloopsounds
-        // Geschwindigkeitsmultiplikator
-        // wie viel wovon gefangen ?
-        // Aktuelle Länge der Schlange
 
-        // speed_factor ist missverständlich
-        // GamePage greift direkt auf die snake vom GameManager zu !
+        // gehört direction in den head ?
+
+        // alles was unabhängig vom konstruktor ist bereits außerhalb initialisieren
+        // private set ? => Zugriffsmodifier checken
     }
 }
