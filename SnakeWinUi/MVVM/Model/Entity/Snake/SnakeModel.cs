@@ -153,7 +153,6 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
 
         /// <summary>
         /// Adds a new segment to the tail.
-        /// Currently not used.
         /// </summary>
         public void ExtendTail()
         {

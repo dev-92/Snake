@@ -10,5 +10,6 @@
 
     <Grid>
         <TextBlock Text="GameOver"></TextBlock>
+        <Button></Button>
     </Grid>
 </Page>

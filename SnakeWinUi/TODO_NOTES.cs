@@ -3,22 +3,14 @@ namespace SnakeWinUi
 {
     internal class TODO_NOTES
     {
-        // no bomb directly in front of snake head 
-        // Eingangsbildschirm mit Steuerung und optionen
-        // kommentieren 
-        // UnitTests
-
-        // Game over einbauen
-
-        // Game over Screen
-        // Start Screen mit Soundoptions
-
-        // HighScore einbauen
-
-        // Game Icon,Resizing
-        // Infobar ansprechender gestalten mit Hintergrund
-
-        // alles was unabhängig vom konstruktor ist bereits außerhalb initialisieren
-        // private set ? => Zugriffsmodifier checken
+        // 1) Unit Tests
+        // 2) PageVerwaltung / PageManger ?
+        // 3) GameOverPage
+        // 4) MainMenu Page
+        // 5) High Scores mit Speicherungsverfahren?
+        // 6) Taskbar Icon
+        // 7) Infoboard anpassen (Highscore anfügen, optisch ansprechender gestalten)
+        // 8) Cleanup, Zugriffsmodifikatoren, Initialisierungen außerhalb des Konstruktors 
+        // 9) Zugriffsmodifikatoren
     }
 }

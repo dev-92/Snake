@@ -4,3 +4,6 @@
 SnakeWinUi/bin/
 SnakeWinUi/obj/
 
+# Test proj
+SnakeTests/bin/
+SnakeTests/obj/
