@@ -1,5 +1,4 @@
-﻿using SnakeWinUi.Controller;
-using SnakeWinUi.Services.UpdateService;
+﻿using SnakeWinUi.Services.UpdateService;
 using SnakeWinUi.Enums;
 using SnakeWinUi.Config;
 using SnakeWinUi.Extensions;
@@ -17,42 +16,34 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
     /// </summary>
     public class SnakeModel : IUpdateable
     {
-        public Direction CurrentDirection { get; set; } = Direction.Up;
-        public SnakeElement Head { get; set; }
-        public List<SnakeElement> Tail { get; set; }
-
-        private static SnakeModel? _instance;
-        public static SnakeModel Instance
+        public Direction CurrentDirection { get; private set; } = Direction.Up;
+        public SnakeElement Head { get; private set; }
+        public List<SnakeElement> Tail { get; private set; }
+        public SnakeModel()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new();
-                }
-                return _instance;
-            }
-        }
-
-        private SnakeModel()
-        {
-            this.Head = new SnakeElement(GetRandomStartPosition());
-            this.Tail = new List<SnakeElement>();
+            this.Head = new SnakeElement(this.GetRandomStartPosition());
+            this.Tail = this.InitSnakeTail();
 
             this.SetRandomStartDirection();
+        }
 
-            this.RegisterAtUpdateComposite();
+        private List<SnakeElement> InitSnakeTail()
+        {
+            List<SnakeElement> snakeElements = new List<SnakeElement>();
 
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
-            this.Tail.Add(new SnakeElement(Position2D.Zero));
+            for(int i = 0; i < Constants.INITIAL_SNAKE_LENGTH; i++)
+            {
+                snakeElements.Add(new SnakeElement(Position2D.Zero));
+            }
+
+            return snakeElements;
         }
 
         /// <summary>
         /// Generates a random starting position for the snake on the game board.
         /// </summary>
         /// <returns>A <see cref="Position2D"/> representing the start position.</returns>
-        private static Position2D GetRandomStartPosition()
+        private Position2D GetRandomStartPosition()
         {
             Random random = new Random();
 
@@ -71,11 +62,11 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
 
             this.CurrentDirection = randomDirectionInt switch
             {
-                (int)Direction.Up    => Direction.Up,
+                (int)Direction.Up => Direction.Up,
                 (int)Direction.Right => Direction.Right,
-                (int)Direction.Down  => Direction.Down,
-                (int)Direction.Left  => Direction.Left,
-                _                    => Direction.Up,
+                (int)Direction.Down => Direction.Down,
+                (int)Direction.Left => Direction.Left,
+                _ => Direction.Up,
             };
         }
 
@@ -179,14 +170,6 @@ namespace SnakeWinUi.MVVM.Model.Entity.Snake
             this.MoveHead();
             this.HandleBoundaryCrossing();
             this.MoveTail();
-        }
-
-        /// <summary>
-        /// Registers the snake in the GameManager's update loop.
-        /// </summary>
-        public void RegisterAtUpdateComposite()
-        {
-            GameManager.Instance.AddToUpdateGroup(this);
         }
     }
 }

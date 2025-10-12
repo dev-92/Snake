@@ -2,7 +2,6 @@ using Microsoft.UI.Xaml.Controls;
 
 using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
-using SnakeWinUi.Helper;
 using SnakeWinUi.MVVM.Model.Entity.Snake;
 using Windows.System;
 
@@ -14,6 +13,10 @@ namespace SnakeWinUi.MVVM.View
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        private SnakeModel _snake {  get; set; }
+        private GameboardView _gameboardView { get; set;}
+        private InfoboardView _infoboardView { get; set; }
+
         private static GamePage? _instance;
         public static GamePage? Instance
         {
@@ -30,38 +33,47 @@ namespace SnakeWinUi.MVVM.View
 
         public GamePage()
         {
-            ProjectTreePrinter.PrintProjectTree(@"C:\Users\ty-ro\source\repos\SnakeWinUi");
-
             this.InitializeComponent();
 
-            GameManager.Instance.Init();
-            GameManager.Instance.StartGame();
+            this._snake = new SnakeModel();
+            this._gameboardView = new GameboardView(this._snake);
+            this._infoboardView = new InfoboardView();
 
-            this.KeyDown += this.GamePage_OnKeyDown;
-            this.Content = GameboardView.Instance;
+            _ = GameManager.Instance;
+            GameManager.Instance.Initialize(
+                gameboardView: this._gameboardView,
+                infoboardViewModel: this._infoboardView.InfoboardViewModel,
+                snake: this._snake
+                );
+
+            this.AddGameboardTo(this.UiLayout);
+            this.AddInfoboardTo(this.UiLayout);
+
+            this.Content = this.UiLayout;
+            this.UiLayout.Focus(Microsoft.UI.Xaml.FocusState.Programmatic);
+
+            GameManager.Instance.StartGame();
         }
 
-        /// <summary>
-        /// Handles key press events to change the snake's direction.
-        /// Ignores keys that do not correspond to a movement direction.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">Key event arguments.</param>
-        private void GamePage_OnKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void AddGameboardTo(Grid uiLayout)
         {
-            Direction? newDirection = e.Key switch
-            {
-                VirtualKey.Up    => Direction.Up,
-                VirtualKey.Down  => Direction.Down,
-                VirtualKey.Left  => Direction.Left,
-                VirtualKey.Right => Direction.Right,
-                _                => null
-            };
+            Grid.SetRow(this._gameboardView, 1);
+            Grid.SetColumn(this._gameboardView, 0);
 
-            if (newDirection.HasValue)
-            {
-                SnakeModel.Instance.SetDirection(newDirection.Value);
-            }
+            uiLayout.Children.Add(this._gameboardView);
+        }
+
+        private void AddInfoboardTo(Grid uiLayout)
+        {
+            Grid.SetRow(this._infoboardView, 0);
+            Grid.SetColumn(this._infoboardView, 0);
+
+            uiLayout.Children.Add(this._infoboardView);
+        }
+
+        public void SetCurrentDirection(Direction newDirection)
+        {
+            GameManager.Instance.SetNewDirection(newDirection);
         }
     }
 }

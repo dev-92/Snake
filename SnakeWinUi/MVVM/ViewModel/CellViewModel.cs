@@ -1,83 +1,60 @@
-﻿using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
-
+﻿using Microsoft.UI.Xaml.Media;
+using SnakeWinUi.Config;
 using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.Model.ValueObject;
 using SnakeWinUi.MVVM.Model.Entity;
-
+using SnakeWinUi.MVVM.Model.ValueObject;
+using SnakeWinUi.Utils;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SnakeWinUi.MVVM.ViewModel
+public partial class CellViewModel : INotifyPropertyChanged
 {
-    /// <summary>
-    /// Represents a single cell on the game board and manages its visual representation.
-    /// Updates its background color based on the current <see cref="CellModel.CellStatus"/>.
-    /// Implements <see cref="INotifyPropertyChanged"/> for UI binding.
-    /// </summary>
-    public partial class CellViewModel : INotifyPropertyChanged
+    public CellModel CellModel { get; set; }
+
+    private SolidColorBrush _emptyColorBrush = new(HexColorConverter.ColorFromHex(Constants.EMPTY_CELL_HEX_COLOR));
+    private SolidColorBrush _snakeColorBrush = new(HexColorConverter.ColorFromHex(Constants.SNAKE_HEX_COLOR));
+
+    private Brush? _backgroundBrush { get; set; }
+    public Brush? BackgroundBrush
     {
-        public CellModel CellModel { get; set; }
-
-        private SolidColorBrush _emptyColor { get; } = new(Colors.DarkGray);
-        private SolidColorBrush _snakeColor { get; } = new(Colors.DarkGreen);
-        private SolidColorBrush _preyColor { get; } = new(Colors.DarkRed);
-
-        private SolidColorBrush _backgroundColor { get; set; } = new(Colors.DarkGray);
-        public SolidColorBrush BackgroundColor
-        {
-            get
-            {
-                return this._backgroundColor;
-            }
-            set
-            {
-                this._backgroundColor = value;
-                this.OnPropertyChanged();
-            }
+        get => this._backgroundBrush;
+        set 
+        { 
+            this._backgroundBrush = value; 
+            this.OnPropertyChanged(); 
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
+    }
 
-        public CellViewModel(Position2D cellModelPosition)
-        {
-            this.CellModel = new(cellModelPosition);
-            this.CellModel.PropertyChanged += this.CellModelOnPropertyChanged;
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        /// <summary>
-        /// Raises the <see cref="PropertyChanged"/> event for the specified property.
-        /// </summary>
-        /// <param name="propertyName">The property name that changed. Automatically provided by the compiler.</param>
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public CellViewModel(Position2D cellModelPosition)
+    {
+        this.CellModel = new CellModel(cellModelPosition);
+        this.CellModel.PropertyChanged += this.CellModelOnPropertyChanged;
+        this.UpdateCellBackground();
+    }
 
-        /// <summary>
-        /// Handles changes from the <see cref="CellModel"/> and updates the background color if necessary.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The property change arguments.</param>
-        private void CellModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private void CellModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(this.CellModel.CellStatus))
         {
-            if (e.PropertyName == nameof(this.CellModel.CellStatus))
-            {
-                this.UpdateBackgroundColor();
-            }
+            this.UpdateCellBackground();
         }
+    }
 
-        /// <summary>
-        /// Updates the background color of the cell based on its current <see cref="CellModel.CellStatus"/>.
-        /// </summary>
-        private void UpdateBackgroundColor()
+    private void UpdateCellBackground()
+    {
+        this.BackgroundBrush = this.CellModel.CellStatus switch
         {
-            this.BackgroundColor = this.CellModel.CellStatus switch
-            {
-                CellStatus.Empty => this._emptyColor,
-                CellStatus.Snake => this._snakeColor,
-                CellStatus.Prey  => this._preyColor,
-                _                => this._emptyColor
-            };
-        }
+            CellStatus.Empty            => this._emptyColorBrush,
+            CellStatus.Snake            => this._snakeColorBrush,
+            CellStatus.Collectable      => this.CellModel.CollectableItem?.ImageBrush,
+            _                           => this._emptyColorBrush
+        };
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

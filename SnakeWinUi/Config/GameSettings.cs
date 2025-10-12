@@ -8,15 +8,19 @@ namespace SnakeWinUi.Config
     internal static class GameSettings
     {
         private static int _updateSpeedMillis { get; set; } = 100;
-        public static int UpdateSpeedMillis => GameSettings._updateSpeedMillis;
-
-        private static int _cellAmount { get; set; } = 1000;
+        public static int UpdateSpeedMillis
+        {
+            get => GameSettings._updateSpeedMillis;
+            set
+            {
+                GameSettings._updateSpeedMillis = value;
+            }
+        }
+        
+        private static int _cellAmount { get; set; } = 500;
         public static int CellAmount
         {
-            get
-            {
-                return GameSettings._cellAmount;
-            }
+            get => GameSettings._cellAmount;
             set
             {
                 GameSettings._cellAmount = value;
