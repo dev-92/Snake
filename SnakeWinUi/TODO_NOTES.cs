@@ -7,10 +7,17 @@ namespace SnakeWinUi
         // Eingangsbildschirm mit Steuerung und optionen
         // kommentieren 
         // UnitTests
+
         // Game over einbauen
+
+        // Game over Screen
+        // Start Screen mit Soundoptions
+
+        // HighScore einbauen
 
         // Game Icon,Resizing
         // Infobar ansprechender gestalten mit Hintergrund
+
         // alles was unabhängig vom konstruktor ist bereits außerhalb initialisieren
         // private set ? => Zugriffsmodifier checken
     }

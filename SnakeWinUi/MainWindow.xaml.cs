@@ -1,10 +1,6 @@
-﻿using Microsoft.UI;
-using Microsoft.UI.Windowing;
+﻿using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using SnakeWinUi.Controller;
 using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.View;
 using Windows.Graphics;
 using Windows.System;
 
@@ -18,6 +14,8 @@ namespace SnakeWinUi
         private const string WINDOW_TITLE = "Snake";
         private const string PATH_TO_SNAKE_ICON = @"Assets/snake_icon.ico";
 
+        private readonly PointInt32 _windowOpeningPos = new PointInt32(0,0);
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -26,6 +24,7 @@ namespace SnakeWinUi
             this.AppWindow.SetIcon(MainWindow.PATH_TO_SNAKE_ICON);
 
             this.AppWindow.Resize(new SizeInt32(MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT));
+            this.AppWindow.Move(this._windowOpeningPos);
 
             if (this.AppWindow.Presenter is OverlappedPresenter presenter)
             {

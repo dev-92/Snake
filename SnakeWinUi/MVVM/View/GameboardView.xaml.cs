@@ -71,14 +71,15 @@ namespace SnakeWinUi.MVVM.View
                 Border border = new()
                 {
                     CornerRadius = new CornerRadius(Constants.CORNER_RADIUS),
-                    BorderThickness = new Thickness(Constants.BORDER_THICKNESS)
+                    BorderThickness = new Thickness(Constants.BORDER_THICKNESS),
+                    Margin = new Thickness(Constants.BORDER_MARGIN)
                 };
 
                 border.SetBinding(Border.BackgroundProperty, new Microsoft.UI.Xaml.Data.Binding
                 {
                     Path = new PropertyPath("BackgroundBrush"),
                     Source = cellViewModel,
-                    Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay
+                    Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay,                  
                 });
 
                 int borderPosX = (int)cellViewModel.CellModel.Position.X;
