@@ -2,7 +2,7 @@
 using System;
 using Windows.UI; 
 
-namespace SnakeWinUi.Utils
+namespace SnakeUi.Utils
 {
     public static class HexColorConverter
     {

@@ -1,11 +1,11 @@
 using Microsoft.UI.Xaml.Controls;
 
-using SnakeWinUi.Controller;
-using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.Model.Entity.Snake;
+using SnakeUi.Controller;
+using SnakeUi.Enums;
+using SnakeUi.MVVM.Model.Entity.Snake;
 using Windows.System;
 
-namespace SnakeWinUi.MVVM.View
+namespace SnakeUi.MVVM.View
 {
     /// <summary>
     /// Represents the main game page, hosting the game board and handling keyboard input.

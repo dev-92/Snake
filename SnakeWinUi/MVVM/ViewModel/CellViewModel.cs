@@ -1,9 +1,9 @@
 ﻿using Microsoft.UI.Xaml.Media;
-using SnakeWinUi.Config;
-using SnakeWinUi.Enums;
-using SnakeWinUi.MVVM.Model.Entity;
-using SnakeWinUi.MVVM.Model.ValueObject;
-using SnakeWinUi.Utils;
+using SnakeUi.Config;
+using SnakeUi.Enums;
+using SnakeUi.MVVM.Model.Entity;
+using SnakeUi.MVVM.Model.ValueObject;
+using SnakeUi.Utils;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

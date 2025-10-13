@@ -1,10 +1,10 @@
 ﻿using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using SnakeWinUi.Enums;
+using SnakeUi.Enums;
 using Windows.Graphics;
 using Windows.System;
 
-namespace SnakeWinUi
+namespace SnakeUi
 {
     public sealed partial class MainWindow : Window
     {

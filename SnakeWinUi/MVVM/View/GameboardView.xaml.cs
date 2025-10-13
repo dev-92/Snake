@@ -1,18 +1,18 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-using SnakeWinUi.Config;
-using SnakeWinUi.Enums;
-using SnakeWinUi.Services.UpdateService;
-using SnakeWinUi.MVVM.Model.ValueObject;
-using SnakeWinUi.MVVM.Model.Entity.Snake;
-using SnakeWinUi.Extensions;
-using SnakeWinUi.MVVM.Model.Entity.Collectables;
-using SnakeWinUi.MVVM.Model.Entity;
+using SnakeUi.Config;
+using SnakeUi.Enums;
+using SnakeUi.Services.UpdateService;
+using SnakeUi.MVVM.Model.ValueObject;
+using SnakeUi.MVVM.Model.Entity.Snake;
+using SnakeUi.Extensions;
+using SnakeUi.MVVM.Model.Entity.Collectables;
+using SnakeUi.MVVM.Model.Entity;
 
 using System.Collections.Generic;
 
-namespace SnakeWinUi.MVVM.View
+namespace SnakeUi.MVVM.View
 {
     /// <summary>
     /// Represents the game board UI and handles rendering of cells and the snake.

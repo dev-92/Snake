@@ -1,9 +1,9 @@
-﻿using SnakeWinUi.Config;
+﻿using SnakeUi.Config;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SnakeWinUi.MVVM.ViewModel
+namespace SnakeViewModel.ViewModel
 {
     public class InfoboardViewModel : INotifyPropertyChanged
     {

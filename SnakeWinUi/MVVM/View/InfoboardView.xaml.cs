@@ -1,11 +1,10 @@
 using Microsoft.UI.Xaml.Controls;
-
-using SnakeWinUi.MVVM.ViewModel;
+using SnakeViewModel.ViewModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace SnakeWinUi.MVVM.View
+namespace SnakeUi.MVVM.View
 {
     public sealed partial class InfoboardView : UserControl
     {

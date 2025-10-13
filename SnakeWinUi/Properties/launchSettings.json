@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "SnakeWinUi (Package)": {
+    "SnakeUi (Package)": {
       "commandName": "MsixPackage"
     },
-    "SnakeWinUi (Unpackaged)": {
+    "SnakeUi (Unpackaged)": {
       "commandName": "Project"
     }
   }
