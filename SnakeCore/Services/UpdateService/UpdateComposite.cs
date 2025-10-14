@@ -1,5 +1,4 @@
-﻿
-namespace SnakeCore.Services.UpdateService
+﻿namespace SnakeCore.Services.UpdateService
 {
     /// <summary>
     /// Manages a collection of <see cref="IUpdateable"/> objects, allowing them to be updated simultaneously.

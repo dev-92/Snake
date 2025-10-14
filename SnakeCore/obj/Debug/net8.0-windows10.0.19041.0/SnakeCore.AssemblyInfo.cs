@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SnakeCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e5c544d6e347be51ae23e1dd5f6d2008657c232")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69805004226ada548ec31384e709f0905ae2f738")]
 [assembly: System.Reflection.AssemblyProductAttribute("SnakeCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SnakeCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

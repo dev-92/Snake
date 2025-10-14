@@ -4,7 +4,11 @@ using System.Runtime.CompilerServices;
 
 namespace SnakeCore.Model.Entity
 {
-    public class InfoboardModel
+    /// <summary>
+    /// Represents the game's information board, tracking score, snake length, and speed factor.
+    /// Implements <see cref="INotifyPropertyChanged"/> to notify the UI of property updates.
+    /// </summary>
+    public class InfoboardModel : INotifyPropertyChanged
     {
         public const double SPEED_UI_FACTOR = 1.5;
 
@@ -49,9 +53,11 @@ namespace SnakeCore.Model.Entity
         }
 
         /// <summary>
-        /// Raises the <see cref="PropertyChanged"/> event to notify UI of property changes.
+        /// Raises the <see cref="PropertyChanged"/> event to notify the UI that a property value has changed.
         /// </summary>
-        /// <param name="propertyName">The name of the property that changed. Automatically provided by compiler if omitted.</param>
+        /// <param name="propertyName">
+        /// The name of the property that changed. Automatically provided by the compiler if omitted.
+        /// </param>
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

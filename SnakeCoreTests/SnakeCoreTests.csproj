@@ -16,11 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SnakeWinUi\SnakeUi.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <Folder Include="MVVM\Model\Entity\Snake\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SnakeCore\SnakeCore.csproj" />
   </ItemGroup>
 
 </Project>

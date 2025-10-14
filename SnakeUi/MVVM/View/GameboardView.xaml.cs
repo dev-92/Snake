@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+
 using SnakeCore.Config;
-using SnakeCore.Model.Entity;
 using SnakeUi.Config;
 
 using System.Collections.Generic;
@@ -14,23 +14,15 @@ namespace SnakeUi.MVVM.View
     /// </summary>
     public sealed partial class GameboardView : UserControl
     {
-        public List<CellViewModel> CellViewModels { get; private set; } = new();
+        private List<CellViewModel> _cellViewModels { get; set; }
 
-        public GameboardView(List<CellModel> cellModels)
+        public GameboardView(List<CellViewModel> cellModels)
         {
             this.InitializeComponent();
-            this.InitializeCellViewModels(cellModels);
+            this._cellViewModels = cellModels;
 
             this.BuildGameboardGrid();
             this.BuildAndAppendBorderElementsToGrid();
-        }
-
-        private void InitializeCellViewModels(List<CellModel> cellModels)
-        {
-            foreach (CellModel cellModel in cellModels)
-            {
-                this.CellViewModels.Add(new CellViewModel(cellModel));
-            }
         }
 
         /// <summary>
@@ -50,7 +42,7 @@ namespace SnakeUi.MVVM.View
         /// </summary>
         private void BuildAndAppendBorderElementsToGrid()
         {
-            foreach (CellViewModel cellViewModel in this.CellViewModels)
+            foreach (CellViewModel cellViewModel in this._cellViewModels)
             {
                 Border border = new()
                 {

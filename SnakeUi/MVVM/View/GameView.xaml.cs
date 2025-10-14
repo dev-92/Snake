@@ -5,19 +5,21 @@ using System.Collections.Generic;
 namespace SnakeUi.MVVM.View
 {
     /// <summary>
-    /// Represents the main game page, hosting the game board and handling keyboard input.
+    /// Represents the main game page, hosting the game board and the information board.
+    /// Handles UI layout and keyboard focus for the game.
     /// Implements a singleton pattern to ensure only one instance exists.
     /// </summary>
     public sealed partial class GameView : Page
     {
-        private GameboardView _gameboardView { get; set;}
-        private InfoboardView _infoboardView { get; set; } = new InfoboardView();
+        private GameboardView _gameboardView { get; set; }
+        private InfoboardView _infoboardView { get; set; }
 
-        public GameView(List<CellModel> cellModels)
+        public GameView(List<CellViewModel> cellViewModels, InfoboardModel infoboardModel)
         {
             this.InitializeComponent();
 
-            this._gameboardView = new GameboardView(cellModels);
+            this._gameboardView = new GameboardView(cellViewModels);
+            this._infoboardView = new InfoboardView(infoboardModel);
 
             this.AddGameboardTo(this.UiLayout);
             this.AddInfoboardTo(this.UiLayout);
@@ -26,6 +28,9 @@ namespace SnakeUi.MVVM.View
             this.UiLayout.Focus(Microsoft.UI.Xaml.FocusState.Programmatic);
         }
 
+        /// <summary>
+        /// Adds the game board view to the specified UI layout grid.
+        /// </summary>
         private void AddGameboardTo(Grid uiLayout)
         {
             Grid.SetRow(this._gameboardView, 1);
@@ -34,6 +39,9 @@ namespace SnakeUi.MVVM.View
             uiLayout.Children.Add(this._gameboardView);
         }
 
+        /// <summary>
+        /// Adds the information board view to the specified UI layout grid.
+        /// </summary>
         private void AddInfoboardTo(Grid uiLayout)
         {
             Grid.SetRow(this._infoboardView, 0);
@@ -41,13 +49,5 @@ namespace SnakeUi.MVVM.View
 
             uiLayout.Children.Add(this._infoboardView);
         }
-
-        /*
-        public void SetCurrentDirection(Direction newDirection)
-        {
-            GameManager.Instance.SetNewDirection(newDirection);
-        }
-        */
-        
     }
 }

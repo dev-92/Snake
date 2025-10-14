@@ -4,6 +4,9 @@ using SnakeCore.Model.ValueObject;
 
 namespace SnakeCore.Model.Entity.Collectables
 {
+    /// <summary>
+    /// Represents a collectible duck in the game.
+    /// </summary>
     public class DuckCollectable : CollectableItemModel
     {
         public DuckCollectable(Position2D position) : base(position)

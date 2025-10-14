@@ -1,21 +1,23 @@
 ﻿using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+
 using SnakeCore.Enums;
+using SnakeUi.Config;
 using SnakeUi.Controller;
+
 using Windows.Graphics;
 using Windows.System;
 
 namespace SnakeUi.MVVM.View
 {
+    /// <summary>
+    /// Represents the main application window.
+    /// Hosts the game view, manages window configuration, and handles keyboard input for the snake.
+    /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private const int WINDOW_WIDTH = 1145;
-        private const int WINDOW_HEIGHT = 1260;
-
-        private const string WINDOW_TITLE = "Snake";
-        private const string PATH_TO_SNAKE_ICON = @"Assets/snake_icon.ico";
-
-        private readonly PointInt32 _windowOpeningPos = new PointInt32(0,0);
+        private readonly PointInt32 _windowOpeningPos = new PointInt32(0, 0);
+        private Thickness _margin = new Thickness(10, 40, 10, 10);
 
         private GameManager _gameManager { get; set; }
         private GameView _gameView { get; set; }
@@ -29,21 +31,25 @@ namespace SnakeUi.MVVM.View
 
             this._gameManager = new GameManager();
 
-            this._gameView = new GameView(cellModels: this._gameManager.GameEngine.GameboardModel.Cells)
+            this._gameView = new GameView(cellViewModels: this._gameManager.CellViewModels,
+                                          infoboardModel: this._gameManager.InfoboardModel)
             {
-                Margin = new Thickness(10, 40, 10, 10)
+                Margin = this._margin
             };
             this.WindowLayout.Children.Add(this._gameView);
 
             this._gameManager.StartGame();
         }
 
+        /// <summary>
+        /// Configures the window title, icon, size, position, and behavior (non-resizable, non-maximizable).
+        /// </summary>
         private void SetWindowConfiguration()
         {
-            this.AppWindow.Title = MainWindow.WINDOW_TITLE;
-            this.AppWindow.SetIcon(MainWindow.PATH_TO_SNAKE_ICON);
+            this.AppWindow.Title = UiConstants.WINDOW_TITLE;
+            this.AppWindow.SetIcon(UiConstants.PATH_TO_SNAKE_ICON);
 
-            this.AppWindow.Resize(new SizeInt32(MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT));
+            this.AppWindow.Resize(new SizeInt32(UiConstants.WINDOW_WIDTH, UiConstants.WINDOW_HEIGHT));
             this.AppWindow.Move(this._windowOpeningPos);
 
             if (this.AppWindow.Presenter is OverlappedPresenter presenter)
@@ -58,28 +64,24 @@ namespace SnakeUi.MVVM.View
 
         /// <summary>
         /// Handles keyboard input for controlling the snake.
-        /// <para>
-        /// This KeyDown event is subscribed in XAML on the parent Grid
-        /// (<c>WindowLayout</c>), ensuring that arrow keys are reliably
-        /// detected regardless of which child element currently has focus.
-        /// </para>
+        /// Detects arrow key presses and updates the snake's movement direction via <see cref="GameManager"/>.
         /// </summary>
-        /// <param name="sender">The object that raised the event (the <c>WindowLayout</c> Grid).</param>
+        /// <param name="sender">The object that raised the event (the parent Grid).</param>
         /// <param name="e">Event arguments containing information about the pressed key.</param>
         private void CoreWindow_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             Direction? newDirection = e.Key switch
             {
-                VirtualKey.Up    => Direction.Up,
-                VirtualKey.Down  => Direction.Down,
-                VirtualKey.Left  => Direction.Left,
+                VirtualKey.Up => Direction.Up,
+                VirtualKey.Down => Direction.Down,
+                VirtualKey.Left => Direction.Left,
                 VirtualKey.Right => Direction.Right,
-                _                => null
+                _ => null
             };
 
             if (newDirection.HasValue)
             {
-               //GameManager.Instance.SetDirection(newDirection.Value);
+                this._gameManager.SetDirection(newDirection.Value);
             }
         }
     }

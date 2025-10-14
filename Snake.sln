@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeUi", "SnakeWinUi\SnakeUi.csproj", "{953157EA-A5EC-44DF-8329-16D5F4F61CD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeUi", "SnakeUi\SnakeUi.csproj", "{953157EA-A5EC-44DF-8329-16D5F4F61CD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeCoreTests", "SnakeTests\SnakeCoreTests.csproj", "{389619E6-FFA2-40A5-8E83-40015BE0CE68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeCoreTests", "SnakeCoreTests\SnakeCoreTests.csproj", "{389619E6-FFA2-40A5-8E83-40015BE0CE68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeCore", "SnakeCore\SnakeCore.csproj", "{F7EB2802-DE49-4FD1-BF97-DED645D0E83A}"
 EndProject

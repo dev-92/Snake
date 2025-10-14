@@ -8,13 +8,17 @@ using SnakeCore.Services.UpdateService;
 
 namespace SnakeCore.Model.Entity
 {
+    /// <summary>
+    /// Represents the game board, including all cells, snake placement, and collectable items.
+    /// Implements <see cref="IUpdateable"/> to update cell states each game tick.
+    /// </summary>
     public class GameboardModel : IUpdateable
     {
-        public List<CellModel> Cells {  get; set; } = new List<CellModel>();
+        public List<CellModel> Cells { get; set; } = new List<CellModel>();
         private SnakeModel _snake { get; set; }
 
-        public GameboardModel(SnakeModel snake) 
-        { 
+        public GameboardModel(SnakeModel snake)
+        {
             this._snake = snake;
             this.BuildGameboardStructure();
         }
@@ -34,6 +38,9 @@ namespace SnakeCore.Model.Entity
             }
         }
 
+        /// <summary>
+        /// Places a collectible item on the board by setting it in the corresponding cell.
+        /// </summary>
         public void PlaceCollectableItem(CollectableItemModel item)
         {
             int itemIndex = this.GetCellIndex(item.Position);
@@ -42,6 +49,9 @@ namespace SnakeCore.Model.Entity
             itemCellModel.CollectableItem = item;
         }
 
+        /// <summary>
+        /// Removes a collectible item from the board.
+        /// </summary>
         public void RemoveCollectableItem(CollectableItemModel item)
         {
             int itemIndex = this.GetCellIndex(item.Position);
@@ -51,7 +61,7 @@ namespace SnakeCore.Model.Entity
         }
 
         /// <summary>
-        /// Draws the snake on the board by setting the relevant cells to <see cref="CellStatus.Snake"/>.
+        /// Draws the snake on the board by updating the relevant cells to <see cref="CellStatus.Snake"/>.
         /// </summary>
         private void UpdateSnakeCells()
         {
@@ -71,28 +81,27 @@ namespace SnakeCore.Model.Entity
 
         /// <summary>
         /// Clears the last tail cell by setting its status to <see cref="CellStatus.Empty"/>.
-        /// This avoids a full board cleanup each tick.
         /// </summary>
         private void ClearLastTailCell()
         {
             SnakeElement lastElementOfTail = this._snake.Tail[this._snake.Tail.Count - 1];
-
             int lastTailIndex = this.GetCellIndex(lastElementOfTail.CurrentPosition);
-            CellModel tailCellModel = this.Cells[lastTailIndex];
 
+            CellModel tailCellModel = this.Cells[lastTailIndex];
             tailCellModel.CellStatus = CellStatus.Empty;
         }
 
         /// <summary>
-        /// Calculates the index of a given snake element in the cell list.
+        /// Calculates the index of a given position in the cell list.
         /// </summary>
-        /// <param name="snakeElement">The snake element to find.</param>
-        /// <returns>The index of the element in <see cref="CellViewModels"/>.</returns>
         private int GetCellIndex(Position2D position)
         {
             return position.Y * GameSettings.SideLength + position.X;
         }
 
+        /// <summary>
+        /// Updates the game board for the current tick, including snake cell positions.
+        /// </summary>
         public void Update()
         {
             this.UpdateSnakeCells();

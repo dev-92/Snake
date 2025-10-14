@@ -2,7 +2,6 @@
 
 using SnakeCore.Enums;
 using SnakeCore.Model.Entity;
-using SnakeCore.Model.ValueObject;
 using SnakeUi.Config;
 using SnakeUi.Helpers;
 using SnakeUi.Utils;
@@ -10,6 +9,10 @@ using SnakeUi.Utils;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
+/// <summary>
+/// Represents the view model for a single cell on the game board.
+/// Handles property changes and updates the visual background based on the cell status.
+/// </summary>
 public partial class CellViewModel : INotifyPropertyChanged
 {
     public CellModel CellModel { get; set; }
@@ -21,15 +24,19 @@ public partial class CellViewModel : INotifyPropertyChanged
     public Brush? BackgroundBrush
     {
         get => this._backgroundBrush;
-        set 
-        { 
-            this._backgroundBrush = value; 
-            this.OnPropertyChanged(); 
+        set
+        {
+            this._backgroundBrush = value;
+            this.OnPropertyChanged();
         }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="CellViewModel"/> with the specified <see cref="CellModel"/>.
+    /// Subscribes to property changes to update the background accordingly.
+    /// </summary>
     public CellViewModel(CellModel cellModel)
     {
         this.CellModel = cellModel;
@@ -37,6 +44,10 @@ public partial class CellViewModel : INotifyPropertyChanged
         this.UpdateCellBackground();
     }
 
+    /// <summary>
+    /// Handles property changes from the underlying <see cref="CellModel"/>.
+    /// Updates the background when the cell status changes.
+    /// </summary>
     private void CellModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(this.CellModel.CellStatus))
@@ -45,6 +56,10 @@ public partial class CellViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Updates the background brush based on the current cell status.
+    /// Uses different colors or image brushes depending on the cell content.
+    /// </summary>
     private void UpdateCellBackground()
     {
         this.BackgroundBrush = this.CellModel.CellStatus switch
@@ -56,6 +71,9 @@ public partial class CellViewModel : INotifyPropertyChanged
         };
     }
 
+    /// <summary>
+    /// Raises the <see cref="PropertyChanged"/> event to notify the UI of property updates.
+    /// </summary>
     private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
