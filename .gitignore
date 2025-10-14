@@ -1,6 +1,13 @@
 .vs/
 
-# Snake proj
-SnakeWinUi/bin/
-SnakeWinUi/obj/
+# Snake Ui
+SnakeUi/bin/
+SnakeUi/obj/
 
+# SnakeCore 
+SnakeCore/bin/
+SnakeCore/obj/
+
+# SnakeCoreTests
+SnakeCoreTests/bin/
+SnakeCoreTests/obj/

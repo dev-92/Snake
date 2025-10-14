@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SnakeUi (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SnakeUi (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
