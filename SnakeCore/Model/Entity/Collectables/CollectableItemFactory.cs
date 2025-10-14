@@ -1,6 +1,5 @@
 ﻿using SnakeCore.Enums;
 using SnakeCore.Model.ValueObject;
-using SnakeCore.MVVM.Model.Entity.Collectables;
 
 namespace SnakeCore.Model.Entity.Collectables
 {

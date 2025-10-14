@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace SnakeCore.Model.Entity
 {
-    internal class InfoboardModel
+    public class InfoboardModel
     {
         public const double SPEED_UI_FACTOR = 1.5;
 

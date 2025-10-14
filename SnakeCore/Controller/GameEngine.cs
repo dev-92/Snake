@@ -1,12 +1,12 @@
 ﻿using SnakeCore.Model.Entity;
 using SnakeCore.Model.Entity.Collectables;
 using SnakeCore.Model.Entity.Snake;
-using SnakeCore.Model.ValueObject;
 using SnakeCore.Services.UpdateService;
 
 using SnakeCore.Config;
 using SnakeCore.Enums;
 using SnakeCore.Services;
+using SnakeCore.Model.ValueObject;
 
 namespace SnakeCore.Controller
 {
@@ -15,37 +15,36 @@ namespace SnakeCore.Controller
         private const int MAX_ITEMS = 5;
         private UpdateComposite _updateGroup { get; set; } = new();
 
-        private GameboardModel _gameboardModel { get; set; } = new();
+        public GameboardModel GameboardModel { get; set; }
         private InfoboardModel _infoboardModel { get; set; } = new();
         private SnakeModel _snake { get; set; } = new();
 
         private IAudioService _audioService { get; set; }
-        private ICollectableRenderService _gameboardView { get; set; }
 
         private List<CollectableItemModel> _collectableItems { get; set; } = new();
-        private CollectableHandler _collectableHandler { get; set; }
+        private CollectableEffectHandler _collectableHandler { get; set; }
 
-        private GameState _gameState { get; set; } = GameState.Paused;
+        public GameState GameState { get; set; } = GameState.Paused;
         private Direction _currentDirection { get; set; } 
 
-        public GameEngine(IAudioService audioservice, ICollectableRenderService gameboardView)
+        public GameEngine(IAudioService audioservice)
         {
             this._audioService = audioservice;
-            this._gameboardView = gameboardView;
-
-            this._collectableHandler = new CollectableHandler(this._snake, this._infoboardModel);
+            
+            this.GameboardModel = new GameboardModel(this._snake);
+            this._collectableHandler = new CollectableEffectHandler(this._snake, this._infoboardModel);
 
             this._updateGroup.AddParticipant(this._snake);
-            this._updateGroup.AddParticipant(this._gameboardModel);
+            this._updateGroup.AddParticipant(this.GameboardModel);
         }
 
         /// <summary>
         /// Starts the game.
         /// The update loop will run, and Snake & Board will be updated continuously.
         /// </summary>
-        public void StartGame()
+        public void Run()
         {
-            this._gameState = GameState.Running;
+            this.GameState = GameState.Running;
             this._audioService.PlayMusic(GameMusicType.GameLoop1);
         }
 
@@ -53,13 +52,13 @@ namespace SnakeCore.Controller
         /// Pauses the game.
         /// The update loop stops until StartGame is called again.
         /// </summary>
-        public void PauseGame()
+        public void Stop()
         {
-            this._gameState = GameState.Paused;
+            this.GameState = GameState.Paused;
             this._audioService.StopMusic();
         }
 
-        public void SetNewDirection(Direction newDirection)
+        public void SetDirection(Direction newDirection)
         {
             this._currentDirection = newDirection;
         }
@@ -106,7 +105,7 @@ namespace SnakeCore.Controller
 
                 if (shouldBeRemoved)
                 {
-                    this.RemoveCollectableItem(item);
+                    this.RemoveCollectable(item);
                 }
             }
         }
@@ -120,29 +119,25 @@ namespace SnakeCore.Controller
         {
             if (this.HasHeadCollidedWithTail())
             {
-                this.PauseGame();
+                this.Stop();
             }
-        }
-
-        /// <summary>
-        /// Adds a participant to the UpdateGroup so it will be regularly updated
-        /// in the game loop.
-        /// </summary>
-        /// <param name="participant">The object implementing IUpdateEntity.</param>
-        public void AddToUpdateGroup(IUpdateable participant)
-        {
-            this._updateGroup.AddParticipant(participant);
         }
 
         private void SpawnCollectable()
         {
-            CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRandomFreePosition());
+            CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRndFreePosition());
             this._collectableItems.Add(newItem);
 
-            this._gameboardView.RenderCollectableItem(newItem);
+            this.GameboardModel.PlaceCollectableItem(newItem);
         }
 
-        private Position2D GetRandomFreePosition()
+        private void RemoveCollectable(CollectableItemModel item)
+        {
+            this.GameboardModel.RemoveCollectableItem(item);
+            this._collectableItems.Remove(item);
+        }
+
+        private Position2D GetRndFreePosition()
         {
             Random random = new();
             Position2D freePosition;
@@ -163,12 +158,6 @@ namespace SnakeCore.Controller
         private bool HasSnakeCollectedItem(CollectableItemModel item)
         {
             return this._snake.Head.CurrentPosition == item.Position;
-        }
-
-        private void RemoveCollectableItem(CollectableItemModel item)
-        {
-            this._gameboardView.EraseCollectableItem(item);
-            this._collectableItems.Remove(item);
         }
 
         private bool HasHeadCollidedWithTail()

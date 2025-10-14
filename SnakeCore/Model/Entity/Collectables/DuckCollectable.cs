@@ -4,11 +4,9 @@ using SnakeCore.Model.ValueObject;
 
 namespace SnakeCore.Model.Entity.Collectables
 {
-    internal class DuckCollectable : CollectableItemModel
+    public class DuckCollectable : CollectableItemModel
     {
-        public CollectableItemType ItemType { get; private set; } = CollectableItemType.Duck;
-
-        public DuckCollectable(Position2D position) : base(DuckCollectable.IMAGE_PATH, position)
+        public DuckCollectable(Position2D position) : base(position)
         {
             this.LifetimeMillis = CollectableConfig.Duck.Duck_LIFETIME_MILLIS;
             this.SoundEffect = SoundEffectType.DuckCollected;
