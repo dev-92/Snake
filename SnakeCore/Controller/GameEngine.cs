@@ -39,6 +39,7 @@ namespace SnakeCore.Controller
 
             this._updateGroup.AddParticipant(this._snake);
             this._updateGroup.AddParticipant(this.GameboardModel);
+            this._updateGroup.AddParticipant(this._collectableHandler);
         }
 
         /// <summary>

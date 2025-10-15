@@ -7,7 +7,7 @@ namespace SnakeUi.Config
         public const int WINDOW_HEIGHT = 1260;
 
         public const string WINDOW_TITLE = "Snake";
-        public const string PATH_TO_SNAKE_ICON = @"Assets/snake_icon.ico";
+        public const string PATH_TO_SNAKE_ICON = @"ms-appx:///Assets/snake_icon.ico";
 
         public const int CELL_HEIGHT = 40;
         public const int CELL_WIDTH = 40;

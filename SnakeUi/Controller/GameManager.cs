@@ -8,6 +8,7 @@ using SnakeCore.Model.Entity;
 using System.Collections.Generic;
 
 using System;
+using Windows.UI.Notifications;
 
 
 namespace SnakeUi.Controller
@@ -20,12 +21,12 @@ namespace SnakeUi.Controller
     {
         private GameEngine _gameEngine { get; set; } = new(AudioManager.Instance);
         private DateTime _lastUpdate { get; set; } = DateTime.Now;
-        public List<CellViewModel> CellViewModels { get; private set; } = new();
+        public List<CellModel> Cells { get; private set; }
         public InfoboardModel InfoboardModel { get; private set; }
 
         public GameManager()
         {
-            this.InitializeCellViewModels();
+            this.Cells = this._gameEngine.GameboardModel.Cells;
             this.InfoboardModel = this._gameEngine.InfoboardModel;
             CompositionTarget.Rendering += this.OnRendering;
         }
@@ -53,17 +54,6 @@ namespace SnakeUi.Controller
         public void SetDirection(Direction newDirection)
         {
             this._gameEngine.SetDirection(newDirection);
-        }
-
-        /// <summary>
-        /// Initializes the collection of CellViewModels from the game board's cells.
-        /// </summary>
-        private void InitializeCellViewModels()
-        {
-            foreach (CellModel cellModel in this._gameEngine.GameboardModel.Cells)
-            {
-                this.CellViewModels.Add(new CellViewModel(cellModel));
-            }
         }
 
         /// <summary>
