@@ -27,17 +27,8 @@ jobs:
       - name: Run tests and collect coverage
         run: dotnet test SnakeCoreTests/SnakeCoreTests.csproj --collect:"XPlat Code Coverage" --results-directory ./SnakeCoreTests/TestResults
 
-      # 🏷️ 5. Generate coverage badge
+      # 🏷️ 5. Generate coverage badge and push
       - name: Generate & update coverage badge
-        run: Scripts\coverage_badge.bat
-
-      # 💾 6. Commit & push changes
-      - name: Commit & push badge update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add README.md
-          git diff --quiet || git commit -m "Update coverage badge"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
+        run: Scripts\coverage_badge.bat

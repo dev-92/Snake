@@ -14,24 +14,13 @@ for /f "delims=" %%F in ('dir /b /s /a:-d /o-d "SnakeCoreTests\TestResults\*.cob
 :found
 if not defined COVERAGE_FILE (
     echo ❌ Keine coverage.cobertura.xml gefunden!
-    pause
     exit /b 1
 )
 
 echo ✅ Gefundene Datei: %COVERAGE_FILE%
 
-REM === Coverage-Wert aus XML extrahieren (line-rate) ===
-for /f "tokens=2 delims== " %%A in ('findstr /i "line-rate=" "%COVERAGE_FILE%"') do (
-    set "rate=%%A"
-    goto :next
-)
-
-:next
-set "rate=!rate:"=!"
-set "rate=!rate:/>=!"
-
-REM === line-rate in Prozent umrechnen mit PowerShell ===
-for /f %%P in ('powershell -Command "[math]::Round([double]'!rate!' * 100)"') do set "percent=%%P"
+REM === Coverage-Wert aus XML extrahieren (line-rate vom Root coverage-Tag) ===
+for /f %%P in ('powershell -Command "(Select-Xml -Path ''%COVERAGE_FILE%'' -XPath ''/coverage/@line-rate'').Node.Value*100 | [math]::Round($_,0)"') do set "percent=%%P"
 
 REM === Badge-Farbe bestimmen ===
 set "color=red"
@@ -48,7 +37,6 @@ set "README=README.md"
 
 if not exist "!README!" (
     echo ⚠️ Keine README.md im Projektstamm gefunden!
-    pause
     exit /b 0
 )
 
