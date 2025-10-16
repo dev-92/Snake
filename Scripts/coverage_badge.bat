@@ -1,60 +1,63 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-REM === Basisverzeichnis automatisch bestimmen ===
+REM === Determine base directory automatically ===
 cd /d "%~dp0\.."
 echo 📁 Working directory: %cd%
 
-REM === Neueste coverage.cobertura.xml im TestResults-Ordner suchen ===
-for /f "delims=" %%F in ('dir /b /s /a:-d /o-d "SnakeCoreTests\TestResults\*.cobertura.xml"') do (
+REM === Find the latest coverage.cobertura.xml in the TestResults folder ===
+for /f "delims=" %%F in ('dir /b /s /a:-d "SnakeCoreTests\TestResults\*.cobertura.xml"') do (
     set "COVERAGE_FILE=%%F"
     goto :found
 )
 
 :found
 if not defined COVERAGE_FILE (
-    echo ❌ Keine coverage.cobertura.xml gefunden!
+    echo ❌ No coverage.cobertura.xml found!
+    pause
     exit /b 1
 )
 
-echo ✅ Gefundene Datei: %COVERAGE_FILE%
+echo ✅ Found file: %COVERAGE_FILE%
 
-REM === line-rate aus XML extrahieren, direkt mit PowerShell ===
-for /f %%P in ('powershell -NoProfile -Command "(Select-Xml -Path ''%COVERAGE_FILE%'' -XPath ''/coverage/@line-rate'').Node.Value*100 | [math]::Round($_,0)"') do set "percent=%%P"
+REM === Extract line-rate from XML and convert to percentage ===
+for /f %%P in ('powershell -NoProfile -Command "([math]::Round([double](Select-Xml -Path ''%COVERAGE_FILE%'' -XPath ''/coverage/@line-rate'').Node.Value * 100, 2))"') do set "percent=%%P"
 
-REM === Badge-Farbe bestimmen ===
+echo 📊 Coverage: !percent!%%
+
+REM === Determine badge color ===
 set "color=red"
 if !percent! GEQ 70 set "color=yellow"
 if !percent! GEQ 85 set "color=green"
 
 set "BADGE_URL=https://img.shields.io/badge/coverage-!percent!%%25-!color!"
-
-echo 📊 Coverage: !percent!%%
 echo 🏷️ Badge URL: !BADGE_URL!
 
-REM === README im Projektstamm aktualisieren ===
+REM === Update README in project root ===
 set "README=README.md"
 
 if not exist "!README!" (
-    echo ⚠️ Keine README.md im Projektstamm gefunden!
+    echo ⚠️ README.md not found in project root!
+    pause
     exit /b 0
 )
 
-powershell -Command ^
+powershell -NoProfile -Command ^
   "(Get-Content '!README!') -replace '!\[Coverage\]\(.*?\)', '![Coverage](!BADGE_URL!)' | Set-Content '!README!'"
 
-echo ✅ README.md aktualisiert mit neuem Coverage-Badge.
+echo ✅ README.md updated with new coverage badge.
 
-REM === Automatisches commit & push ===
+REM === Optional: automatic commit & push if GITHUB_TOKEN is defined ===
 if defined GITHUB_TOKEN (
     git config user.name "github-actions"
     git config user.email "actions@github.com"
     git add README.md
     git diff --quiet || git commit -m "Update coverage badge"
     git push https://x-access-token:%GITHUB_TOKEN%@github.com/%GITHUB_REPOSITORY% HEAD:main
-    echo ✅ README.md automatisch gepusht.
+    echo ✅ README.md automatically pushed.
 ) else (
-    echo ⚠️ Kein GITHUB_TOKEN gefunden, push übersprungen.
+    echo ⚠️ No GITHUB_TOKEN found, push skipped.
 )
 
 endlocal
+pause
