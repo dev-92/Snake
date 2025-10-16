@@ -2,6 +2,7 @@
 using SnakeCore.Model.Entity;
 using SnakeCore.Model.Entity.Collectables;
 using SnakeCore.Model.Entity.Snake;
+using SnakeCore.Services.UpdateService;
 
 namespace SnakeCore.Controller
 {
@@ -9,10 +10,12 @@ namespace SnakeCore.Controller
     /// Handles the effects of collectable items when they are picked up by the snake.
     /// Updates the snake model and infoboard model accordingly.
     /// </summary>
-    public class CollectableEffectHandler
+    public class CollectableEffectHandler : IUpdateable
     {
         private readonly SnakeModel _snakeModel;
         private readonly InfoboardModel _infoboardModel;
+
+        private readonly List<int> _pendingTailExtensions = new();
 
         public CollectableEffectHandler(SnakeModel snakeModel, InfoboardModel infoboardModel)
         {
@@ -84,10 +87,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private void HandleDuck(DuckCollectable duck)
         {
-            for (int i = 0; i < CollectableConfig.Duck.BASE_SCORE; i++)
-            {
-                this._snakeModel.ExtendTail();
-            }
+            this.AddTailExtension(CollectableConfig.Duck.BASE_SCORE);
 
             this._infoboardModel.Score += this._infoboardModel.SpeedFactor * CollectableConfig.Duck.BASE_SCORE;
             this._infoboardModel.LengthOfSnake += CollectableConfig.Duck.BASE_SCORE;
@@ -99,10 +99,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private void HandleMouse(MouseCollectable mouse)
         {
-            for (int i = 0; i < CollectableConfig.Mouse.BASE_SCORE; i++)
-            {
-                this._snakeModel.ExtendTail();
-            }
+            this.AddTailExtension(CollectableConfig.Mouse.BASE_SCORE);
 
             this._infoboardModel.Score += this._infoboardModel.SpeedFactor * CollectableConfig.Mouse.BASE_SCORE;
             this._infoboardModel.LengthOfSnake += CollectableConfig.Mouse.BASE_SCORE;
@@ -114,10 +111,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private void HandleRabbit(RabbitCollectable rabbit)
         {
-            for (int i = 0; i < CollectableConfig.Rabbit.BASE_SCORE; i++)
-            {
-                this._snakeModel.ExtendTail();
-            }
+            this.AddTailExtension(CollectableConfig.Rabbit.BASE_SCORE);
 
             this._infoboardModel.Score += this._infoboardModel.SpeedFactor * CollectableConfig.Rabbit.BASE_SCORE;
             this._infoboardModel.LengthOfSnake += CollectableConfig.Rabbit.BASE_SCORE;
@@ -130,6 +124,25 @@ namespace SnakeCore.Controller
         private void HandleBomb(BombCollectable bomb)
         {
             this._infoboardModel.Score -= this._infoboardModel.SpeedFactor * CollectableConfig.Bomb.BASE_SCORE;
+        }
+
+        private void AddTailExtension(int length)
+        {
+            this._pendingTailExtensions.Add(length);
+        }
+
+        public void Update()
+        {
+            for (int i = this._pendingTailExtensions.Count - 1; i >= 0; i--)
+            {
+                this._snakeModel.ExtendTail();
+                this._pendingTailExtensions[i]--;
+
+                if (this._pendingTailExtensions[i] <= 0)
+                {
+                    this._pendingTailExtensions.RemoveAt(i);
+                }
+            }
         }
     }
 }

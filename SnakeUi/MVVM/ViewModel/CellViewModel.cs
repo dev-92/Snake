@@ -61,14 +61,15 @@ public partial class CellViewModel : INotifyPropertyChanged
     /// Uses different colors or image brushes depending on the cell content.
     /// </summary>
     private void UpdateCellBackground()
-    {
+    {               
         this.BackgroundBrush = this.CellModel.CellStatus switch
         {
             CellStatus.Empty        => this._emptyColorBrush,
             CellStatus.Snake        => this._snakeColorBrush,
             CellStatus.Collectable  => CollectableItemBrushHelper.GetImageBrush(this.CellModel.CollectableItem),
             _                       => this._emptyColorBrush
-        };
+        };           
+        
     }
 
     /// <summary>

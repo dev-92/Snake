@@ -14,11 +14,11 @@ namespace SnakeUi.MVVM.View
         private GameboardView _gameboardView { get; set; }
         private InfoboardView _infoboardView { get; set; }
 
-        public GameView(List<CellViewModel> cellViewModels, InfoboardModel infoboardModel)
+        public GameView(List<CellModel> cells, InfoboardModel infoboardModel)
         {
             this.InitializeComponent();
 
-            this._gameboardView = new GameboardView(cellViewModels);
+            this._gameboardView = new GameboardView(cells);
             this._infoboardView = new InfoboardView(infoboardModel);
 
             this.AddGameboardTo(this.UiLayout);

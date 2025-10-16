@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 using SnakeCore.Config;
+using SnakeCore.Model.Entity;
 using SnakeUi.Config;
 
 using System.Collections.Generic;
@@ -14,15 +15,26 @@ namespace SnakeUi.MVVM.View
     /// </summary>
     public sealed partial class GameboardView : UserControl
     {
-        private List<CellViewModel> _cellViewModels { get; set; }
+        private List<CellViewModel> _cellViewModels { get; set; } = new List<CellViewModel>();
 
-        public GameboardView(List<CellViewModel> cellModels)
+        public GameboardView(List<CellModel> cells)
         {
             this.InitializeComponent();
-            this._cellViewModels = cellModels;
+            this.InitializeCellViewModels(cells);    
 
             this.BuildGameboardGrid();
             this.BuildAndAppendBorderElementsToGrid();
+        }
+
+        /// <summary>
+        /// Initializes the collection of CellViewModels from the game board's cells.
+        /// </summary>
+        private void InitializeCellViewModels(List<CellModel> cellModels)
+        {
+            foreach (CellModel cellModel in cellModels)
+            {
+                this._cellViewModels.Add(new CellViewModel(cellModel));
+            }
         }
 
         /// <summary>
@@ -50,14 +62,14 @@ namespace SnakeUi.MVVM.View
                     BorderThickness = new Thickness(UiConstants.BORDER_THICKNESS),
                     Margin = new Thickness(UiConstants.BORDER_MARGIN)
                 };
-
+                
                 border.SetBinding(Border.BackgroundProperty, new Microsoft.UI.Xaml.Data.Binding
                 {
                     Path = new PropertyPath("BackgroundBrush"),
                     Source = cellViewModel,
                     Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay,                  
                 });
-
+                
                 int borderPosX = (int)cellViewModel.CellModel.Position.X;
                 int borderPosY = (int)cellViewModel.CellModel.Position.Y;
 

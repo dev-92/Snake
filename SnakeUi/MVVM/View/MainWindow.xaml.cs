@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml;
 using SnakeCore.Enums;
 using SnakeUi.Config;
 using SnakeUi.Controller;
-
+using System;
 using Windows.Graphics;
 using Windows.System;
 
@@ -28,10 +28,10 @@ namespace SnakeUi.MVVM.View
         {
             this.InitializeComponent();
             this.SetWindowConfiguration();
-
+    
             this._gameManager = new GameManager();
 
-            this._gameView = new GameView(cellViewModels: this._gameManager.CellViewModels,
+            this._gameView = new GameView(cells: this._gameManager.Cells,
                                           infoboardModel: this._gameManager.InfoboardModel)
             {
                 Margin = this._margin
@@ -39,6 +39,7 @@ namespace SnakeUi.MVVM.View
             this.WindowLayout.Children.Add(this._gameView);
 
             this._gameManager.StartGame();
+
         }
 
         /// <summary>
