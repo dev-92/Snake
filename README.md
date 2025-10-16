@@ -46,14 +46,14 @@ This separation ensures **testability** and **scalability**.
 
 ---
 
-## Git Workflow
+## License
 
-- Feature branches for development  
-- Pull requests for code review  
+This project is licensed under the MIT License - see LICENSE file for details.
+
+## Third-Party Assets
+
+The following media are subject to separate licenses:
+
+- **Pixabay**: All images and sounds used in this project are free to use, modify, and include in projects, but cannot be sold standalone. [Pixabay License](https://pixabay.com/service/license/)
 - Future: CI/CD with automated tests and release tagging  
 
----
-
-## Special Thanks
-
-GameSounds - MFCC → [Pixabay](https://pixabay.com/de/users/mfcc-28627740/)
