@@ -19,20 +19,8 @@ if not defined COVERAGE_FILE (
 
 echo ✅ Gefundene Datei: %COVERAGE_FILE%
 
-REM === line-rate aus XML extrahieren ===
-for /f "usebackq tokens=2 delims== " %%A in (`findstr /i "line-rate" "%COVERAGE_FILE%"`) do (
-    set "rate=%%A"
-    goto :next
-)
-
-:next
-REM Quotes entfernen
-set "rate=!rate:"=!"
-REM Trailing > entfernen
-set "rate=!rate:/>=!"
-
-REM === In Prozent umrechnen und runden ===
-for /f %%P in ('powershell -Command "[math]::Round([double]'!rate!' * 100)"') do set "percent=%%P"
+REM === line-rate aus XML extrahieren, direkt mit PowerShell ===
+for /f %%P in ('powershell -NoProfile -Command "(Select-Xml -Path ''%COVERAGE_FILE%'' -XPath ''/coverage/@line-rate'').Node.Value*100 | [math]::Round($_,0)"') do set "percent=%%P"
 
 REM === Badge-Farbe bestimmen ===
 set "color=red"
