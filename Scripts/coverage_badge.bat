@@ -6,7 +6,7 @@ cd /d "%~dp0\.."
 echo 📁 Working directory: %cd%
 
 REM === Neueste coverage.cobertura.xml im TestResults-Ordner suchen ===
-for /f "delims=" %%F in ('dir /b /s /a:-d /o-d "SnakeCoreTests\TestResults\coverage.cobertura.xml"') do (
+for /f "delims=" %%F in ('dir /b /s /a:-d /o-d "SnakeCoreTests\TestResults\*.cobertura.xml"') do (
     set "COVERAGE_FILE=%%F"
     goto :found
 )
@@ -20,21 +20,22 @@ if not defined COVERAGE_FILE (
 
 echo ✅ Gefundene Datei: %COVERAGE_FILE%
 
-REM === Coverage-Wert aus XML extrahieren ===
-for /f "tokens=2 delims== " %%A in ('findstr "line-rate" "%COVERAGE_FILE%"') do (
-    set rate=%%A
+REM === Coverage-Wert aus XML extrahieren (line-rate) ===
+for /f "tokens=2 delims== " %%A in ('findstr /i "line-rate=" "%COVERAGE_FILE%"') do (
+    set "rate=%%A"
     goto :next
 )
 
 :next
-set rate=!rate:"=!
-set /a percent=!rate! * 100
-for /f "tokens=1 delims=." %%B in ("!percent!") do set percent=%%B
+set "rate=!rate:"=!"
+set "rate=!rate:/>=!"
+REM === line-rate in Prozent umrechnen mit PowerShell ===
+for /f %%P in ('powershell -Command "[math]::Round([double]'!rate!' * 100)"') do set "percent=%%P"
 
 REM === Badge-Farbe bestimmen ===
-set color=red
-if !percent! GEQ 70 set color=yellow
-if !percent! GEQ 85 set color=green
+set "color=red"
+if !percent! GEQ 70 set "color=yellow"
+if !percent! GEQ 85 set "color=green"
 
 set "BADGE_URL=https://img.shields.io/badge/coverage-!percent!%%25-!color!"
 
