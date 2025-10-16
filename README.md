@@ -1,13 +1,13 @@
 # Snake MVVM Project
 
-![Coverage](https://img.shields.io/badge/coverage-3%25-orange) [![PassingTests](https://github.com/dev-92/Snake/actions/workflows/PassingTests.yml/badge.svg)](https://github.com/dev-92/Snake/actions/workflows/PassingTests.yml)
+![Coverage](https://img.shields.io/badge/coverage-8%25-orange) [![PassingTests](https://github.com/dev-92/Snake/actions/workflows/PassingTests.yml/badge.svg)](https://github.com/dev-92/Snake/actions/workflows/PassingTests.yml)
 
 A modern implementation of a **Snake-inspired game** with multiple collectible prey items, designed as my first **MVVM (Model-View-ViewModel) project**.  
 This project was created **as a learning project** to take my first steps in **design patterns and software architecture**, with an emphasis on **clean code** and **testability**.  
 
 <img width="800" height="950" alt="Snake Screenshot" src="https://github.com/user-attachments/assets/9e34b63b-0e59-46fa-951a-db4534d9cd58" />
 
-## Features
+## 1 Features
 
 - Snake-inspired gameplay with **smooth controls**  
 - Multiple **collectible prey items**, each with unique effects  
@@ -17,16 +17,14 @@ This project was created **as a learning project** to take my first steps in **d
 - Project is **testable** due to separation of UI and core logic  
 - **Unit testing prepared** (currently only one basic test is available)  
 
-### Planned Features
+## 2 Planned Features
 - Automated **unit testing** triggered on push (not yet implemented)  
 - Automatic **tagging** of releases (not yet implemented)  
 - Game over mechanics  
 - Title screen  
 - Highscore tracking  
 
----
-
-## Architecture
+## 3 Architecture
 
 The project follows the **MVVM pattern**:
 
@@ -36,21 +34,17 @@ The project follows the **MVVM pattern**:
 
 This separation ensures **testability** and **scalability**.
 
----
-
-## Testing
+## 4 Testing
 
 - Core game logic is separated from UI for easier unit testing  
 - **Currently only one unit test is available**  
 - Future: Automated tests to run on every push  
 
----
-
-## License
+## 5 License
 
 This project is licensed under the MIT License - see LICENSE file for details.
 
-## Third-Party Assets
+## 6 Third-Party Assets
 
 The following media are subject to separate licenses:
 
