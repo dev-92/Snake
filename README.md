@@ -1,5 +1,7 @@
 # Snake MVVM Project
 
+![Coverage](https://img.shields.io/badge/coverage-8%25-orange) 
+
 A modern implementation of a **Snake-inspired game** with multiple collectible prey items, designed as my first **MVVM (Model-View-ViewModel) project**.  
 This project was created **as a learning project** to take my first steps in **design patterns and software architecture**, with an emphasis on **clean code** and **testability**.  
 
