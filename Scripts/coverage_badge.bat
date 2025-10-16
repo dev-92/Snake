@@ -29,6 +29,7 @@ for /f "tokens=2 delims== " %%A in ('findstr /i "line-rate=" "%COVERAGE_FILE%"')
 :next
 set "rate=!rate:"=!"
 set "rate=!rate:/>=!"
+
 REM === line-rate in Prozent umrechnen mit PowerShell ===
 for /f %%P in ('powershell -Command "[math]::Round([double]'!rate!' * 100)"') do set "percent=%%P"
 
@@ -55,5 +56,17 @@ powershell -Command ^
   "(Get-Content '!README!') -replace '!\[Coverage\]\(.*?\)', '![Coverage](!BADGE_URL!)' | Set-Content '!README!'"
 
 echo ✅ README.md aktualisiert mit neuem Coverage-Badge.
-pause
+
+REM === Automatisches commit & push ===
+if defined GITHUB_TOKEN (
+    git config user.name "github-actions"
+    git config user.email "actions@github.com"
+    git add README.md
+    git diff --quiet || git commit -m "Update coverage badge"
+    git push https://x-access-token:%GITHUB_TOKEN%@github.com/%GITHUB_REPOSITORY% HEAD:main
+    echo ✅ README.md automatisch gepusht.
+) else (
+    echo ⚠️ Kein GITHUB_TOKEN gefunden, push übersprungen.
+)
+
 endlocal
