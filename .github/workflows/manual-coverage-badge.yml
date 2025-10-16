@@ -1,0 +1,41 @@
+name: Generate Coverage Badge (Manual)
+
+on:
+  workflow_dispatch:   
+
+jobs:
+  coverage:
+    name: Generate Coverage and Update Badge
+    runs-on: windows-latest
+
+    steps:
+      # 🧱 1. Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ⚙️ 2. Install .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x   
+
+      # 📦 3. Restore dependencys
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # 🧪 4. Tests & Coverage 
+      - name: Run tests and collect coverage
+        run: dotnet test --collect:"XPlat Code Coverage" --results-directory ./SnakeCoreTests/TestResults
+
+      # 🏷️ 5. Generate coverage badge
+      - name: Generate & update coverage badge
+        run: Scripts\coverage_badge.bat
+
+      # 💾 6. Push & commit changes
+      - name: Commit & push badge update
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git diff --quiet && echo "No changes to commit" || git commit -m "Update coverage badge"
+          git push

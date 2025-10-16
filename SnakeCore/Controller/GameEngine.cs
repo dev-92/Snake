@@ -1,11 +1,11 @@
-﻿using SnakeCore.Model.Entity;
+﻿using SnakeCore.Config;
+using SnakeCore.Enums;
+using SnakeCore.Model.Entity;
 using SnakeCore.Model.Entity.Collectables;
 using SnakeCore.Model.Entity.Snake;
-using SnakeCore.Services.UpdateService;
-using SnakeCore.Config;
-using SnakeCore.Enums;
-using SnakeCore.Services;
 using SnakeCore.Model.ValueObject;
+using SnakeCore.Services;
+using SnakeCore.Services.UpdateService;
 
 namespace SnakeCore.Controller
 {
@@ -93,11 +93,8 @@ namespace SnakeCore.Controller
         /// </summary>
         private void UpdateCollectables()
         {
-            while (this._collectableItems.Count < GameEngine.MAX_ITEMS)
-            {
-                this.SpawnCollectable();
-            }
-
+            this.SpawnCollectable();
+            
             foreach (CollectableItemModel item in this._collectableItems.ToList())
             {
                 bool shouldBeRemoved = false;
@@ -105,7 +102,6 @@ namespace SnakeCore.Controller
                 if (this.HasSnakeCollectedItem(item))
                 {
                     this.HandleItemCollected(item);
-                    this._audioService.PlayEffect(item.SoundEffect);
                     shouldBeRemoved = true;
                 }
                 else if (item.IsExpired())
@@ -126,6 +122,7 @@ namespace SnakeCore.Controller
         private void HandleItemCollected(CollectableItemModel item)
         {
             this._collectableHandler.Handle(item);
+            this._audioService.PlayEffect(item.SoundEffect);
         }
 
         /// <summary>
@@ -144,9 +141,12 @@ namespace SnakeCore.Controller
         /// </summary>
         private void SpawnCollectable()
         {
-            CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRndFreePosition());
-            this._collectableItems.Add(newItem);
-            this.GameboardModel.PlaceCollectableItem(newItem);
+            while(this._collectableItems.Count < GameEngine.MAX_ITEMS)
+            {
+                CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRndFreePosition());
+                this._collectableItems.Add(newItem);
+                this.GameboardModel.PlaceCollectableItem(newItem);
+            }
         }
 
         /// <summary>

@@ -21,12 +21,14 @@ namespace SnakeUi.Controller
     {
         private GameEngine _gameEngine { get; set; } = new(AudioManager.Instance);
         private DateTime _lastUpdate { get; set; } = DateTime.Now;
-        public List<CellModel> Cells { get; private set; }
+        public List<CellModel> Cells
+        {
+            get => this._gameEngine.GameboardModel.Cells;
+        }
         public InfoboardModel InfoboardModel { get; private set; }
 
         public GameManager()
         {
-            this.Cells = this._gameEngine.GameboardModel.Cells;
             this.InfoboardModel = this._gameEngine.InfoboardModel;
             CompositionTarget.Rendering += this.OnRendering;
         }
