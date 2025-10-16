@@ -1,4 +1,4 @@
-name: Build_and_test_project
+name: Build_and_test_SnakeCore
 
 on:
   push:
@@ -13,6 +13,7 @@ on:
 jobs:
   build-and-test:
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,10 +26,16 @@ jobs:
         run: dotnet workload restore
 
       - name: Restore dependencies
-        run: dotnet restore Snake.sln 
+        run: |
+          dotnet restore SnakeCore/SnakeCore.csproj
+          dotnet restore SnakeCoreTests/SnakeCoreTests.csproj
 
-      - name: Build
-        run: dotnet build Snake.sln --no-restore
+      # Build
+      - name: Build projects
+        run: |
+          dotnet build SnakeCore/SnakeCore.csproj --no-restore
+          dotnet build SnakeCoreTests/SnakeCoreTests.csproj --no-restore
 
-      - name: Test
-        run: dotnet test Snake.sln --no-build --verbosity normal
+      # Test
+      - name: Run tests
+        run: dotnet test SnakeCoreTests/SnakeCoreTests.csproj --no-build --verbosity normal
