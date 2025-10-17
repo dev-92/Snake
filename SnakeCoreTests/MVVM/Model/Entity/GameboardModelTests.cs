@@ -25,7 +25,7 @@ namespace SnakeCoreTests.MVVM.Model.Entity
         }
 
         [Fact]
-        public void GameboardModelConstructor_TotalCellAmountIs144_ThereWillBe12RowsAndColumns()
+        public void Constructor_TotalCellAmountIs144_ThereWillBe12RowsAndColumns()
         {
             // Arrange
             int sideLength = (int)Math.Sqrt(GameboardModelTests.CELL_AMOUNT);

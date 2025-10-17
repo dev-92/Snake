@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\Model\Entity\Snake\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SnakeCore\SnakeCore.csproj" />
   </ItemGroup>
 

@@ -30,10 +30,12 @@ namespace SnakeCore.Model.Entity.Snake
         private List<SnakeElement> InitSnakeTail()
         {
             List<SnakeElement> snakeElements = new List<SnakeElement>();
+
             for (int i = 0; i < CoreConstants.INITIAL_SNAKE_LENGTH; i++)
             {
                 snakeElements.Add(new SnakeElement(Position2D.Zero));
             }
+
             return snakeElements;
         }
 
@@ -43,8 +45,10 @@ namespace SnakeCore.Model.Entity.Snake
         private Position2D GetRandomStartPosition()
         {
             Random random = new Random();
+
             int xPos = random.Next(0, GameSettings.SideLength - 1);
             int yPos = random.Next(0, GameSettings.SideLength - 1);
+
             return new Position2D(xPos, yPos);
         }
 
@@ -56,11 +60,11 @@ namespace SnakeCore.Model.Entity.Snake
             int randomDirectionInt = new Random().Next(0, CoreConstants.MAX_DIRECTIONS_VARIANCE);
             this.CurrentDirection = randomDirectionInt switch
             {
-                (int)Direction.Up => Direction.Up,
-                (int)Direction.Right => Direction.Right,
-                (int)Direction.Down => Direction.Down,
-                (int)Direction.Left => Direction.Left,
-                _ => Direction.Up,
+                (int)Direction.Up       => Direction.Up,
+                (int)Direction.Right    => Direction.Right,
+                (int)Direction.Down     => Direction.Down,
+                (int)Direction.Left     => Direction.Left,
+                _                       => Direction.Up,
             };
         }
 
@@ -80,11 +84,11 @@ namespace SnakeCore.Model.Entity.Snake
         {
             return this.CurrentDirection switch
             {
-                Direction.Up => DirectionVector.Up,
+                Direction.Up    => DirectionVector.Up,
                 Direction.Right => DirectionVector.Right,
-                Direction.Down => DirectionVector.Down,
-                Direction.Left => DirectionVector.Left,
-                _ => Position2D.Zero
+                Direction.Down  => DirectionVector.Down,
+                Direction.Left  => DirectionVector.Left,
+                _               => Position2D.Zero
             };
         }
 
@@ -117,6 +121,7 @@ namespace SnakeCore.Model.Entity.Snake
         {
             if (this.Head.CurrentPosition.X < 0) this.Head.CurrentPosition.X += GameSettings.SideLength;
             if (this.Head.CurrentPosition.Y < 0) this.Head.CurrentPosition.Y += GameSettings.SideLength;
+
             if (this.Head.CurrentPosition.X >= GameSettings.SideLength) this.Head.CurrentPosition.X -= GameSettings.SideLength;
             if (this.Head.CurrentPosition.Y >= GameSettings.SideLength) this.Head.CurrentPosition.Y -= GameSettings.SideLength;
         }
@@ -127,8 +132,10 @@ namespace SnakeCore.Model.Entity.Snake
         private void MoveTail()
         {
             if (this.Tail.IsEmpty()) return;
+
             this.Tail[0].PreviousPosition = this.Tail[0].CurrentPosition;
             this.Tail[0].CurrentPosition = this.Head.PreviousPosition;
+
             for (int i = 0; i < this.Tail.Count - 1; i++)
             {
                 this.Tail[i + 1].PreviousPosition = this.Tail[i + 1].CurrentPosition;
