@@ -7,7 +7,7 @@ namespace SnakeCore.Model.Entity.Collectables
     /// Factory class responsible for creating instances of collectible items in the game.
     /// It generates a random <see cref="CollectableItemModel"/> based on available types.
     /// </summary>
-    internal class CollectableItemFactory
+    public class CollectableItemFactory
     {
         /// <summary>
         /// Creates a random collectible item at the specified free position on the game field.

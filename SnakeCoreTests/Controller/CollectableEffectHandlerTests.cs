@@ -20,6 +20,7 @@ namespace SnakeCoreTests
 
         public CollectableEffectHandlerTests()
         {
+            // Arrange common setup
             this._snake = new SnakeModel();
             this._infoboardModel = new InfoboardModel();
             this._collectableEffectHandler = new CollectableEffectHandler(this._snake, this._infoboardModel);
@@ -34,23 +35,40 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleApple_UpdateScore_ScoreIsLowerThanBefore()
         {
-            this._collectableEffectHandler.Handle(new AppleCollectable(Position2D.Zero));
+            // Arrange
+            AppleCollectable apple = new AppleCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(apple);
+
+            // Assert
             Assert.True(this._infoboardModel.Score < this._oldScore);
         }
 
         [Fact]
         public void HandleApple_UpdateSpeedFactor_SpeedFactorIsLowerThanBefore()
         {
-            this._collectableEffectHandler.Handle(new AppleCollectable(Position2D.Zero));
+            // Arrange
+            AppleCollectable apple = new AppleCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(apple);
+
+            // Assert
             Assert.True(this._infoboardModel.SpeedFactor < this._oldSpeedFactor);
         }
 
         [Fact]
         public void HandleApple_UpdateTailLength_TailLengthIsSameAsBefore()
         {
-            this._collectableEffectHandler.Handle(new AppleCollectable(Position2D.Zero));
+            // Arrange
+            AppleCollectable apple = new AppleCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(apple);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.Equal(this._oldTailLength, this._snake.Tail.Count);
         }
 
@@ -58,21 +76,39 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleCherry_UpdateScore_ScoreIsHigherThanBefore()
         {
-            this._collectableEffectHandler.Handle(new CherryCollectable(Position2D.Zero));
+            // Arrange
+            CherryCollectable cherry = new CherryCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(cherry);
+
+            // Assert
             Assert.True(this._infoboardModel.Score > this._oldScore);
         }
 
         [Fact]
         public void HandleCherry_UpdateSpeedFactor_SpeedFactorIsHigherThanBefore()
         {
-            this._collectableEffectHandler.Handle(new CherryCollectable(Position2D.Zero));
+            // Arrange
+            CherryCollectable cherry = new CherryCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(cherry);
+
+            // Assert
             Assert.True(this._infoboardModel.SpeedFactor > this._oldSpeedFactor);
         }
 
         [Fact]
         public void HandleCherry_UpdateTailLength_TailLengthIsSameAsBefore()
         {
-            this._collectableEffectHandler.Handle(new CherryCollectable(Position2D.Zero));
+            // Arrange
+            CherryCollectable cherry = new CherryCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(cherry);
+
+            // Assert
             Assert.Equal(this._oldTailLength, this._snake.Tail.Count);
         }
 
@@ -80,25 +116,41 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleDuck_UpdateScore_ScoreIsHigherThanBefore()
         {
-            this._collectableEffectHandler.Handle(new DuckCollectable(Position2D.Zero));
+            // Arrange
+            DuckCollectable duck = new DuckCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(duck);
+
+            // Assert
             Assert.True(this._infoboardModel.Score > this._oldScore);
         }
 
         [Fact]
         public void HandleDuck_UpdateTailLength_TailLengthIsGreaterThanBefore()
         {
-            this._collectableEffectHandler.Handle(new DuckCollectable(Position2D.Zero));
+            // Arrange
+            DuckCollectable duck = new DuckCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(duck);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.True(this._snake.Tail.Count > this._oldTailLength);
         }
 
         [Fact]
         public void HandleDuck_UpdateTailLength_LengthIncreasedByBaseScore()
         {
-            this._collectableEffectHandler.Handle(new DuckCollectable(Position2D.Zero));
+            // Arrange
+            DuckCollectable duck = new DuckCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(duck);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.Equal(this._oldLengthOfSnake + CollectableConfig.Duck.BASE_SCORE, this._infoboardModel.LengthOfSnake);
         }
 
@@ -106,25 +158,41 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleMouse_UpdateScore_ScoreIsHigherThanBefore()
         {
-            this._collectableEffectHandler.Handle(new MouseCollectable(Position2D.Zero));
+            // Arrange
+            MouseCollectable mouse = new MouseCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(mouse);
+
+            // Assert
             Assert.True(this._infoboardModel.Score > this._oldScore);
         }
 
         [Fact]
         public void HandleMouse_UpdateTailLength_TailLengthIsGreaterThanBefore()
         {
-            this._collectableEffectHandler.Handle(new MouseCollectable(Position2D.Zero));
+            // Arrange
+            MouseCollectable mouse = new MouseCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(mouse);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.True(this._snake.Tail.Count > this._oldTailLength);
         }
 
         [Fact]
         public void HandleMouse_UpdateTailLength_LengthIncreasedByBaseScore()
         {
-            this._collectableEffectHandler.Handle(new MouseCollectable(Position2D.Zero));
+            // Arrange
+            MouseCollectable mouse = new MouseCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(mouse);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.Equal(this._oldLengthOfSnake + CollectableConfig.Mouse.BASE_SCORE, this._infoboardModel.LengthOfSnake);
         }
 
@@ -132,25 +200,41 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleRabbit_UpdateScore_ScoreIsHigherThanBefore()
         {
-            this._collectableEffectHandler.Handle(new RabbitCollectable(Position2D.Zero));
+            // Arrange
+            RabbitCollectable rabbit = new RabbitCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(rabbit);
+
+            // Assert
             Assert.True(this._infoboardModel.Score > this._oldScore);
         }
 
         [Fact]
         public void HandleRabbit_UpdateTailLength_TailLengthIsGreaterThanBefore()
         {
-            this._collectableEffectHandler.Handle(new RabbitCollectable(Position2D.Zero));
+            // Arrange
+            RabbitCollectable rabbit = new RabbitCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(rabbit);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.True(this._snake.Tail.Count > this._oldTailLength);
         }
 
         [Fact]
         public void HandleRabbit_UpdateTailLength_LengthIncreasedByBaseScore()
         {
-            this._collectableEffectHandler.Handle(new RabbitCollectable(Position2D.Zero));
+            // Arrange
+            RabbitCollectable rabbit = new RabbitCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(rabbit);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.Equal(this._oldLengthOfSnake + CollectableConfig.Rabbit.BASE_SCORE, this._infoboardModel.LengthOfSnake);
         }
 
@@ -158,16 +242,27 @@ namespace SnakeCoreTests
         [Fact]
         public void HandleBomb_UpdateScore_ScoreIsLowerThanBefore()
         {
-            this._collectableEffectHandler.Handle(new BombCollectable(Position2D.Zero));
+            // Arrange
+            BombCollectable bomb = new BombCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(bomb);
+
+            // Assert
             Assert.True(this._infoboardModel.Score < this._oldScore);
         }
 
         [Fact]
         public void HandleBomb_UpdateTailLength_TailLengthIsSameAsBefore()
         {
-            this._collectableEffectHandler.Handle(new BombCollectable(Position2D.Zero));
+            // Arrange
+            BombCollectable bomb = new BombCollectable(Position2D.Zero);
+
+            // Act
+            this._collectableEffectHandler.Handle(bomb);
             this._collectableEffectHandler.Update();
 
+            // Assert
             Assert.Equal(this._oldTailLength, this._snake.Tail.Count);
         }
     }
