@@ -8,12 +8,12 @@
         /// <summary>
         /// The game is actively running and updating.
         /// </summary>
-        Running,
+        Paused,
 
         /// <summary>
         /// The game is temporarily paused and not updating.
         /// </summary>
-        Paused,
+        Running,
 
         /// <summary>
         /// The game has ended, due to collision.

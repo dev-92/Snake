@@ -67,8 +67,8 @@ namespace SnakeUi.Services
         {
             return new()
             {
-                { GameMusicType.GameLoop1, "ms-appx:///Assets/Sounds/GameSoundLoop1.mp3" },
-                { GameMusicType.GameLoop2, "ms-appx:///Assets/Sounds/GameSoundLoop2.mp3" }
+                { GameMusicType.GameLoop, "ms-appx:///Assets/Sounds/GameSoundLoop1.mp3" },
+                { GameMusicType.MenuLoop, "ms-appx:///Assets/Sounds/GameSoundLoop2.mp3" }
             };
         }
 

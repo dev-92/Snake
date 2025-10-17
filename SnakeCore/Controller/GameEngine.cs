@@ -15,12 +15,11 @@ namespace SnakeCore.Controller
     /// </summary>
     public class GameEngine
     {
-        private const int MAX_ITEMS = 5;
         private UpdateComposite _updateGroup { get; set; } = new();
 
         public GameboardModel GameboardModel { get; private set; }
         public InfoboardModel InfoboardModel { get; private set; } = new();
-        private SnakeModel _snake { get; set; } = new();
+        public SnakeModel Snake { get; private set; } = new();
 
         private IAudioService _audioService { get; set; }
 
@@ -30,14 +29,19 @@ namespace SnakeCore.Controller
         public GameState GameState { get; private set; } = GameState.Paused;
         private Direction _currentDirection { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="audioservice"></param>
+        /// <param name="collectableItemFactory">Interface for test purposes</param>
         public GameEngine(IAudioService audioservice)
         {
             this._audioService = audioservice;
 
-            this.GameboardModel = new GameboardModel(this._snake);
-            this._collectableHandler = new CollectableEffectHandler(this._snake, this.InfoboardModel);
+            this.GameboardModel = new GameboardModel(this.Snake);
+            this._collectableHandler = new CollectableEffectHandler(this.Snake, this.InfoboardModel);
 
-            this._updateGroup.AddParticipant(this._snake);
+            this._updateGroup.AddParticipant(this.Snake);
             this._updateGroup.AddParticipant(this.GameboardModel);
             this._updateGroup.AddParticipant(this._collectableHandler);
         }
@@ -48,7 +52,7 @@ namespace SnakeCore.Controller
         public void Run()
         {
             this.GameState = GameState.Running;
-            this._audioService.PlayMusic(GameMusicType.GameLoop1);
+            this._audioService.PlayMusic(GameMusicType.GameLoop);
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private void SetSnakeDirection()
         {
-            this._snake.SetDirection(this._currentDirection);
+            this.Snake.SetDirection(this._currentDirection);
         }
 
         /// <summary>
@@ -92,9 +96,7 @@ namespace SnakeCore.Controller
         /// Manages spawning, collecting, and removing collectables.
         /// </summary>
         private void UpdateCollectables()
-        {
-            this.SpawnCollectable();
-            
+        {            
             foreach (CollectableItemModel item in this._collectableItems.ToList())
             {
                 bool shouldBeRemoved = false;
@@ -114,6 +116,8 @@ namespace SnakeCore.Controller
                     this.RemoveCollectable(item);
                 }
             }
+
+            this.SpawnCollectable();
         }
 
         /// <summary>
@@ -141,7 +145,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private void SpawnCollectable()
         {
-            while(this._collectableItems.Count < GameEngine.MAX_ITEMS)
+            while(this._collectableItems.Count < CollectableConfig.MAX_ITEMS)
             {
                 CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRndFreePosition());
                 this._collectableItems.Add(newItem);
@@ -173,8 +177,8 @@ namespace SnakeCore.Controller
 
                 freePosition = new Position2D(xPos, yPos);
             }
-            while (this._snake.Tail.Any(s => s.CurrentPosition == freePosition) ||
-                   this._snake.Head.CurrentPosition == freePosition);
+            while (this.Snake.Tail.Any(s => s.CurrentPosition == freePosition) ||
+                   this.Snake.Head.CurrentPosition == freePosition);
 
             return freePosition;
         }
@@ -184,7 +188,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private bool HasSnakeCollectedItem(CollectableItemModel item)
         {
-            return this._snake.Head.CurrentPosition == item.Position;
+            return this.Snake.Head.CurrentPosition == item.Position;
         }
 
         /// <summary>
@@ -192,7 +196,7 @@ namespace SnakeCore.Controller
         /// </summary>
         private bool HasHeadCollidedWithTail()
         {
-            return this._snake.Tail.Any(s => s.CurrentPosition == this._snake.Head.CurrentPosition);
+            return this.Snake.Tail.Any(s => s.CurrentPosition == this.Snake.Head.CurrentPosition);
         }
     }
 }

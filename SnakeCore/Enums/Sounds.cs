@@ -39,11 +39,11 @@
         /// <summary>
         /// The first main game loop music track.
         /// </summary>
-        GameLoop1,
+        GameLoop,
 
         /// <summary>
         /// The second main game loop music track.
         /// </summary>
-        GameLoop2
+        MenuLoop
     }
 }

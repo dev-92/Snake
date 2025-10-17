@@ -5,6 +5,8 @@
     /// </summary>
     public static class CollectableConfig
     {
+        public const int MAX_ITEMS = 5;
+
         /// <summary>
         /// Configuration for Apple collectables.
         /// </summary>
