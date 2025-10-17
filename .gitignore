@@ -1,13 +1,20 @@
 .vs/
+.config
+.coverage-html
 
 # Snake Ui
 SnakeUi/bin/
 SnakeUi/obj/
+SnakeUi/TODO_NOTES.cs
 
 # SnakeCore 
 SnakeCore/bin/
 SnakeCore/obj/
+SnakeCore/obj/Debug/
+
 
 # SnakeCoreTests
 SnakeCoreTests/bin/
 SnakeCoreTests/obj/
+SnakeCoreTests/CoverageReport
+SnakeCoreTests/TestResults
