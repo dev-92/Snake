@@ -48,7 +48,7 @@ namespace SnakeUi.MVVM.View
         private void SetWindowConfiguration()
         {
             this.AppWindow.Title = UiConstants.WINDOW_TITLE;
-            this.AppWindow.SetIcon(UiConstants.PATH_TO_SNAKE_ICON);
+            //this.AppWindow.SetIcon(@"Assets/snake_outline.png");
 
             this.AppWindow.Resize(new SizeInt32(UiConstants.WINDOW_WIDTH, UiConstants.WINDOW_HEIGHT));
             this.AppWindow.Move(this._windowOpeningPos);

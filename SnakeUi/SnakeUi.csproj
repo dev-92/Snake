@@ -86,7 +86,10 @@
     <Content Update="Assets\Collectables\rabbit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\snake_icon.ico">
+    <Content Update="Assets\snake_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\snake_outline.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Sounds\BoostSound.mp3">

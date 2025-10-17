@@ -24,9 +24,9 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0">
                 <Image 
-                    Source="Assets/snake_icon.ico" 
-                    Width="40" 
-                    Height="40"
+                    Source="/Assets/snake_logo.png"
+                    Width="24" 
+                    Height="24"
                     />
 
                 <TextBlock 
