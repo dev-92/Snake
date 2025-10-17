@@ -13,5 +13,23 @@ copies or substantial portions of the Software.
 
 ---
 
-Third-party assets (images, sounds, music) may be subject to separate licenses. 
+Third-Party Libraries:
+
+This project uses the following third-party libraries, which are licensed under their respective licenses:
+
+1. xUnit
+   - License: Apache License 2.0
+   - SPDX Identifier: Apache-2.0
+   - Link: http://www.apache.org/licenses/LICENSE-2.0
+
+2. Moq
+   - License: BSD 3-Clause "New" or "Revised" License
+   - SPDX Identifier: BSD-3-Clause
+   - Link: https://spdx.org/licenses/BSD-3-Clause.html
+
+Use of these libraries is subject to their own license terms. Your use, reproduction, or distribution of these libraries must comply with the licenses listed above.
+
+---
+
+Third-party assets (images, sounds, music) may be subject to separate licenses.
 See README.md for details.
