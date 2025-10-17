@@ -1,6 +1,6 @@
 .vs/
 .config
-.coverage-html
+coverage-html/
 
 # Snake Ui
 SnakeUi/bin/
