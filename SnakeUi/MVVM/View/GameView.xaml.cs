@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using SnakeCore.Model.Entity;
+using SnakeUi.Controller;
 using System.Collections.Generic;
 
 namespace SnakeUi.MVVM.View
@@ -14,12 +15,12 @@ namespace SnakeUi.MVVM.View
         private GameboardView _gameboardView { get; set; }
         private InfoboardView _infoboardView { get; set; }
 
-        public GameView(List<CellModel> cells, InfoboardModel infoboardModel)
+        public GameView(GameManager gameManger)
         {
             this.InitializeComponent();
 
-            this._gameboardView = new GameboardView(cells);
-            this._infoboardView = new InfoboardView(infoboardModel);
+            this._gameboardView = new GameboardView(gameManger.Cells);
+            this._infoboardView = new InfoboardView(gameManger.InfoboardModel);
 
             this.AddGameboardTo(this.UiLayout);
             this.AddInfoboardTo(this.UiLayout);

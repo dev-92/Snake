@@ -4,7 +4,8 @@ using Microsoft.UI.Xaml;
 using SnakeCore.Enums;
 using SnakeUi.Config;
 using SnakeUi.Controller;
-using System;
+using SnakeUi.Enums;
+using System.ComponentModel;
 using Windows.Graphics;
 using Windows.System;
 
@@ -14,32 +15,48 @@ namespace SnakeUi.MVVM.View
     /// Represents the main application window.
     /// Hosts the game view, manages window configuration, and handles keyboard input for the snake.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainWindow : Window , INotifyPropertyChanged
     {
         private readonly PointInt32 _windowOpeningPos = new PointInt32(0, 0);
         private Thickness _margin = new Thickness(10, 40, 10, 10);
 
-        private GameManager _gameManager { get; set; }
-        private GameView _gameView { get; set; }
-
         private AppStateManager _appStateManager { get; set; } = new AppStateManager();
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public MainWindow()
         {
             this.InitializeComponent();
             this.SetWindowConfiguration();
-    
-            this._gameManager = new GameManager();
 
-            this._gameView = new GameView(cells: this._gameManager.Cells,
-                                          infoboardModel: this._gameManager.InfoboardModel)
+            this._appStateManager.PropertyChanged += this.SetCurrentScreen;
+            this._appStateManager.AppState = AppState.MainMenu;
+            //ProjectTreePrinter.PrintProjectTree(@"C:\Users\ty-ro\source\repos\Snake\SnakeUi");
+        }
+
+        public void SetCurrentScreen(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(AppStateManager.AppState)) return;
+
+            this.WindowLayout.Children.Clear();
+
+            switch(this._appStateManager.AppState)
             {
-                Margin = this._margin
-            };
-            this.WindowLayout.Children.Add(this._gameView);
+                case AppState.MainMenu:
+                    this.WindowLayout.Children.Add(new MainMenuView(this._appStateManager));
+                    break;
 
-            this._gameManager.StartGame();
+                case AppState.Playing:
+                    this.WindowLayout.Children.Add(new GameView(this._appStateManager.GameManager)
+                    {
+                        Margin = this._margin
+                    });
+                    break;
 
+                case AppState.GameOver:
+                    this.WindowLayout.Children.Add(new GameOverView(this._appStateManager));
+                    break;
+            }
         }
 
         /// <summary>
@@ -48,7 +65,6 @@ namespace SnakeUi.MVVM.View
         private void SetWindowConfiguration()
         {
             this.AppWindow.Title = UiConstants.WINDOW_TITLE;
-            //this.AppWindow.SetIcon(@"Assets/snake_outline.png");
 
             this.AppWindow.Resize(new SizeInt32(UiConstants.WINDOW_WIDTH, UiConstants.WINDOW_HEIGHT));
             this.AppWindow.Move(this._windowOpeningPos);
@@ -73,16 +89,16 @@ namespace SnakeUi.MVVM.View
         {
             Direction? newDirection = e.Key switch
             {
-                VirtualKey.Up => Direction.Up,
-                VirtualKey.Down => Direction.Down,
-                VirtualKey.Left => Direction.Left,
+                VirtualKey.Up    => Direction.Up,
+                VirtualKey.Down  => Direction.Down,
+                VirtualKey.Left  => Direction.Left,
                 VirtualKey.Right => Direction.Right,
-                _ => null
+                _                => null
             };
 
             if (newDirection.HasValue)
             {
-                this._gameManager.SetDirection(newDirection.Value);
+                this._appStateManager.GameManager.SetDirection(newDirection.Value);
             }
         }
     }

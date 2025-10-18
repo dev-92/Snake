@@ -27,6 +27,8 @@ namespace SnakeCore.Controller
         private CollectableEffectHandler _collectableHandler { get; set; }
 
         public GameState GameState { get; private set; } = GameState.Paused;
+        public event Action? GameOver;
+
         private Direction _currentDirection { get; set; }
 
         /// <summary>
@@ -62,6 +64,14 @@ namespace SnakeCore.Controller
         {
             this.GameState = GameState.Paused;
             this._audioService.StopMusic();
+        }
+
+        public void Reset()
+        {
+            this.Snake = new SnakeModel();
+            this.GameboardModel = new GameboardModel(this.Snake);
+            this._collectableHandler = new CollectableEffectHandler(this.Snake, this.InfoboardModel);
+            this._collectableItems = new List<CollectableItemModel>();
         }
 
         /// <summary>
@@ -137,6 +147,7 @@ namespace SnakeCore.Controller
             if (this.HasHeadCollidedWithTail())
             {
                 this.Stop();
+                this.GameOver?.Invoke();
             }
         }
 

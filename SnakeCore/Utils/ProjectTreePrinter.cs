@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
-using System.IO;
 
 namespace SnakeCore.Utils
 {
     /// <summary>
     /// Provides utility methods to print the folder and file structure of a project directory.
     /// </summary>
-    class ProjectTreePrinter
+    public class ProjectTreePrinter
     {
         /// <summary>
         /// Recursively prints the directory tree starting from the specified path.
@@ -24,8 +23,16 @@ namespace SnakeCore.Utils
 
             foreach (var dir in Directory.GetDirectories(path))
             {
-                Debug.WriteLine(indent + "[D] " + Path.GetFileName(dir));
-                ProjectTreePrinter.PrintProjectTree(dir, indent + "    ");
+                var dirName = Path.GetFileName(dir);
+
+                if (dirName.Equals("bin", StringComparison.OrdinalIgnoreCase) ||
+                    dirName.Equals("obj", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                Debug.WriteLine(indent + "[D] " + dirName);
+                PrintProjectTree(dir, indent + "    ");
             }
 
             foreach (var file in Directory.GetFiles(path))

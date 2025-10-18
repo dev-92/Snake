@@ -20,6 +20,7 @@
     <None Remove="Assets\Collectables\mouse.png" />
     <None Remove="Assets\Collectables\rabbit.png" />
     <None Remove="MVVM\View\GameboardView.xaml" />
+    <None Remove="MVVM\View\GameOverView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -113,6 +114,16 @@
     <Content Update="Assets\Sounds\SlowDownSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\GameOverView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\MainMenuView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
