@@ -117,8 +117,7 @@ namespace SnakeUi.Services
         /// <param name="type">The type of background music to play.</param>
         public void PlayMusic(GameMusicType type)
         {
-            if (this.IsMusicAlreadyPlaying(type))
-                return;
+            if (this.IsMusicAlreadyPlaying(type))return;
 
             if (!this._musicPaths.TryGetValue(type, out var path)) return;
 

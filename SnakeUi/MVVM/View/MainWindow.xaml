@@ -25,8 +25,10 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0">
                 <Image 
                     Source="/Assets/snake_logo.png"
-                    Width="24" 
-                    Height="24"
+                    Width="18" 
+                    Height="18"
+                    VerticalAlignment="Center" 
+                    Margin="5,0,0,0"
                     />
 
                 <TextBlock 
@@ -34,9 +36,14 @@
                     Foreground="White" 
                     FontSize="16" 
                     VerticalAlignment="Center" 
-                    Margin="8,0,0,0"
+                    Margin="5,0,0,0"
                     />
             </StackPanel>
         </Grid>
+
+        <Grid
+            x:Name="ContentGrid">
+        </Grid>
+        
     </Grid>
 </Window>

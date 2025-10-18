@@ -30,7 +30,6 @@ namespace SnakeUi.Controller
             this._audioService = audioService;
             this.SetStateToMainMenu();
 
-
             this.GameManager.OnGameOver += () =>
             {
                 this.SetStateToGameOver();

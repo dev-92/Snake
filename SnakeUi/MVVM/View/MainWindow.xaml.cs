@@ -39,23 +39,23 @@ namespace SnakeUi.MVVM.View
         {
             if (e.PropertyName != nameof(AppStateManager.AppState)) return;
 
-            this.WindowLayout.Children.Clear();
+            this.ContentGrid.Children.Clear();
 
-            switch(this._appStateManager.AppState)
+            switch (this._appStateManager.AppState)
             {
                 case AppState.MainMenu:
-                    this.WindowLayout.Children.Add(new MainMenuView(this._appStateManager));
+                    this.ContentGrid.Children.Add(new MainMenuView(this._appStateManager));
                     break;
 
                 case AppState.Playing:
-                    this.WindowLayout.Children.Add(new GameView(this._appStateManager.GameManager)
+                    this.ContentGrid.Children.Add(new GameView(this._appStateManager.GameManager)
                     {
                         Margin = this._margin
                     });
                     break;
 
                 case AppState.GameOver:
-                    this.WindowLayout.Children.Add(new GameOverView(this._appStateManager));
+                    this.ContentGrid.Children.Add(new GameOverView(this._appStateManager));
                     break;
             }
         }
