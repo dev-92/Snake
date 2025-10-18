@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+
 using SnakeUi.Controller;
-using SnakeUi.Enums;
 
 namespace SnakeUi.MVVM.View;
 
@@ -17,11 +17,11 @@ public sealed partial class GameOverView : UserControl
 
     private void TryAgain_Click(object sender, RoutedEventArgs e)
     {
-        this._appStateManager.AppState = AppState.Playing;
+        this._appStateManager.SetStateToPlaying();
     }
 
     private void MainMenu_Click(object sender, RoutedEventArgs e)
     {
-        this._appStateManager.AppState = AppState.MainMenu;
+        this._appStateManager.SetStateToMainMenu();
     }
 }

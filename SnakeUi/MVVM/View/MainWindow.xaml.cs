@@ -5,6 +5,7 @@ using SnakeCore.Enums;
 using SnakeUi.Config;
 using SnakeUi.Controller;
 using SnakeUi.Enums;
+using SnakeUi.Services;
 using System.ComponentModel;
 using Windows.Graphics;
 using Windows.System;
@@ -20,7 +21,7 @@ namespace SnakeUi.MVVM.View
         private readonly PointInt32 _windowOpeningPos = new PointInt32(0, 0);
         private Thickness _margin = new Thickness(10, 40, 10, 10);
 
-        private AppStateManager _appStateManager { get; set; } = new AppStateManager();
+        private AppStateManager _appStateManager { get; set; } = new AppStateManager(AudioManager.Instance);
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

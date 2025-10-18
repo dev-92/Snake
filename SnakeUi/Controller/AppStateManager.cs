@@ -1,4 +1,6 @@
-﻿using SnakeUi.Enums;
+﻿using SnakeCore.Enums;
+using SnakeCore.Services;
+using SnakeUi.Enums;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -19,11 +21,16 @@ namespace SnakeUi.Controller
 
         public GameManager GameManager { get; private set; } = new();
 
+        private IAudioService _audioService { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public AppStateManager()
+        public AppStateManager(IAudioService audioService)
         {
-            this.AppState = AppState.MainMenu;
+            this._audioService = audioService;
+            this.SetStateToMainMenu();
+
+
             this.GameManager.OnGameOver += () =>
             {
                 this.SetStateToGameOver();
@@ -32,6 +39,7 @@ namespace SnakeUi.Controller
 
         public void SetStateToMainMenu()
         {
+            this._audioService.PlayMusic(GameMusicType.MenuLoop);
             this.AppState = AppState.MainMenu;
         }
 
@@ -44,8 +52,12 @@ namespace SnakeUi.Controller
         public void SetStateToGameOver()
         {
             this.AppState = AppState.GameOver;
+
             this.GameManager.StopGame();
             this.GameManager.Reset();
+
+            this._audioService.PlayMusic(GameMusicType.MenuLoop);
+
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

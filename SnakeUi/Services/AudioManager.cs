@@ -25,11 +25,11 @@ namespace SnakeUi.Services
         {
             get
             {
-                if (_instance == null)
+                if (AudioManager._instance == null)
                 {
-                    _instance = new AudioManager();
+                    AudioManager._instance = new AudioManager();
                 }
-                return _instance;
+                return AudioManager._instance;
             }
         }
 
@@ -37,6 +37,7 @@ namespace SnakeUi.Services
         private readonly Dictionary<GameMusicType, string> _musicPaths;
 
         private MediaPlayer? _musicPlayer { get; set; }
+        private GameMusicType? _currentMusicType = null;
         private readonly List<MediaPlayer> _activeEffects = new();
 
         private AudioManager()
@@ -67,8 +68,8 @@ namespace SnakeUi.Services
         {
             return new()
             {
-                { GameMusicType.GameLoop, "ms-appx:///Assets/Sounds/GameSoundLoop1.mp3" },
-                { GameMusicType.MenuLoop, "ms-appx:///Assets/Sounds/GameSoundLoop2.mp3" }
+                { GameMusicType.GameLoop, "ms-appx:///Assets/Sounds/GameLoop.mp3" },
+                { GameMusicType.MenuLoop, "ms-appx:///Assets/Sounds/MenuLoop.mp3" }
             };
         }
 
@@ -97,11 +98,28 @@ namespace SnakeUi.Services
         }
 
         /// <summary>
+        /// Prüft, ob gerade die gewünschte Musik schon läuft.
+        /// </summary>
+        /// <param name="type">Der Typ der Musik, die geprüft werden soll.</param>
+        /// <returns>True, wenn die Musik bereits läuft, sonst false.</returns>
+        private bool IsMusicAlreadyPlaying(GameMusicType type)
+        {
+            return this._currentMusicType.HasValue
+                   && this._currentMusicType.Value == type
+                   && this._musicPlayer != null
+                   && this._musicPlayer.CurrentState == MediaPlayerState.Playing;
+        }
+
+        /// <summary>
         /// Plays the specified background music in a loop, replacing any currently playing music.
+        /// If the requested music is already playing, it continues without restarting.
         /// </summary>
         /// <param name="type">The type of background music to play.</param>
         public void PlayMusic(GameMusicType type)
         {
+            if (this.IsMusicAlreadyPlaying(type))
+                return;
+
             if (!this._musicPaths.TryGetValue(type, out var path)) return;
 
             this._musicPlayer?.Dispose();
@@ -112,6 +130,7 @@ namespace SnakeUi.Services
                 Volume = 0.4
             };
             this._musicPlayer.Play();
+            this._currentMusicType = type;
         }
 
         /// <summary>
@@ -120,6 +139,7 @@ namespace SnakeUi.Services
         public void StopMusic()
         {
             this._musicPlayer?.Pause();
+            this._currentMusicType = null;
         }
     }
 }
