@@ -9,19 +9,18 @@ This project was created **as a learning project** to take my first steps in **d
 
 ## 1 Features
 
-- Snake-inspired gameplay with **smooth controls**  
+- Snake-inspired gameplay
 - Multiple **collectible prey items**, each with unique effects  
 - Fully structured using the **MVVM architecture**  
 - Emphasis on **clean code principles** for maintainability  
 - Implementation of common **design patterns**  
 - Project is **testable** due to separation of UI and core logic  
-- **Unit testing prepared** (currently only one basic test is available)  
+- **Unit tests** for main core logic
 
 ## 2 Planned Features
-- Automated **unit testing** triggered on push (not yet implemented)  
-- Automatic **tagging** of releases (not yet implemented)  
-- Game over mechanics  
-- Title screen  
+- Automatic **tagging** of releases (not yet implemented)
+- Redesign main menu & game over screens
+- Settings menu
 - Highscore tracking  
 
 ## 3 Architecture
@@ -32,13 +31,12 @@ The project follows the **MVVM pattern**:
 - **ViewModel**: Bridges the Model and View, exposing data in a testable way  
 - **View**: User interface, responsible for rendering the game  
 
-This separation ensures **testability** and **scalability**.
+This separation ensures **testability**
 
 ## 4 Testing
 
 - Core game logic is separated from UI for easier unit testing  
-- **Currently only one unit test is available**  
-- Future: Automated tests to run on every push  
+- Automated tests to run on every push  
 
 ## 5 License
 
