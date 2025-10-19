@@ -1,4 +1,4 @@
-name: PassingTests
+name: Core Unit Tests
 
 on:
   push:
