@@ -11,7 +11,7 @@ namespace SnakeCore.Controller
 {
     /// <summary>
     /// Core controller that manages the main game loop, updates all entities,
-    /// and handles collectables, collisions, and game state changes.
+    /// handles collectables, collisions, and manages the game state.
     /// </summary>
     public class GameEngine
     {
@@ -31,10 +31,9 @@ namespace SnakeCore.Controller
         private Direction _currentDirection { get; set; }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the GameEngine class.
         /// </summary>
-        /// <param name="audioservice"></param>
-        /// <param name="collectableItemFactory">Interface for test purposes</param>
+        /// <param name="audioservice">The audio service for music and sound effects.</param>
         public GameEngine(IAudioService audioservice)
         {
             this._audioService = audioservice;
@@ -65,6 +64,9 @@ namespace SnakeCore.Controller
             this._audioService.StopMusic();
         }
 
+        /// <summary>
+        /// Resets the game to its initial state.
+        /// </summary>
         public void Reset()
         {
             this.Snake = new SnakeModel();
@@ -82,17 +84,17 @@ namespace SnakeCore.Controller
             GameSettings.UpdateSpeedMillis = CoreConstants.BASIC_UPDATE_MILLIS;
         }
 
-
         /// <summary>
-        /// Sets the direction for the snake movement.
+        /// Sets the movement direction for the snake.
         /// </summary>
+        /// <param name="newDirection">The new direction for the snake to move.</param>
         public void SetDirection(Direction newDirection)
         {
             this._currentDirection = newDirection;
         }
 
         /// <summary>
-        /// Updates the snake’s movement direction.
+        /// Updates the snake’s movement direction based on the current input.
         /// </summary>
         private void SetSnakeDirection()
         {
@@ -115,7 +117,7 @@ namespace SnakeCore.Controller
         /// Manages spawning, collecting, and removing collectables.
         /// </summary>
         private void UpdateCollectables()
-        {            
+        {
             foreach (CollectableItemModel item in this._collectableItems.ToList())
             {
                 bool shouldBeRemoved = false;
@@ -140,8 +142,9 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Applies the effect of a collected item.
+        /// Applies the effect of a collected item and plays its sound effect.
         /// </summary>
+        /// <param name="item">The collected item to handle.</param>
         private void HandleItemCollected(CollectableItemModel item)
         {
             this._collectableHandler.Handle(item);
@@ -149,7 +152,7 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Checks for collisions with the snake’s tail and stops the game if one occurs.
+        /// Checks for collisions between the snake's head and its tail, triggering game over if detected.
         /// </summary>
         private void CheckCollision()
         {
@@ -161,11 +164,11 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Spawns a new collectable item at a random free position.
+        /// Spawns a new collectable item at a random free position until the maximum count is reached.
         /// </summary>
         private void SpawnCollectable()
         {
-            while(this._collectableItems.Count < CollectableConfig.MAX_ITEMS)
+            while (this._collectableItems.Count < CollectableConfig.MAX_ITEMS)
             {
                 CollectableItemModel newItem = CollectableItemFactory.CreateRandomCollectableItem(this.GetRndFreePosition());
                 this._collectableItems.Add(newItem);
@@ -174,8 +177,9 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Removes a collectable from the board and active list.
+        /// Removes a collectable item from the board and the active item list.
         /// </summary>
+        /// <param name="item">The item to remove.</param>
         private void RemoveCollectable(CollectableItemModel item)
         {
             this.GameboardModel.RemoveCollectableItem(item);
@@ -183,8 +187,9 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Finds a random free position on the game board that is not occupied by the snake.
+        /// Finds a random free position on the game board not occupied by the snake.
         /// </summary>
+        /// <returns>A free position for placing a collectable.</returns>
         private Position2D GetRndFreePosition()
         {
             Random random = new();
@@ -204,16 +209,19 @@ namespace SnakeCore.Controller
         }
 
         /// <summary>
-        /// Checks if the snake has collected a given item.
+        /// Determines if the snake has collected a specific item.
         /// </summary>
+        /// <param name="item">The collectable item to check.</param>
+        /// <returns>True if the snake collected the item; otherwise false.</returns>
         private bool HasSnakeCollectedItem(CollectableItemModel item)
         {
             return this.Snake.Head.CurrentPosition == item.Position;
         }
 
         /// <summary>
-        /// Checks if the snake’s head has collided with its tail.
+        /// Determines if the snake’s head has collided with its tail.
         /// </summary>
+        /// <returns>True if a collision occurred; otherwise false.</returns>
         private bool HasHeadCollidedWithTail()
         {
             return this.Snake.Tail.Any(s => s.CurrentPosition == this.Snake.Head.CurrentPosition);

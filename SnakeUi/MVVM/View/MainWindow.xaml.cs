@@ -92,7 +92,7 @@ namespace SnakeUi.MVVM.View
         }
 
         /// <summary>
-        /// Handles keyboard input for controlling the snake.
+        /// Handles keyboard input for controlling the snake or entering the main menu while playing.
         /// Detects arrow key presses and updates the snake's movement direction via <see cref="GameManager"/>.
         /// </summary>
         /// <param name="sender">The object that raised the event (the parent Grid).</param>
@@ -120,6 +120,9 @@ namespace SnakeUi.MVVM.View
             }
         }
 
+        /// <summary>
+        /// Brings up the maain menu screen by changing the AppStateManager.
+        /// </summary>
         private void HandleEscapeKey()
         {
             this._appStateManager.SetStateToMainMenu();
