@@ -24,6 +24,7 @@ This project was created **as a learning project** to take my first steps in **d
 - Fill settings menu
 - Variable gameboard size (amount of fields)
 - Highscore tracking
+- Overview for steering and game symbols
   
 
 ## 3 Architecture
