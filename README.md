@@ -22,7 +22,9 @@ This project was created **as a learning project** to take my first steps in **d
 - Automatic **tagging** of releases (not yet implemented)
 - Redesign main menu & game over screens
 - Settings menu
-- Highscore tracking  
+- Variable gameboard size (amount of fields)
+- Highscore tracking
+  
 
 ## 3 Architecture
 
