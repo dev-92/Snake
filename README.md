@@ -51,7 +51,7 @@ This project was created **as a learning project** to take my first steps in **d
 - Collectable items (prey) effect overview
 
 ## 4 Known issues
-- After starting a new game the "Start Game" Button should switch to "Continue" in case the game is paused and not game over
+- After starting a new game the "Start Game" button should switch to "Continue" in case the game is paused and not game over
 - The volume sider inside the settings menu is not connected yet
 
 ## 5 Architecture
