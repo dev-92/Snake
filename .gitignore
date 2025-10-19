@@ -1,6 +1,7 @@
 .vs/
 .config
 coverage-html/
+Doxygen/
 
 # Snake Ui
 SnakeUi/bin/
