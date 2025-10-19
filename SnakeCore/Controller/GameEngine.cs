@@ -16,7 +16,6 @@ namespace SnakeCore.Controller
     public class GameEngine
     {
         private UpdateComposite _updateGroup { get; set; } = new();
-
         public GameboardModel GameboardModel { get; private set; }
         public InfoboardModel InfoboardModel { get; private set; } = new();
         public SnakeModel Snake { get; private set; } = new();
@@ -27,6 +26,8 @@ namespace SnakeCore.Controller
         private CollectableEffectHandler _collectableHandler { get; set; }
 
         public GameState GameState { get; private set; } = GameState.Paused;
+        public event Action? GameOver;
+
         private Direction _currentDirection { get; set; }
 
         /// <summary>
@@ -63,6 +64,24 @@ namespace SnakeCore.Controller
             this.GameState = GameState.Paused;
             this._audioService.StopMusic();
         }
+
+        public void Reset()
+        {
+            this.Snake = new SnakeModel();
+            this.GameboardModel = new GameboardModel(this.Snake);
+            this.InfoboardModel = new InfoboardModel();
+
+            this._collectableHandler = new CollectableEffectHandler(this.Snake, this.InfoboardModel);
+            this._collectableItems = new List<CollectableItemModel>();
+
+            this._updateGroup = new UpdateComposite();
+            this._updateGroup.AddParticipant(this.Snake);
+            this._updateGroup.AddParticipant(this.GameboardModel);
+            this._updateGroup.AddParticipant(this._collectableHandler);
+
+            GameSettings.UpdateSpeedMillis = CoreConstants.BASIC_UPDATE_MILLIS;
+        }
+
 
         /// <summary>
         /// Sets the direction for the snake movement.
@@ -137,6 +156,7 @@ namespace SnakeCore.Controller
             if (this.HasHeadCollidedWithTail())
             {
                 this.Stop();
+                this.GameOver?.Invoke();
             }
         }
 

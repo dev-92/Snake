@@ -8,8 +8,6 @@ using SnakeCore.Model.Entity;
 using System.Collections.Generic;
 
 using System;
-using Windows.UI.Notifications;
-
 
 namespace SnakeUi.Controller
 {
@@ -17,7 +15,7 @@ namespace SnakeUi.Controller
     /// Singleton class that manages the game logic and updates.
     /// Handles game states (start, pause) and regularly updates all registered game participants.
     /// </summary>
-    internal class GameManager
+    public class GameManager
     {
         private GameEngine _gameEngine { get; set; } = new(AudioManager.Instance);
         private DateTime _lastUpdate { get; set; } = DateTime.Now;
@@ -26,12 +24,19 @@ namespace SnakeUi.Controller
             get => this._gameEngine.GameboardModel.Cells;
         }
         public InfoboardModel InfoboardModel { get; private set; }
+        public event Action? OnGameOver;
 
         public GameManager()
         {
             this.InfoboardModel = this._gameEngine.InfoboardModel;
             CompositionTarget.Rendering += this.OnRendering;
+
+            this._gameEngine.GameOver += () =>
+            {
+                this.OnGameOver?.Invoke();  
+            };
         }
+
 
         /// <summary>
         /// Starts the game by running the game engine.
@@ -44,9 +49,15 @@ namespace SnakeUi.Controller
         /// <summary>
         /// Pauses the game by stopping the game engine.
         /// </summary>
-        public void PauseGame()
+        public void StopGame()
         {
             this._gameEngine.Stop();
+        }
+
+        public void Reset()
+        {
+            this._gameEngine.Reset();
+            this.InfoboardModel = this._gameEngine.InfoboardModel;
         }
 
         /// <summary>

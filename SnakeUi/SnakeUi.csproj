@@ -20,6 +20,7 @@
     <None Remove="Assets\Collectables\mouse.png" />
     <None Remove="Assets\Collectables\rabbit.png" />
     <None Remove="MVVM\View\GameboardView.xaml" />
+    <None Remove="MVVM\View\GameOverView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,7 +87,19 @@
     <Content Update="Assets\Collectables\rabbit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\snake_icon.ico">
+    <Content Update="Assets\Infoboard\crown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Infoboard\score.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Infoboard\speed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\snake_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\snake_outline.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Sounds\BoostSound.mp3">
@@ -98,10 +111,10 @@
     <Content Update="Assets\Sounds\ExplosionSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Sounds\GameSoundLoop1.mp3">
+    <Content Update="Assets\Sounds\GameLoop.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Sounds\GameSoundLoop2.mp3">
+    <Content Update="Assets\Sounds\MenuLoop.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Sounds\PreyCollectedSound.mp3">
@@ -110,6 +123,24 @@
     <Content Update="Assets\Sounds\SlowDownSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\GameOverView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\MainMenuView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MVVM\View\Game\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MVVM\View\MainMenu\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
