@@ -5,7 +5,8 @@
 A modern implementation of a **Snake-inspired game** with multiple collectible prey items, designed as my first **MVVM (Model-View-ViewModel) project**.  
 This project was created **as a learning project** to take my first steps in **design patterns and software architecture**, with an emphasis on **clean code** and **testability**.  
 
-<img width="800" height="950" alt="Snake Screenshot" src="https://github.com/user-attachments/assets/9e34b63b-0e59-46fa-951a-db4534d9cd58" />
+<img width="800" height="950" alt="{C3EA87D9-5745-4308-B3E4-7F990F40D2DA}" src="https://github.com/user-attachments/assets/a5a89439-f632-4715-b97f-13e2d66263bc" />
+
 
 ## 1 Features
 
