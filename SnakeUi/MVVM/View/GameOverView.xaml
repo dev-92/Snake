@@ -12,7 +12,6 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -29,25 +28,31 @@
                 VerticalAlignment="Center">
             </TextBlock>
 
-            <Button 
+            <StackPanel 
                 Grid.Column="0"
                 Grid.Row="1"
-                Content="Try again"
-                Click="TryAgain_Click"
-                FontSize="36"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-            </Button>
+                Orientation="Vertical">
+                
+                <Button 
+                     Content="Try again"
+                     Click="TryAgain_Click"
+                     FontSize="36"
+                     Margin="0,50"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+                    
+                </Button>
 
-            <Button 
-                Grid.Column="1"
-                Grid.Row="1"
-                Content="MainMenu"
-                Click="MainMenu_Click"
-                FontSize="36"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-            </Button>
+                <Button 
+                     Content="MainMenu"
+                     Click="MainMenu_Click"
+                     FontSize="36"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+                </Button>
+
+            </StackPanel>
+           
         </Grid>
     </Grid>
 </UserControl>

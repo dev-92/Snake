@@ -5,8 +5,11 @@ using SnakeCore.Enums;
 using SnakeUi.Config;
 using SnakeUi.Controller;
 using SnakeUi.Enums;
+using SnakeUi.MVVM.View.MainMenu;
 using SnakeUi.Services;
+
 using System.ComponentModel;
+
 using Windows.Graphics;
 using Windows.System;
 
@@ -32,9 +35,13 @@ namespace SnakeUi.MVVM.View
 
             this._appStateManager.PropertyChanged += this.SetCurrentScreen;
             this._appStateManager.AppState = AppState.MainMenu;
-            //ProjectTreePrinter.PrintProjectTree(@"C:\Users\ty-ro\source\repos\Snake\SnakeUi");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void SetCurrentScreen(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(AppStateManager.AppState)) return;
@@ -56,6 +63,10 @@ namespace SnakeUi.MVVM.View
 
                 case AppState.GameOver:
                     this.ContentGrid.Children.Add(new GameOverView(this._appStateManager));
+                    break;
+
+                case AppState.Settings:
+                    this.ContentGrid.Children.Add(new SettingsView(this._appStateManager));
                     break;
             }
         }
@@ -88,6 +99,12 @@ namespace SnakeUi.MVVM.View
         /// <param name="e">Event arguments containing information about the pressed key.</param>
         private void CoreWindow_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
+            if(e.Key == VirtualKey.Escape)
+            {
+                this.HandleEscapeKey();
+                return;
+            }
+
             Direction? newDirection = e.Key switch
             {
                 VirtualKey.Up    => Direction.Up,
@@ -101,6 +118,11 @@ namespace SnakeUi.MVVM.View
             {
                 this._appStateManager.GameManager.SetDirection(newDirection.Value);
             }
+        }
+
+        private void HandleEscapeKey()
+        {
+            this._appStateManager.SetStateToMainMenu();
         }
     }
 }

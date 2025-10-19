@@ -18,5 +18,7 @@ namespace SnakeUi.MVVM.View
             this.InfoboardModel = infoboardModel;
             this.DataContext = this.InfoboardModel;
         }
+
+
     }
 }

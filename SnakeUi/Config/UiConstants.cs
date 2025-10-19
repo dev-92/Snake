@@ -4,7 +4,7 @@ namespace SnakeUi.Config
     public static class UiConstants
     {
         public const int WINDOW_WIDTH = 1145;
-        public const int WINDOW_HEIGHT = 1260;
+        public const int WINDOW_HEIGHT = 1220;
 
         public const string WINDOW_TITLE = "Snake";
         public const string PATH_TO_SNAKE_ICON = @"ms-appx:///Assets/snake_icon.ico";
@@ -18,6 +18,6 @@ namespace SnakeUi.Config
 
         public const string EMPTY_CELL_HEX_COLOR = "#2c3e50";
         public const string COLLECTABLE_CELL_HEX_COLOR = "#7f8c8d";
-        public const string SNAKE_HEX_COLOR = "#7f8c8d";
+        public const string SNAKE_HEX_COLOR = "#7f8c8d";     
     }
 }

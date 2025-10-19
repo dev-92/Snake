@@ -10,7 +10,7 @@
 
     <Grid x:Name="UiLayout" IsTabStop="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 

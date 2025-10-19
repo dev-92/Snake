@@ -56,7 +56,11 @@ namespace SnakeUi.Controller
             this.GameManager.Reset();
 
             this._audioService.PlayMusic(GameMusicType.MenuLoop);
+        }
 
+        public void SetStateToSettings()
+        {
+            this.AppState = AppState.Settings;
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

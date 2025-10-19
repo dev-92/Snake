@@ -7,6 +7,8 @@ namespace SnakeUi.Enums
 
         Playing,
 
-        GameOver
+        GameOver,
+
+        Settings
     }
 }

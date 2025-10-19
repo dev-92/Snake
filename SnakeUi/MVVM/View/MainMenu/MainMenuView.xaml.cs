@@ -19,4 +19,9 @@ public sealed partial class MainMenuView : UserControl
     {
         this._appStateManager.SetStateToPlaying();
     }
+
+    private void Settings_Click(object sender, RoutedEventArgs e)
+    {
+        this._appStateManager.SetStateToSettings();
+    }
 }

@@ -69,6 +69,7 @@ namespace SnakeCore.Controller
         {
             this.Snake = new SnakeModel();
             this.GameboardModel = new GameboardModel(this.Snake);
+            this.InfoboardModel = new InfoboardModel();
 
             this._collectableHandler = new CollectableEffectHandler(this.Snake, this.InfoboardModel);
             this._collectableItems = new List<CollectableItemModel>();
@@ -77,6 +78,8 @@ namespace SnakeCore.Controller
             this._updateGroup.AddParticipant(this.Snake);
             this._updateGroup.AddParticipant(this.GameboardModel);
             this._updateGroup.AddParticipant(this._collectableHandler);
+
+            GameSettings.UpdateSpeedMillis = CoreConstants.BASIC_UPDATE_MILLIS;
         }
 
 
