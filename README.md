@@ -20,12 +20,13 @@ This project was created **as a learning project** to take my first steps in **d
 
 ## 2 Possible Future Features
 - Automatic **tagging** of releases (not yet implemented)
-- Redesign main menu & game over screens
+- Add advanced designs to main menu & game over screen
 - Fill settings menu
 - Variable gameboard size (amount of fields)
 - Highscore tracking
-- Overview for steering and game symbols
-  
+- Controls overview
+- Infoboard symbols overview
+- Collectable items (prey) effect overview
 
 ## 3 Architecture
 
