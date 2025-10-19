@@ -18,7 +18,7 @@ This project was created **as a learning project** to take my first steps in **d
 - Project is **testable** due to separation of UI and core logic  
 - **Unit tests** for main core logic
 
-## 2 Planned Features
+## 2 Possible Future Features
 - Automatic **tagging** of releases (not yet implemented)
 - Redesign main menu & game over screens
 - Fill settings menu
