@@ -20,13 +20,13 @@ namespace SnakeUi.Helpers
         {
             return item switch
             {
-                AppleCollectable    => ViewModelConstants.APPLE_IMAGE_PATH,
-                BombCollectable     => ViewModelConstants.BOMB_IMAGE_PATH,
-                CherryCollectable   => ViewModelConstants.CHERRY_IMAGE_PATH,
-                DuckCollectable     => ViewModelConstants.DUCK_IMAGE_PATH,
-                RabbitCollectable   => ViewModelConstants.RABBIT_IMAGE_PATH,
-                MouseCollectable    => ViewModelConstants.MOUSE_IMAGE_PATH,
-                _                   => ViewModelConstants.MOUSE_IMAGE_PATH
+                AppleCollectable    => CollectableItemImgPaths.APPLE_IMAGE_PATH,
+                BombCollectable     => CollectableItemImgPaths.BOMB_IMAGE_PATH,
+                CherryCollectable   => CollectableItemImgPaths.CHERRY_IMAGE_PATH,
+                DuckCollectable     => CollectableItemImgPaths.DUCK_IMAGE_PATH,
+                RabbitCollectable   => CollectableItemImgPaths.RABBIT_IMAGE_PATH,
+                MouseCollectable    => CollectableItemImgPaths.MOUSE_IMAGE_PATH,
+                _                   => CollectableItemImgPaths.MOUSE_IMAGE_PATH
             };
         }
 

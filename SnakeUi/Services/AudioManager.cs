@@ -6,6 +6,8 @@ using SnakeCore.Services;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using SnakeUi.Helpers;
 
 namespace SnakeUi.Services
 {
@@ -53,11 +55,11 @@ namespace SnakeUi.Services
         {
             return new()
             {
-                { SoundEffectType.AppleCollected, "ms-appx:///Assets/Sounds/SlowDownSound.mp3" },
-                { SoundEffectType.CherryCollected, "ms-appx:///Assets/Sounds/BoostSound.mp3" },
-                { SoundEffectType.BombCollected, "ms-appx:///Assets/Sounds/ExplosionSound.mp3" },
-                { SoundEffectType.DuckCollected, "ms-appx:///Assets/Sounds/DuckCollectedSound.mp3" },
-                { SoundEffectType.CollectedItem, "ms-appx:///Assets/Sounds/PreyCollectedSound.mp3" },
+                { SoundEffectType.AppleCollected, PathFinder.GetAbsolutePath("Assets/Sounds/SlowDownSound.mp3") },
+                { SoundEffectType.CherryCollected, PathFinder.GetAbsolutePath("Assets/Sounds/BoostSound.mp3") },
+                { SoundEffectType.BombCollected, PathFinder.GetAbsolutePath("Assets/Sounds/ExplosionSound.mp3") },
+                { SoundEffectType.DuckCollected, PathFinder.GetAbsolutePath("Assets/Sounds/DuckCollectedSound.mp3") },
+                { SoundEffectType.CollectedItem, PathFinder.GetAbsolutePath("Assets/Sounds/PreyCollectedSound.mp3") },
             };
         }
 
@@ -68,8 +70,8 @@ namespace SnakeUi.Services
         {
             return new()
             {
-                { GameMusicType.GameLoop, "ms-appx:///Assets/Sounds/GameLoop.mp3" },
-                { GameMusicType.MenuLoop, "ms-appx:///Assets/Sounds/MenuLoop.mp3" }
+                { GameMusicType.GameLoop, PathFinder.GetAbsolutePath("Assets/Sounds/GameLoop.mp3") },
+                { GameMusicType.MenuLoop, PathFinder.GetAbsolutePath("Assets/Sounds/MenuLoop.mp3") }
             };
         }
 
