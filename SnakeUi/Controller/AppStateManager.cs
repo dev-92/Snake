@@ -1,6 +1,7 @@
 ﻿using SnakeCore.Enums;
 using SnakeCore.Services;
 using SnakeUi.Enums;
+using SnakeUi.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -25,13 +26,10 @@ namespace SnakeUi.Controller
 
         public GameManager GameManager { get; private set; } = new();
 
-        private IAudioService _audioService { get; set; }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public AppStateManager(IAudioService audioService)
+        public AppStateManager()
         {
-            this._audioService = audioService;
             this.SetStateToMainMenu();
 
             this.GameManager.OnGameOver += () =>
@@ -46,7 +44,7 @@ namespace SnakeUi.Controller
         /// </summary>
         public void SetStateToMainMenu()
         {
-            this._audioService.PlayMusic(GameMusicType.MenuLoop);
+            AudioManager.Instance.PlayMusic(GameMusicType.MenuLoop);
             this.AppState = AppState.MainMenu;
 
             this.GameManager.StopGame();
@@ -72,7 +70,7 @@ namespace SnakeUi.Controller
             this.GameManager.StopGame();
             this.GameManager.Reset();
 
-            this._audioService.PlayMusic(GameMusicType.MenuLoop);
+            AudioManager.Instance.PlayMusic(GameMusicType.MenuLoop);
         }
 
         /// <summary>

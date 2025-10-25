@@ -14,9 +14,8 @@ namespace SnakeUi.Services
     /// <summary>
     /// Singleton class that manages all game audio.
     /// Provides functionality to play sound effects and background music.
-    /// Implements the <see cref="IAudioService"/> interface.
     /// </summary>
-    internal class AudioManager : IAudioService
+    internal class AudioManager
     {
         private static AudioManager? _instance;
 

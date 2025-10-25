@@ -8,14 +8,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Margin="{StaticResource ContentMarginForCustomBar}" Background="{StaticResource ViewBackgroundBrush}">
+    <Grid Margin="{StaticResource ContentMarginForCustomBar}" 
+          Background="{StaticResource ViewBackgroundBrush}">
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions> 
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         

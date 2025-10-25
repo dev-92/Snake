@@ -1,27 +1,21 @@
-﻿using Moq;
-
-using SnakeCore.Config;
+﻿using SnakeCore.Config;
 using SnakeCore.Controller;
 using SnakeCore.Enums;
 using SnakeCore.Model.Entity;
 using SnakeCore.Model.Entity.Collectables;
 using SnakeCore.Model.Entity.Snake;
 using SnakeCore.Model.ValueObject;
-using SnakeCore.Services;
 
 namespace SnakeCoreTests;
 
 public class GameEningeTests
 {
-    private Mock<IAudioService> _audioMock { get; set; }
     private GameEngine _gameEngine;
     private SnakeModel _snakeModel;
 
     public GameEningeTests()
     {
-        this._audioMock = new Mock<IAudioService>();
-
-        this._gameEngine = new GameEngine(this._audioMock.Object);
+        this._gameEngine = new GameEngine();
         this._snakeModel = this._gameEngine.Snake;
     }
 
@@ -35,7 +29,6 @@ public class GameEningeTests
 
         // Assert
         Assert.Equal(GameState.Running, this._gameEngine.GameState);
-        this._audioMock.Verify(audioService => audioService.PlayMusic(GameMusicType.GameLoop), Times.Once);
     }
 
     [Fact]
@@ -48,7 +41,6 @@ public class GameEningeTests
 
         // Assert 
         Assert.Equal(GameState.Paused, this._gameEngine.GameState);
-        this._audioMock.Verify(audioService => audioService.PlayMusic(GameMusicType.GameLoop), Times.Never);
     }
 
     #region Update => UpdateCollectables 
@@ -82,23 +74,6 @@ public class GameEningeTests
         // Assert
         Assert.Equal(CollectableConfig.MAX_ITEMS, cellsWithCollectableItem_AtStart.Count);
         Assert.Equal(CollectableConfig.MAX_ITEMS, cellsWithCollectableItem_AfterUpdate.Count);
-    }
-
-    [Fact]
-    public void Update_SnakeCollectsItem_PlayEffectIsCalled()
-    {
-        // Arrange
-        this._gameEngine.Update();
-
-        CollectableItemModel itemToCollect = this.GetCellModels()[0].CollectableItem;
-        Position2D itemToCollectPos = itemToCollect.Position;
-        this._snakeModel.Head.CurrentPosition = itemToCollectPos;
-
-        // Act
-        this._gameEngine.Update();
-
-        // Assert
-        this._audioMock.Verify(audioService => audioService.PlayEffect(It.IsAny<SoundEffectType>()), Times.Once);
     }
 
     [Fact]
@@ -167,7 +142,6 @@ public class GameEningeTests
 
         // Assert
         Assert.Equal(GameState.Paused, this._gameEngine.GameState);
-        this._audioMock.Verify(audioService => audioService.PlayMusic(GameMusicType.GameLoop), Times.Never);
     }
         
     #region Helpers

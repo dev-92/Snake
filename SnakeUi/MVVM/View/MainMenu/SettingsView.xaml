@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="365"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -31,14 +31,12 @@
         <StackPanel 
             Orientation="Vertical"
             Grid.Column="0"
-            Grid.Row="1"
-            >
+            Grid.Row="1">
 
             <StackPanel 
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Margin="0,25">
+                VerticalAlignment="Center">
                 
                 <TextBlock 
                     Grid.Column="0"
@@ -46,6 +44,7 @@
                     Text="Volume"
                     Foreground="{StaticResource TextForegroundBrush}"
                     FontSize="36"
+                    Margin="0,25"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 </TextBlock>

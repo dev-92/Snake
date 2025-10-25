@@ -24,7 +24,7 @@ namespace SnakeUi.MVVM.View
         private readonly PointInt32 _windowOpeningPos = new PointInt32(0, 0);
         private Thickness _margin = new Thickness(10, 40, 10, 10);
 
-        private AppStateManager _appStateManager { get; set; } = new AppStateManager(AudioManager.Instance);
+        private AppStateManager _appStateManager { get; set; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

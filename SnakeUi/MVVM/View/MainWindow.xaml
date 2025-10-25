@@ -22,7 +22,10 @@
             VerticalAlignment="Top"
             >
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0">
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        Margin="0,0">
+                
                 <Image 
                     Source="/Assets/snake_logo.png"
                     Width="18" 
@@ -33,7 +36,7 @@
 
                 <TextBlock 
                     Text="Snake" 
-                    Foreground="White" 
+                    Foreground="{StaticResource TextForegroundBrush}" 
                     FontSize="16" 
                     VerticalAlignment="Center" 
                     Margin="5,0,0,0"
