@@ -1,7 +1,7 @@
 ﻿
 namespace SnakeUi.Config
 {
-    public static class ViewModelConstants
+    public static class CollectableItemImgPaths
     {
         public const string APPLE_IMAGE_PATH = @"ms-appx:///Assets/Collectables/apple.png";
         public const string BOMB_IMAGE_PATH = @"ms-appx:///Assets/Collectables/bomb.png";
