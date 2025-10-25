@@ -12,13 +12,13 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="CustomBarBackgroundColor" Color="#222"/>
+            <SolidColorBrush x:Key="CustomBarBackgroundColor" Color="#2a2a3d"/>
             <Thickness x:Key="ContentMarginForCustomBar">0,32,0,0</Thickness>
 
-            <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#4C4A48"/>
-            <SolidColorBrush x:Key="TextForegroundBrush" Color="White" />
-            <SolidColorBrush x:Key="ViewBackgroundBrush" Color="#2E2D2B" />
-
+            <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#3b3b55"/>
+            <SolidColorBrush x:Key="TextForegroundBrush" Color="#e0e0e0" />
+            <SolidColorBrush x:Key="ViewBackgroundBrush" Color="#1e1e2f" />
+          
             <x:Double x:Key="ButtonWidth">200</x:Double>
         </ResourceDictionary>
     </Application.Resources>

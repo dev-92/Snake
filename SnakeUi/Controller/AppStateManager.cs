@@ -48,6 +48,8 @@ namespace SnakeUi.Controller
         {
             this._audioService.PlayMusic(GameMusicType.MenuLoop);
             this.AppState = AppState.MainMenu;
+
+            this.GameManager.StopGame();
         }
 
         /// <summary>

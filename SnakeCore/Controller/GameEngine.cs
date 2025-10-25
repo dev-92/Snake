@@ -20,13 +20,13 @@ namespace SnakeCore.Controller
         public InfoboardModel InfoboardModel { get; private set; } = new();
         public SnakeModel Snake { get; private set; } = new();
 
-        private IAudioService _audioService { get; set; }
-
         private List<CollectableItemModel> _collectableItems { get; set; } = new();
         private CollectableEffectHandler _collectableHandler { get; set; }
 
         public GameState GameState { get; private set; } = GameState.Paused;
+
         public event Action? GameOver;
+        public event Action<SoundEffectType> ItemCollected;
 
         private Direction _currentDirection { get; set; }
 
@@ -34,10 +34,8 @@ namespace SnakeCore.Controller
         /// Initializes a new instance of the GameEngine class.
         /// </summary>
         /// <param name="audioservice">The audio service for music and sound effects.</param>
-        public GameEngine(IAudioService audioservice)
+        public GameEngine()
         {
-            this._audioService = audioservice;
-
             this.GameboardModel = new GameboardModel(this.Snake);
             this._collectableHandler = new CollectableEffectHandler(this.Snake, this.InfoboardModel);
 
@@ -52,7 +50,6 @@ namespace SnakeCore.Controller
         public void Run()
         {
             this.GameState = GameState.Running;
-            this._audioService.PlayMusic(GameMusicType.GameLoop);
         }
 
         /// <summary>
@@ -61,7 +58,6 @@ namespace SnakeCore.Controller
         public void Stop()
         {
             this.GameState = GameState.Paused;
-            this._audioService.StopMusic();
         }
 
         /// <summary>
@@ -148,7 +144,7 @@ namespace SnakeCore.Controller
         private void HandleItemCollected(CollectableItemModel item)
         {
             this._collectableHandler.Handle(item);
-            this._audioService.PlayEffect(item.SoundEffect);
+            this.ItemCollected.Invoke(item.SoundEffect);
         }
 
         /// <summary>
