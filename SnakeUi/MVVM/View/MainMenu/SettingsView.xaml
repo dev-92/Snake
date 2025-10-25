@@ -22,6 +22,7 @@
             Grid.Column="0"
             Grid.Row="0"
             Text="Settings"
+            Foreground="{StaticResource TextForegroundBrush}"
             FontSize="50"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
@@ -43,8 +44,8 @@
                     Grid.Column="0"
                     Grid.Row="0"
                     Text="Volume"
+                    Foreground="{StaticResource TextForegroundBrush}"
                     FontSize="36"
-                    Margin="15,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 </TextBlock>
@@ -67,6 +68,9 @@
                 Content="Back"
                 FontSize="36"
                 Click="Back_Click"
+                Background="{StaticResource ButtonBackgroundBrush}"
+                Foreground="{StaticResource TextForegroundBrush}"
+                Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>

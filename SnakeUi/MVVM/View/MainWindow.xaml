@@ -12,13 +12,13 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid x:Name="WindowLayout" KeyDown="CoreWindow_KeyDown">
+    <Grid x:Name="WindowLayout" KeyDown="CoreWindow_KeyDown" Background="{StaticResource ViewBackgroundBrush}">
         
         <!-- Custom TitleBar -->
         <Grid 
             x:Name="CustomTitleBar" 
             Height="32" 
-            Background="#222" 
+            Background="{StaticResource CustomBarBackgroundColor}" 
             VerticalAlignment="Top"
             >
 

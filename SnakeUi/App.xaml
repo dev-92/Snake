@@ -4,13 +4,23 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SnakeUi">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+
+            <SolidColorBrush x:Key="CustomBarBackgroundColor" Color="#222"/>
+            <Thickness x:Key="ContentMarginForCustomBar">0,32,0,0</Thickness>
+
+            <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#4C4A48"/>
+            <SolidColorBrush x:Key="TextForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="ViewBackgroundBrush" Color="#2E2D2B" />
+
+            <x:Double x:Key="ButtonWidth">200</x:Double>
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

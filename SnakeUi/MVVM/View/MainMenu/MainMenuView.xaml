@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="{StaticResource ContentMarginForCustomBar}" Background="{StaticResource ViewBackgroundBrush}">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions> 
@@ -21,6 +22,7 @@
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
+            Foreground="{StaticResource TextForegroundBrush}"
             Text="SnakeGame"
             FontSize="50"
             HorizontalAlignment="Center"
@@ -37,8 +39,11 @@
                 x:Name="StartButton"
                 Content="Start Game"
                 Click="StartGame_Click"
+                Background="{StaticResource ButtonBackgroundBrush}"
+                Foreground="{StaticResource TextForegroundBrush}"
                 FontSize="36"
                 Margin="0,25"
+                Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
@@ -46,8 +51,10 @@
             <Button 
                 Content="Settings"
                 Click="Settings_Click"
+                Background="{StaticResource ButtonBackgroundBrush}"
+                Foreground="{StaticResource TextForegroundBrush}"
                 FontSize="36"
-                Margin="0,25"
+                Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
