@@ -10,20 +10,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
                 <!-- Other merged dictionaries here -->
+                <ResourceDictionary Source="Resources/ColorThemes/DarkColorsTheme.xaml" />
+                <ResourceDictionary Source="Resources/Brushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="CustomBarBackgroundColor" Color="#2a2a3d"/>
-            <Thickness x:Key="ContentMarginForCustomBar">0,32,0,0</Thickness>
-
-            <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#3b3b55"/>
-            <SolidColorBrush x:Key="TextForegroundBrush" Color="#e0e0e0" />
-            <SolidColorBrush x:Key="ViewBackgroundBrush" Color="#1e1e2f" />
-          
             <x:Double x:Key="ButtonWidth">200</x:Double>
             <x:Double x:Key="HeaderFontSize">50</x:Double>
             <x:Double x:Key="ElementFontSize">36</x:Double>
 
+            <Thickness x:Key="ContentMarginForCustomBar">0,32,0,0</Thickness>
         </ResourceDictionary>
     </Application.Resources>
 

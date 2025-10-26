@@ -36,6 +36,7 @@
 		<None Remove="Assets\Collectables\rabbit.png" />
 		<None Remove="MVVM\View\GameboardView.xaml" />
 		<None Remove="MVVM\View\GameOverView.xaml" />
+		<None Remove="Resources\Brushes.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -156,6 +157,24 @@
 	  <Content Update="Assets\Sounds\SlowDownSound.mp3">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Ressources\Brushes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Ressources\ColorThemes\LighColorsTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Themes\Colors\DarkThemeColors.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

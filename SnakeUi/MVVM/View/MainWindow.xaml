@@ -18,7 +18,7 @@
         <Grid 
             x:Name="CustomTitleBar" 
             Height="32" 
-            Background="{StaticResource CustomBarBackgroundColor}" 
+            Background="{StaticResource CustomBarBackgroundBrush}" 
             VerticalAlignment="Top"
             >
 

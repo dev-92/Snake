@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- BaseColors -->
+    <SolidColorBrush x:Key="ViewBackgroundBrush" Color="{StaticResource BackgroundColor}" />
+    <SolidColorBrush x:Key="TextForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonColor}" />
+
+    <!-- Grid / Cells -->
+    <SolidColorBrush x:Key="EmptyCellBrush" Color="{StaticResource GridCellEmpty}" />
+    <SolidColorBrush x:Key="CollectableCellBrush" Color="{StaticResource GridCellCollectable}" />
+    <SolidColorBrush x:Key="SnakeCellBrush" Color="{StaticResource GridCellSnake}" />
+
+    <!-- CustomBar -->
+    <SolidColorBrush x:Key="CustomBarBackgroundBrush" Color="{StaticResource CustomBarBackgroundColor}" />
+
+</ResourceDictionary>

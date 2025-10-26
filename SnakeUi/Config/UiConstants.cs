@@ -15,9 +15,5 @@ namespace SnakeUi.Config
         public const double BORDER_THICKNESS = 0;
         public const double CORNER_RADIUS = 7;
         public const double BORDER_MARGIN = 0.3;
-
-        public const string EMPTY_CELL_HEX_COLOR = "#2a2a3d";
-        public const string COLLECTABLE_CELL_HEX_COLOR = "#7f8c8d";
-        public const string SNAKE_HEX_COLOR = "#76ff03";
     }
 }
