@@ -2,11 +2,9 @@
 using Windows.Media.Playback;
 
 using SnakeCore.Enums;
-using SnakeCore.Services;
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using SnakeUi.Helpers;
 
 namespace SnakeUi.Services
@@ -37,9 +35,27 @@ namespace SnakeUi.Services
         private readonly Dictionary<SoundEffectType, string> _effectPaths;
         private readonly Dictionary<GameMusicType, string> _musicPaths;
 
-        private MediaPlayer? _musicPlayer { get; set; }
+        private MediaPlayer? _musicPlayer { get; set; } = new();
         private GameMusicType? _currentMusicType = null;
         private readonly List<MediaPlayer> _activeEffects = new();
+
+        private double _effectVolume = 0.8;
+        public double EffectVolume
+        {
+            get => this._effectVolume;
+            set => this._effectVolume = value;
+        }
+
+        private double _musicVolume = 0.4;
+        public double MusicVolume
+        {
+            get => this._musicVolume;
+            set
+            {
+                this._musicVolume = value;
+                this._musicPlayer.Volume = value;
+            }
+        }
 
         private AudioManager()
         {
@@ -85,7 +101,7 @@ namespace SnakeUi.Services
             MediaPlayer player = new()
             {
                 Source = MediaSource.CreateFromUri(new Uri(path)),
-                Volume = 0.8
+                Volume = this._effectVolume
             };
 
             player.MediaEnded += (s, e) =>
@@ -127,7 +143,7 @@ namespace SnakeUi.Services
             {
                 Source = MediaSource.CreateFromUri(new Uri(path)),
                 IsLoopingEnabled = true,
-                Volume = 0.4
+                Volume = this._musicVolume
             };
             this._musicPlayer.Play();
             this._currentMusicType = type;

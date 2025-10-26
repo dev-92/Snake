@@ -25,7 +25,7 @@
             Grid.Row="0"
             Foreground="{StaticResource TextForegroundBrush}"
             Text="SnakeGame"
-            FontSize="50"
+            FontSize="{StaticResource HeaderFontSize}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
         </TextBlock>
@@ -42,7 +42,7 @@
                 Click="StartGame_Click"
                 Background="{StaticResource ButtonBackgroundBrush}"
                 Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="36"
+                FontSize="{StaticResource ElementFontSize}"
                 Margin="0,25"
                 Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
@@ -54,7 +54,7 @@
                 Click="Settings_Click"
                 Background="{StaticResource ButtonBackgroundBrush}"
                 Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="36"
+                FontSize="{StaticResource ElementFontSize}"
                 Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">

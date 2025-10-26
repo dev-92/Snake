@@ -8,6 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <Thickness x:Key="SettingsElementMargin">5,0,5,0</Thickness>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -23,7 +27,7 @@
             Grid.Row="0"
             Text="Settings"
             Foreground="{StaticResource TextForegroundBrush}"
-            FontSize="50"
+            FontSize="{StaticResource HeaderFontSize}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
         </TextBlock>
@@ -33,39 +37,89 @@
             Grid.Column="0"
             Grid.Row="1">
 
+            <!--  Music volume slider  -->
             <StackPanel 
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                
                 <TextBlock 
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Text="Volume"
+                    Text="Music vol"
                     Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="36"
-                    Margin="0,25"
+                    FontSize="{StaticResource ElementFontSize}"
+                    Margin="{StaticResource SettingsElementMargin}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 </TextBlock>
 
                 <Slider
-                    x:Name="VolumeSlider"
+                    x:Name="MusicSlider"
                     Minimum="0"
                     Maximum="100"
-                    Value="40"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    Value="{x:Bind MusicVol, Mode=TwoWay}"
                     TickFrequency="10"
                     TickPlacement="BottomRight"
                     StepFrequency="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200"
-                    ValueChanged="VolumeSlider_ValueChanged"/>
+                    ValueChanged="MusicSlider_ValueChanged"/>
+
+                <TextBlock 
+                    Text="{x:Bind MusicVol, Mode=OneWay}"
+                    Foreground="{StaticResource TextForegroundBrush}"
+                    FontSize="{StaticResource ElementFontSize}"
+                    Width="100"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                </TextBlock>
             </StackPanel>
+
+            
+            <!--  Effect volume slider  -->
+            <StackPanel 
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock 
+                    Text="Effect vol"
+                    Foreground="{StaticResource TextForegroundBrush}"
+                    FontSize="{StaticResource ElementFontSize}"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                </TextBlock>
+
+                <Slider
+                    x:Name="EffectSlider"
+                    Minimum="0"
+                    Maximum="100"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    Value="{x:Bind EffectVol, Mode=TwoWay}"
+                    TickFrequency="10"
+                    TickPlacement="BottomRight"
+                    StepFrequency="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="200"
+                    ValueChanged="EffectSlider_ValueChanged"/>
+
+                <TextBlock 
+                    Text="{x:Bind EffectVol, Mode=OneWay}"
+                    Foreground="{StaticResource TextForegroundBrush}"
+                    FontSize="{StaticResource ElementFontSize}"
+                    Width="100"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                </TextBlock>
+            </StackPanel>
+
 
             <Button 
                 Content="Back"
-                FontSize="36"
+                FontSize="{StaticResource ElementFontSize}"
                 Click="Back_Click"
                 Background="{StaticResource ButtonBackgroundBrush}"
                 Foreground="{StaticResource TextForegroundBrush}"

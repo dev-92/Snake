@@ -26,7 +26,7 @@
                 Grid.Row="0"
                 Text="Game Over"
                 Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="50"
+                FontSize="{StaticResource HeaderFontSize}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
             </TextBlock>
@@ -41,7 +41,7 @@
                      Click="TryAgain_Click"
                      Background="{StaticResource ButtonBackgroundBrush}"
                      Foreground="{StaticResource TextForegroundBrush}"
-                     FontSize="36"
+                     FontSize="{StaticResource ElementFontSize}"
                      Margin="0,25"
                      Width="{StaticResource ButtonWidth}"
                      HorizontalAlignment="Center"
@@ -54,7 +54,7 @@
                      Click="MainMenu_Click"
                      Background="{StaticResource ButtonBackgroundBrush}"
                      Foreground="{StaticResource TextForegroundBrush}"
-                     FontSize="36"
+                     FontSize="{StaticResource ElementFontSize}"
                      Width="{StaticResource ButtonWidth}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
