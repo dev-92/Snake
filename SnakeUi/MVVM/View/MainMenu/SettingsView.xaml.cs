@@ -1,9 +1,14 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using SnakeUi.Config;
 using SnakeUi.Controller;
+using SnakeUi.Enums;
 using SnakeUi.Services;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace SnakeUi.MVVM.View.MainMenu
@@ -14,6 +19,7 @@ namespace SnakeUi.MVVM.View.MainMenu
     public sealed partial class SettingsView : UserControl, INotifyPropertyChanged
     {
         private AppStateManager _appstateManager { get; set; }
+        private ThemeManager _themeManager { get; set; } = new();
 
         private double _musicVol;
         public double MusicVol
@@ -57,6 +63,53 @@ namespace SnakeUi.MVVM.View.MainMenu
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             this._appstateManager.SetStateToMainMenu();
+        }
+
+        private void ThemeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ColorTheme chosenColorTheme = this.GetChosenColorTheme(sender);
+            this._themeManager.ChangeThemeTo(chosenColorTheme);
+
+            this.RefreshSettingsView();
+        }
+
+        private ColorTheme GetChosenColorTheme(object sender)
+        {
+            if (sender is not ComboBox themeBox)
+            {
+                return ColorTheme.Dark;
+            }
+
+            if (themeBox.SelectedItem is not ComboBoxItem selectedItem)
+            {
+                return ColorTheme.Dark;
+            }
+
+            return selectedItem.Content switch
+            {
+                "Dark"  => ColorTheme.Dark,
+                "Light" => ColorTheme.Light,
+                _       => ColorTheme.Dark,
+            };
+        }
+
+        private void RefreshSettingsView()
+        {
+            var currentDataContext = this.DataContext;
+
+            var parent = this.Parent as Panel;
+            if (parent == null)
+            {
+                return;
+            }
+
+            int index = parent.Children.IndexOf(this);
+
+            var newView = new SettingsView(this._appstateManager);
+            newView.DataContext = currentDataContext;
+
+            parent.Children.RemoveAt(index);
+            parent.Children.Insert(index, newView);
         }
 
         /// <summary>

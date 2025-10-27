@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- BaseColors -->
+    <Color x:Key="BackgroundColor">#FAFAFF</Color>
+    <Color x:Key="ForegroundColor">#1E1E2F</Color>
+
+    <!-- Grid / Cells -->
+    <Color x:Key="GridCellEmpty">#E6E8F0</Color>
+    <Color x:Key="GridCellCollectable">#B0C4DE</Color>
+    <Color x:Key="GridCellSnake">#2E8B57</Color>
+
+    <!-- CustomBar -->
+    <Color x:Key="CustomBarBackgroundColor">#D8DAE8</Color>
+
+    <!-- Button States -->
+    <Color x:Key="ButtonColor">#DDE0F5</Color>
+    <Color x:Key="ButtonHoverColor">#C7CBEA</Color>
+    <Color x:Key="ButtonPressedColor">#A9AFD9</Color>
+
+    <!-- ComboBox States -->
+    <Color x:Key="ComboBoxBackgroundColor">#E0E3F2</Color>
+    <Color x:Key="ComboBoxHoverColor">#C8CCEA</Color>
+    <Color x:Key="ComboBoxSelectedColor">#B5BAE0</Color>
+    <Color x:Key="ComboBoxDisabledColor">#E6E6E6</Color>
+
+</ResourceDictionary>

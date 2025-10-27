@@ -6,7 +6,6 @@
     <!-- BaseColors -->
     <SolidColorBrush x:Key="ViewBackgroundBrush" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="TextForegroundBrush" Color="{StaticResource ForegroundColor}" />
-    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonColor}" />
 
     <!-- Grid / Cells -->
     <SolidColorBrush x:Key="EmptyCellBrush" Color="{StaticResource GridCellEmpty}" />
@@ -15,5 +14,16 @@
 
     <!-- CustomBar -->
     <SolidColorBrush x:Key="CustomBarBackgroundBrush" Color="{StaticResource CustomBarBackgroundColor}" />
+    
+    <!-- Buttons -->
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonColor}" />
+    <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}" />
+    <SolidColorBrush x:Key="ButtonPressedBrush" Color="{StaticResource ButtonPressedColor}" />
+
+    <!-- ComboBox -->
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{StaticResource ComboBoxBackgroundColor}" />
+    <SolidColorBrush x:Key="ComboBoxHoverBrush" Color="{StaticResource ComboBoxHoverColor}" />
+    <SolidColorBrush x:Key="ComboBoxSelectedBrush" Color="{StaticResource ComboBoxSelectedColor}" />
+    <SolidColorBrush x:Key="ComboBoxDisabledBrush" Color="{StaticResource ComboBoxDisabledColor}" />
 
 </ResourceDictionary>

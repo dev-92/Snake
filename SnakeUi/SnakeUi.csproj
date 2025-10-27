@@ -37,6 +37,7 @@
 		<None Remove="MVVM\View\GameboardView.xaml" />
 		<None Remove="MVVM\View\GameOverView.xaml" />
 		<None Remove="Resources\Brushes.xaml" />
+		<None Remove="Resources\Styles\CustomButtonStyle.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -157,6 +158,18 @@
 	  <Content Update="Assets\Sounds\SlowDownSound.mp3">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Resources\Styles\CustomButtonStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Resources\Styles\CustomComboBoxItem.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>

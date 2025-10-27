@@ -12,7 +12,9 @@
         <Thickness x:Key="SettingsElementMargin">5,0,5,0</Thickness>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="{StaticResource ContentMarginForCustomBar}"
+          Background="{StaticResource ViewBackgroundBrush}">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -36,6 +38,36 @@
             Orientation="Vertical"
             Grid.Column="0"
             Grid.Row="1">
+
+            <!--  Themes  -->
+            <StackPanel 
+                 Orientation="Horizontal"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center">
+
+                <TextBlock 
+                    Text="Theme"
+                    Foreground="{StaticResource TextForegroundBrush}"
+                    FontSize="{StaticResource ElementFontSize}"
+                    Margin="{StaticResource SettingsElementMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                </TextBlock>
+
+                <ComboBox x:Name="ThemeSelector"
+                          Width="150"
+                          Height="40"
+                          Foreground="{StaticResource TextForegroundBrush}"
+                          FontSize="{StaticResource ComboBoxFontSize}"
+                          Background="{StaticResource ComboBoxBackgroundBrush}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          SelectionChanged="ThemeSelector_SelectionChanged">
+                    <ComboBoxItem Content="Dark" />
+                    <ComboBoxItem Content="Light" />
+                </ComboBox>
+            </StackPanel>
+
 
             <!--  Music volume slider  -->
             <StackPanel 
@@ -116,13 +148,12 @@
                 </TextBlock>
             </StackPanel>
 
-
             <Button 
                 Content="Back"
-                FontSize="{StaticResource ElementFontSize}"
                 Click="Back_Click"
                 Background="{StaticResource ButtonBackgroundBrush}"
                 Foreground="{StaticResource TextForegroundBrush}"
+                FontSize="{StaticResource ElementFontSize}"
                 Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
