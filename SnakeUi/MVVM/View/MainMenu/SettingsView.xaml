@@ -10,20 +10,24 @@
 
     <UserControl.Resources>
         <Thickness x:Key="SettingsElementMargin">5,0,5,0</Thickness>
+        
+        <GridLength x:Key="SettingsColumnSpacing">20</GridLength>
+        <GridLength x:Key="LeftColumnWidth">150</GridLength>
     </UserControl.Resources>
 
     <Grid Margin="{StaticResource ContentMarginForCustomBar}"
           Background="{StaticResource ViewBackgroundBrush}">
-        
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="365"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="365"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Header -->
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
@@ -31,130 +35,125 @@
             Foreground="{StaticResource TextForegroundBrush}"
             FontSize="{StaticResource HeaderFontSize}"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-        </TextBlock>
+            VerticalAlignment="Center" />
 
+        <!-- Settings -->
         <StackPanel 
             Orientation="Vertical"
             Grid.Column="0"
-            Grid.Row="1">
+            Grid.Row="1"
+            HorizontalAlignment="Center">
 
-            <!--  Themes  -->
-            <StackPanel 
-                 Orientation="Horizontal"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center">
+            <!-- Theme -->
+            <Grid Margin="0,5" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource LeftColumnWidth}"/>
+                    <ColumnDefinition Width="{StaticResource SettingsColumnSpacing}"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock 
-                    Text="Theme"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="{StaticResource ElementFontSize}"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
+                <TextBlock Grid.Column="0"
+                           Text="Theme"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left" />
 
-                <ComboBox x:Name="ThemeSelector"
-                          Style="{StaticResource CustomComboBox}" 
-                          HorizontalAlignment="Center"
+                <ComboBox Grid.Column="2"
+                          x:Name="ThemeSelector"
+                          Style="{StaticResource CustomComboBox}"    
                           VerticalAlignment="Center"
                           SelectionChanged="ThemeSelector_SelectionChanged">
+                    
+                    <!-- First content is empty because the first element does not show hover color -->
+                    <!-- The empty ComboBoxItem is not shown on the drop down so this fixes the issue -->
+                    <ComboBoxItem Content="" />
                     <ComboBoxItem Content="Dark" />
                     <ComboBoxItem Content="Light" />
                     <ComboBoxItem Content="Retro" />
                     <ComboBoxItem Content="OceanTech" />
                     <ComboBoxItem Content="Cyberpunk" />
+                    
                 </ComboBox>
-            </StackPanel>
+            </Grid>
 
+            <!-- Music volume -->
+            <Grid Margin="0,5" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource LeftColumnWidth}"/>
+                    <ColumnDefinition Width="{StaticResource SettingsColumnSpacing}"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!--  Music volume slider  -->
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <TextBlock 
-                    Text="Music vol"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="{StaticResource ElementFontSize}"
-                    Margin="{StaticResource SettingsElementMargin}"
+                <TextBlock Grid.Column="0"
+                           Text="Music Vol"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left" />
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Slider x:Name="MusicSlider"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="{x:Bind MusicVol, Mode=TwoWay}"
+                            TickFrequency="10"
+                            TickPlacement="BottomRight"
+                            StepFrequency="1"
+                            Width="200"
+                            ValueChanged="MusicSlider_ValueChanged"/>
+
+                    <TextBlock Text="{x:Bind MusicVol, Mode=OneWay}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               FontSize="{StaticResource ElementFontSize}"
+                               Width="50"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Effect volume -->
+            <Grid Margin="0,5" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource LeftColumnWidth}"/>
+                    <ColumnDefinition Width="{StaticResource SettingsColumnSpacing}"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Effect Vol"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left" />
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Slider x:Name="EffectSlider"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="{x:Bind EffectVol, Mode=TwoWay}"
+                            TickFrequency="10"
+                            TickPlacement="BottomRight"
+                            StepFrequency="1"
+                            Width="200"
+                            ValueChanged="EffectSlider_ValueChanged"/>
+
+                    <TextBlock Text="{x:Bind EffectVol, Mode=OneWay}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               FontSize="{StaticResource ElementFontSize}"
+                               Width="50"
+                               Margin="5,0,0,0"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Back Button -->
+            <Button Content="Back"
+                    Click="Back_Click"
+                    Style="{StaticResource CustomButtonStyle}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
-
-                <Slider
-                    x:Name="MusicSlider"
-                    Minimum="0"
-                    Maximum="100"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    Value="{x:Bind MusicVol, Mode=TwoWay}"
-                    TickFrequency="10"
-                    TickPlacement="BottomRight"
-                    StepFrequency="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="200"
-                    ValueChanged="MusicSlider_ValueChanged"/>
-
-                <TextBlock 
-                    Text="{x:Bind MusicVol, Mode=OneWay}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="{StaticResource ElementFontSize}"
-                    Width="100"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
-            </StackPanel>
-
-            
-            <!--  Effect volume slider  -->
-            <StackPanel 
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <TextBlock 
-                    Text="Effect vol"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="{StaticResource ElementFontSize}"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
-
-                <Slider
-                    x:Name="EffectSlider"
-                    Minimum="0"
-                    Maximum="100"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    Value="{x:Bind EffectVol, Mode=TwoWay}"
-                    TickFrequency="10"
-                    TickPlacement="BottomRight"
-                    StepFrequency="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="200"
-                    ValueChanged="EffectSlider_ValueChanged"/>
-
-                <TextBlock 
-                    Text="{x:Bind EffectVol, Mode=OneWay}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    FontSize="{StaticResource ElementFontSize}"
-                    Width="100"
-                    Margin="{StaticResource SettingsElementMargin}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
-            </StackPanel>
-
-            <Button 
-                Content="Back"
-                Click="Back_Click"
-                Style="{StaticResource CustomButtonStyle}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top">
-            </Button>
+                    VerticalAlignment="Top"
+                    Margin="0,10,0,0"/>
         </StackPanel>
-
     </Grid>
 </UserControl>

@@ -21,8 +21,8 @@
     <Color x:Key="ButtonPressedColor">#D43C70</Color>
 
     <!-- ComboBox States -->
-    <Color x:Key="ComboBoxBackgroundColor">#3A3A6E</Color>
-    <Color x:Key="ComboBoxHoverColor">#5050A0</Color>
+    <Color x:Key="ComboBoxBackgroundColor">#FF3D81</Color>
+    <Color x:Key="ComboBoxHoverColor">#FF69A5</Color>
     <Color x:Key="ComboBoxSelectedColor">#FFB347</Color>
     <Color x:Key="ComboBoxDisabledColor">#55557A</Color>
 

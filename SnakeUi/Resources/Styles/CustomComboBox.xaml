@@ -19,7 +19,7 @@
     <Style x:Key="CustomComboBoxItem" TargetType="ComboBoxItem">
         <Setter Property="Background" Value="{StaticResource ComboBoxBackgroundBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource TextForegroundBrush}"/>
-        <Setter Property="FontSize" Value="{StaticResource ElementFontSize}" />
+        <Setter Property="FontSize" Value="{StaticResource ComboBoxFontSize}" />
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="4,2"/>
@@ -30,25 +30,14 @@
                         Background="{TemplateBinding Background}"
                         CornerRadius="2">
                         <ContentPresenter HorizontalAlignment="Left"
-                                      VerticalAlignment="Center"
-                                      Margin="4,0"/>
+                                          VerticalAlignment="Center"
+                                          Margin="4,0"/>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal"/>
                                 <VisualState x:Name="PointerOver">
                                     <VisualState.Setters>
                                         <Setter Target="ItemBorder.Background" Value="{StaticResource ComboBoxHoverBrush}" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Selected">
-                                    <VisualState.Setters>
-                                        <Setter Target="ItemBorder.Background" Value="{StaticResource ComboBoxSelectedBrush}" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <VisualState.Setters>
-                                        <Setter Target="ItemBorder.Background" Value="{StaticResource ComboBoxDisabledBrush}" />
-                                        <Setter Target="ItemBorder.Foreground" Value="{StaticResource ComboBoxDisabledBrush}" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
