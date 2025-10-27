@@ -55,16 +55,15 @@
                 </TextBlock>
 
                 <ComboBox x:Name="ThemeSelector"
-                          Width="150"
-                          Height="40"
-                          Foreground="{StaticResource TextForegroundBrush}"
-                          FontSize="{StaticResource ComboBoxFontSize}"
-                          Background="{StaticResource ComboBoxBackgroundBrush}"
+                          Style="{StaticResource CustomComboBox}" 
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           SelectionChanged="ThemeSelector_SelectionChanged">
                     <ComboBoxItem Content="Dark" />
                     <ComboBoxItem Content="Light" />
+                    <ComboBoxItem Content="Retro" />
+                    <ComboBoxItem Content="OceanTech" />
+                    <ComboBoxItem Content="Cyberpunk" />
                 </ComboBox>
             </StackPanel>
 
@@ -155,7 +154,6 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
-
         </StackPanel>
 
     </Grid>

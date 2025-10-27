@@ -87,9 +87,12 @@ namespace SnakeUi.MVVM.View.MainMenu
 
             return selectedItem.Content switch
             {
-                "Dark"  => ColorTheme.Dark,
-                "Light" => ColorTheme.Light,
-                _       => ColorTheme.Dark,
+                "Dark"       => ColorTheme.Dark,
+                "Light"      => ColorTheme.Light,
+                "Retro"      => ColorTheme.Retro,
+                "OceanTech"  => ColorTheme.OceanTech,
+                "Cyberpunk"  => ColorTheme.Cyberpunk,
+                _            => ColorTheme.Dark,
             };
         }
 

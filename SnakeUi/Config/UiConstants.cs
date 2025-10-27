@@ -15,6 +15,5 @@ namespace SnakeUi.Config
         public const double BORDER_THICKNESS = 0;
         public const double CORNER_RADIUS = 7;
         public const double BORDER_MARGIN = 0.3;
-
     }
 }

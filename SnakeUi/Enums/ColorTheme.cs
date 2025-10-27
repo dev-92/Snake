@@ -3,6 +3,9 @@
     public enum ColorTheme
     {
         Dark,
-        Light
+        Light,
+        Retro,
+        OceanTech, 
+        Cyberpunk
     }
 }

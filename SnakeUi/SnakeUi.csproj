@@ -37,6 +37,7 @@
 		<None Remove="MVVM\View\GameboardView.xaml" />
 		<None Remove="MVVM\View\GameOverView.xaml" />
 		<None Remove="Resources\Brushes.xaml" />
+		<None Remove="Resources\ColorThemes\OceanTechColorsTheme.xaml" />
 		<None Remove="Resources\Styles\CustomButtonStyle.xaml" />
 	</ItemGroup>
 
@@ -161,13 +162,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Page Update="Resources\ColorThemes\CyberpunkColorsTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Resources\ColorThemes\OceanTechColorsTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Resources\ColorThemes\RetroColorsTheme.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Page Update="Resources\Styles\CustomButtonStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Update="Resources\Styles\CustomComboBoxItem.xaml">
+	  <Page Update="Resources\Styles\CustomComboBox.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>

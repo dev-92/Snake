@@ -1,6 +1,8 @@
 ﻿using Microsoft.UI.Xaml;
+
 using SnakeUi.Config;
 using SnakeUi.Enums;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,7 @@ namespace SnakeUi.Controller
             this.ApplyNewTheme(dictionaries, newColorTheme);
             this.ReloadBrushes(dictionaries);
 
+            this.ReloadComboBoxStyle(dictionaries);
             this.ReloadButtonStyle(dictionaries);
         }
 
@@ -63,9 +66,12 @@ namespace SnakeUi.Controller
 
             colorDictionaryToInsert.Source = newTheme switch
             {
-                ColorTheme.Dark  => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
-                ColorTheme.Light => new Uri(ThemeResourceConstants.PATH_TO_LIGHT_COLORS_THEME),
-                _                => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
+                ColorTheme.Dark      => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
+                ColorTheme.Light     => new Uri(ThemeResourceConstants.PATH_TO_LIGHT_COLORS_THEME),
+                ColorTheme.Retro     => new Uri(ThemeResourceConstants.PATH_TO_RETRO_COLORS_THEME),
+                ColorTheme.OceanTech => new Uri(ThemeResourceConstants.PATH_TO_OCEANTECH_COLORS_THEME),
+                ColorTheme.Cyberpunk => new Uri(ThemeResourceConstants.PATH_TO_CYBERPUNK_COLORS_THEME),
+                _                    => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
             };
 
             dictionaries.Insert(0, colorDictionaryToInsert);
@@ -80,11 +86,12 @@ namespace SnakeUi.Controller
         {
             var oldBrushes = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains(ThemeResourceConstants.BRUSHES_FILENAME) == true);
 
-            if (oldBrushes != null)
+            if (oldBrushes == null)
             {
-                dictionaries.Remove(oldBrushes);
+                return;
             }
 
+            dictionaries.Remove(oldBrushes);
             dictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri(ThemeResourceConstants.PATH_TO_THEME_BRUSHES)
@@ -101,10 +108,25 @@ namespace SnakeUi.Controller
             }
 
             dictionaries.Remove(oldButtonStyle);
-
             dictionaries.Add(new ResourceDictionary
             {
                 Source = new Uri(ThemeResourceConstants.PATH_TO_BUTTON_STYLE)
+            });
+        }
+
+        private void ReloadComboBoxStyle(IList<ResourceDictionary> dictionaries)
+        {
+            var oldComboBoxStlye = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains(ThemeResourceConstants.COMBOBOX_FILENAME) == true);
+
+            if (oldComboBoxStlye == null)
+            {
+                return;
+            }
+
+            dictionaries.Remove(oldComboBoxStlye);
+            dictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri(ThemeResourceConstants.PATH_TO_COMBOBOX_STYLE)
             });
         }
     }

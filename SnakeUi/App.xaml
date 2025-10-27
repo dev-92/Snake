@@ -17,7 +17,7 @@
                 
                 <!-- Styles -->
                 <ResourceDictionary Source="ms-appx:///Resources/Styles/CustomButtonStyle.xaml" />
-
+                <ResourceDictionary Source="ms-appx:///Resources/Styles/CustomComboBox.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
 
