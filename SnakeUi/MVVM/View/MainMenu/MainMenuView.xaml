@@ -40,11 +40,8 @@
                 x:Name="StartButton"
                 Content="Start Game"
                 Click="StartGame_Click"
-                Background="{StaticResource ButtonBackgroundBrush}"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
+                Style="{StaticResource CustomButtonStyle}"
                 Margin="0,25"
-                Width="{StaticResource ButtonWidth}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
@@ -52,10 +49,7 @@
             <Button 
                 Content="Settings"
                 Click="Settings_Click"
-                Background="{StaticResource ButtonBackgroundBrush}"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
-                Width="{StaticResource ButtonWidth}"
+                Style="{StaticResource CustomButtonStyle}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>

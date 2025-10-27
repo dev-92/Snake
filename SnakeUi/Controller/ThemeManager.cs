@@ -32,6 +32,8 @@ namespace SnakeUi.Controller
             this.RemoveCurrentTheme(dictionaries);
             this.ApplyNewTheme(dictionaries, newColorTheme);
             this.ReloadBrushes(dictionaries);
+
+            this.ReloadButtonStyle(dictionaries);
         }
 
         /// <summary>
@@ -61,9 +63,9 @@ namespace SnakeUi.Controller
 
             colorDictionaryToInsert.Source = newTheme switch
             {
-                ColorTheme.Dark  => new Uri(UiConstants.PATH_TO_DARK_COLORS_THEME),
-                ColorTheme.Light => new Uri(UiConstants.PATH_TO_LIGHT_COLORS_THEME),
-                _                => new Uri(UiConstants.PATH_TO_DARK_COLORS_THEME),
+                ColorTheme.Dark  => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
+                ColorTheme.Light => new Uri(ThemeResourceConstants.PATH_TO_LIGHT_COLORS_THEME),
+                _                => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
             };
 
             dictionaries.Insert(0, colorDictionaryToInsert);
@@ -76,7 +78,7 @@ namespace SnakeUi.Controller
         /// <param name="dictionaries">The merged ResourceDictionaries of the application.</param>
         private void ReloadBrushes(IList<ResourceDictionary> dictionaries)
         {
-            var oldBrushes = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains("Brushes.xaml") == true);
+            var oldBrushes = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains(ThemeResourceConstants.BRUSHES_FILENAME) == true);
 
             if (oldBrushes != null)
             {
@@ -85,7 +87,24 @@ namespace SnakeUi.Controller
 
             dictionaries.Add(new ResourceDictionary
             {
-                Source = new Uri(UiConstants.PATH_TO_THEME_BRUSHES)
+                Source = new Uri(ThemeResourceConstants.PATH_TO_THEME_BRUSHES)
+            });
+        }
+
+        private void ReloadButtonStyle(IList<ResourceDictionary> dictionaries)
+        {
+            var oldButtonStyle = dictionaries.FirstOrDefault(d => d.Source?.OriginalString.Contains(ThemeResourceConstants.BUTTONSTYLE_FILENAME) == true);
+
+            if (oldButtonStyle == null)
+            {
+                return;
+            }
+
+            dictionaries.Remove(oldButtonStyle);
+
+            dictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri(ThemeResourceConstants.PATH_TO_BUTTON_STYLE)
             });
         }
     }

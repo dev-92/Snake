@@ -16,9 +16,5 @@ namespace SnakeUi.Config
         public const double CORNER_RADIUS = 7;
         public const double BORDER_MARGIN = 0.3;
 
-        public const string PATH_TO_THEME_BRUSHES = @"ms-appx:///Resources/Brushes.xaml";
-
-        public const string PATH_TO_DARK_COLORS_THEME = @"ms-appx:///Resources/ColorThemes/DarkColorsTheme.xaml";
-        public const string PATH_TO_LIGHT_COLORS_THEME = @"ms-appx:///Resources/ColorThemes/LightColorsTheme.xaml";
     }
 }

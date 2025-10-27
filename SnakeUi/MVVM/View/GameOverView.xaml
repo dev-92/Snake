@@ -39,11 +39,8 @@
                 <Button 
                      Content="Try Again"
                      Click="TryAgain_Click"
-                     Background="{StaticResource ButtonBackgroundBrush}"
-                     Foreground="{StaticResource TextForegroundBrush}"
-                     FontSize="{StaticResource ElementFontSize}"
+                     Style="{StaticResource CustomButtonStyle}"
                      Margin="0,25"
-                     Width="{StaticResource ButtonWidth}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
                     
@@ -52,10 +49,7 @@
                 <Button 
                      Content="MainMenu"
                      Click="MainMenu_Click"
-                     Background="{StaticResource ButtonBackgroundBrush}"
-                     Foreground="{StaticResource TextForegroundBrush}"
-                     FontSize="{StaticResource ElementFontSize}"
-                     Width="{StaticResource ButtonWidth}"
+                     Style="{StaticResource CustomButtonStyle}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
                 </Button>

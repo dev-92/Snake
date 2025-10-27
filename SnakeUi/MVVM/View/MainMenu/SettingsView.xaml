@@ -151,10 +151,7 @@
             <Button 
                 Content="Back"
                 Click="Back_Click"
-                Background="{StaticResource ButtonBackgroundBrush}"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
-                Width="{StaticResource ButtonWidth}"
+                Style="{StaticResource CustomButtonStyle}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
