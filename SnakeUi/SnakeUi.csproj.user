@@ -7,6 +7,15 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="MVVM\View\Settings\OtherSettings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Settings\AudioSettings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Settings\DesignSettings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\ColorThemes\CyberpunkColorsTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -20,9 +29,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\CustomComboBox.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MVVM\View\MainMenu\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\GameOverView.xaml">

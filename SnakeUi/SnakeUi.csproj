@@ -36,6 +36,8 @@
 		<None Remove="Assets\Collectables\rabbit.png" />
 		<None Remove="MVVM\View\GameboardView.xaml" />
 		<None Remove="MVVM\View\GameOverView.xaml" />
+		<None Remove="MVVM\View\Settings\AudioSettings.xaml" />
+		<None Remove="MVVM\View\Settings\OtherSettings.xaml" />
 		<None Remove="Resources\Brushes.xaml" />
 		<None Remove="Resources\ColorThemes\OceanTechColorsTheme.xaml" />
 		<None Remove="Resources\Styles\CustomButtonStyle.xaml" />
@@ -159,6 +161,24 @@
 	  <Content Update="Assets\Sounds\SlowDownSound.mp3">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="MVVM\View\Settings\OtherSettings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="MVVM\View\Settings\AudioSettings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="MVVM\View\Settings\DesignSettings.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -134,6 +134,23 @@ namespace SnakeUi.MVVM.View.MainMenu
             double newVolume = e.NewValue / 100.0;
             AudioManager.Instance.EffectVolume = newVolume;
         }
+        /// <summary>
+        /// Handles changes to the gridsize slider.
+        /// Updates the amount of the gameboards cells.
+        /// </summary>
+        private void GridSizeSlider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Handles changes to the cellshape slider.
+        /// Handles if the cell is represented more edgy or round.
+        /// </summary>
+        private void CellShapeSlider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            // TODO
+        }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
