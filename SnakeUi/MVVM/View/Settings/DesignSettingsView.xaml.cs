@@ -49,7 +49,6 @@ internal sealed partial class DesignSettingsView : UserControl
         return selectedItem.Content switch
         {
             "Dark"      => ColorTheme.Dark,
-            "Light"     => ColorTheme.Light,
             "Retro"     => ColorTheme.Retro,
             "OceanTech" => ColorTheme.OceanTech,
             "Cyberpunk" => ColorTheme.Cyberpunk,

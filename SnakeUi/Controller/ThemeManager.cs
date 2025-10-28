@@ -67,7 +67,6 @@ namespace SnakeUi.Controller
             colorDictionaryToInsert.Source = newTheme switch
             {
                 ColorTheme.Dark      => new Uri(ThemeResourceConstants.PATH_TO_DARK_COLORS_THEME),
-                ColorTheme.Light     => new Uri(ThemeResourceConstants.PATH_TO_LIGHT_COLORS_THEME),
                 ColorTheme.Retro     => new Uri(ThemeResourceConstants.PATH_TO_RETRO_COLORS_THEME),
                 ColorTheme.OceanTech => new Uri(ThemeResourceConstants.PATH_TO_OCEANTECH_COLORS_THEME),
                 ColorTheme.Cyberpunk => new Uri(ThemeResourceConstants.PATH_TO_CYBERPUNK_COLORS_THEME),
