@@ -1,10 +1,11 @@
+
 using Microsoft.UI.Xaml.Controls;
 
 namespace SnakeUi.MVVM.View.Settings;
 
-public sealed partial class DesignSettings : UserControl
+public sealed partial class OtherSettingsView : UserControl
 {
-    public DesignSettings()
+    public OtherSettingsView()
     {
         this.InitializeComponent();
     }

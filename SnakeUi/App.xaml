@@ -28,6 +28,8 @@
             <x:Double x:Key="ComboBoxFontSize">20</x:Double>
 
             <Thickness x:Key="ContentMarginForCustomBar">0,32,0,0</Thickness>
+
+   
         </ResourceDictionary>
     </Application.Resources>
 

@@ -36,10 +36,7 @@
 		<None Remove="Assets\Collectables\rabbit.png" />
 		<None Remove="MVVM\View\GameboardView.xaml" />
 		<None Remove="MVVM\View\GameOverView.xaml" />
-		<None Remove="MVVM\View\Settings\AudioSettings.xaml" />
-		<None Remove="MVVM\View\Settings\OtherSettings.xaml" />
-		<None Remove="Resources\Brushes.xaml" />
-		<None Remove="Resources\ColorThemes\OceanTechColorsTheme.xaml" />
+		<None Remove="MVVM\View\Settings\SettingsResources.xaml" />
 		<None Remove="Resources\Styles\CustomButtonStyle.xaml" />
 	</ItemGroup>
 
@@ -164,37 +161,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Update="MVVM\View\Settings\OtherSettings.xaml">
+	  <Page Update="MVVM\View\Settings\SettingsResources.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Update="MVVM\View\Settings\AudioSettings.xaml">
+	  <Page Update="MVVM\View\Settings\OtherSettingsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Update="MVVM\View\Settings\DesignSettings.xaml">
+	  <Page Update="MVVM\View\Settings\AudioSettingsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Update="Resources\ColorThemes\CyberpunkColorsTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Page Update="Resources\ColorThemes\OceanTechColorsTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Page Update="Resources\ColorThemes\RetroColorsTheme.xaml">
+	  <Page Update="MVVM\View\Settings\DesignSettingsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>

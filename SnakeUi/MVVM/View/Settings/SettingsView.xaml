@@ -6,323 +6,53 @@
     xmlns:local="using:SnakeUi.MVVM.View.MainMenu"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="using:SnakeUi.MVVM.View.Settings"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Thickness x:Key="SettingsElementMargin">5,0,5,0</Thickness>
-        <Thickness x:Key="NewCategoryMargin">0,20,0,0</Thickness>
-        <Thickness x:Key="SliderMargin">0,10,0,0</Thickness>
-        
-        <GridLength x:Key="FirstColWidth">200</GridLength>
-        <GridLength x:Key="SecColWidth">200</GridLength>
-        <GridLength x:Key="ThdColWidth">200</GridLength>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SettingsResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Margin="{StaticResource ContentMarginForCustomBar}"
           Background="{StaticResource ViewBackgroundBrush}">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
+            <!-- Header -->
             <RowDefinition Height="*"/>
+            <!-- Content -->
         </Grid.RowDefinitions>
-        
-        <!-- ========================================== -->
-        <!-- =============== SETTINGS ================= -->
-        <!-- ========================================== -->
-        <TextBlock 
-            Grid.Column="0"
-            Grid.Row="0"
-            Text="Settings"
-            Foreground="{StaticResource TextForegroundBrush}"
-            FontSize="{StaticResource HeaderFontSize}"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center" />
 
-        <StackPanel 
-            Orientation="Vertical"
-            Grid.Column="0"
-            Grid.Row="1"
-            HorizontalAlignment="Center">
+        <!-- ============= HEADER ============= -->
+        <TextBlock Text="Settings"
+               Foreground="{StaticResource TextForegroundBrush}"
+               FontSize="{StaticResource HeaderFontSize}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Grid.Row="0" />
 
-            <!-- ========================================== -->
-            <!-- ============= DESIGN_SETTINGS ============= -->
-            <!-- ========================================== -->
+        <!-- ============= CONTENT ============= -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center">
 
-            <TextBlock 
-                Grid.Column="0"
-                Grid.Row="0"
-                Text="Design"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
-                Margin="{StaticResource NewCategoryMargin}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
+                <settings:DesignSettingsView x:Name="DesignSettingsSection" />
 
-            <Grid Margin="0,5" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{StaticResource FirstColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource SecColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource ThdColWidth}"/>
-                </Grid.ColumnDefinitions>
+                <settings:AudioSettingsView x:Name="AudioSettingsSection" />
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <settings:OtherSettingsView x:Name="OtherSettingsSection" />
 
-                <!-- ============= CELL_SHAPE ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Cell Shape"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <Slider x:Name="CellShapeSlider"
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Minimum="100"
-                        Maximum="1000"
-                        Margin="{StaticResource SliderMargin}"
-                        Value="100"
-                        TickFrequency="10"
-                        TickPlacement="BottomRight"
-                        StepFrequency="1"
-                        Width="200"
-                        ValueChanged="CellShapeSlider_ValueChanged"/>
-
-                <TextBlock Grid.Column="2"
-                           Grid.Row="0"
-                           Text="upcoming"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center" />
-
-                <!-- ============= GRID_SIZE ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Grid Size"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <Slider x:Name="GridSizeSlider"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Minimum="100"
-                        Maximum="1000"
-                        Margin="{StaticResource SliderMargin}"
-                        Value="100"
-                        TickFrequency="10"
-                        TickPlacement="BottomRight"
-                        StepFrequency="1"
-                        Width="200"
-                        ValueChanged="GridSizeSlider_ValueChanged"/>
-
-                <TextBlock Grid.Column="2"
-                           Grid.Row="1"
-                           Text="upcoming"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center" />
-
-                <!-- ============= THEME ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.Row="2"
-                           Text="Theme"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <ComboBox Grid.Column="1"
-                          Grid.Row="2"
-                          x:Name="ThemeSelector"
-                          Style="{StaticResource CustomComboBox}"    
-                          VerticalAlignment="Center"
-                          SelectionChanged="ThemeSelector_SelectionChanged">
-
-                    <!-- First content is empty because the first element does not show hover color -->
-                    <!-- The empty ComboBoxItem is not shown on the drop down so this fixes the issue -->
-                    <ComboBoxItem Content="" />
-                    <ComboBoxItem Content="Dark" />
-                    <ComboBoxItem Content="Light" />
-                    <ComboBoxItem Content="Retro" />
-                    <ComboBoxItem Content="OceanTech" />
-                    <ComboBoxItem Content="Cyberpunk" />
-                </ComboBox>
-            </Grid>
-            
-            <!-- ========================================== -->
-            <!-- ============= AUDIO_SETTINGS ============= -->
-            <!-- ========================================== -->
-            <TextBlock 
-                Grid.Column="0"
-                Grid.Row="0"
-                Text="Audio"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
-                Margin="{StaticResource NewCategoryMargin}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
-
-            <Grid Margin="0,5" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{StaticResource FirstColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource SecColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource ThdColWidth}"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <!-- ============= MUSIC_VOLUME ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.Row="0"
-                           Text="Music Vol"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <Slider x:Name="MusicSlider"
-                        Grid.Column="1"
-                        Grid.Row="0"
-                        Minimum="0"
-                        Maximum="100"
-                        Margin="{StaticResource SliderMargin}"
-                        Value="{x:Bind MusicVol, Mode=TwoWay}"
-                        TickFrequency="10"
-                        TickPlacement="BottomRight"
-                        StepFrequency="1"
-                        Width="200"
-                        ValueChanged="MusicSlider_ValueChanged"/>
-
-                <TextBlock Text="{x:Bind MusicVol, Mode=OneWay}"
-                           Grid.Column="2"
-                           Grid.Row="0"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           Width="50"
-                           Margin="5,0,0,0"
-                           VerticalAlignment="Center" />
-
-                <!-- ============= EFFECT_VOLUME ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.Row="1"
-                           Text="Effect Vol"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <Slider x:Name="EffectSlider"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Minimum="0"
-                        Maximum="100"
-                        Margin="{StaticResource SliderMargin}"
-                        Value="{x:Bind EffectVol, Mode=TwoWay}"
-                        TickFrequency="10"
-                        TickPlacement="BottomRight"
-                        StepFrequency="1"
-                        Width="200"
-                        ValueChanged="EffectSlider_ValueChanged"/>
-
-                <TextBlock Text="{x:Bind EffectVol, Mode=OneWay}"
-                           Grid.Column="2"
-                           Grid.Row="1"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           Width="50"
-                           Margin="5,0,0,0"
-                           VerticalAlignment="Center" />
-
-            </Grid>
-            
-            <!-- ========================================== -->
-            <!-- ============= OTHER_SETTINGS ============= -->
-            <!-- ========================================== -->
-            <TextBlock 
-                Grid.Column="0"
-                Grid.Row="0"
-                Text="Others"
-                Foreground="{StaticResource TextForegroundBrush}"
-                FontSize="{StaticResource ElementFontSize}"
-                Margin="{StaticResource NewCategoryMargin}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" />
-
-            <Grid Margin="0,5" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{StaticResource FirstColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource SecColWidth}"/>
-                    <ColumnDefinition Width="{StaticResource ThdColWidth}"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <!-- ============= HIGHSCORE_RESET ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Grid.Row="0"
-                           Text="Highscore Reset"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <TextBlock Grid.Column="3"
-                           Grid.Row="0"
-                           Text="upcoming"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <!-- ============= SAVE_SETTINGS ============= -->
-                <TextBlock Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Grid.Row="1"
-                           Text="Save Settings"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-                <TextBlock Grid.Column="3"
-                           Grid.Row="1"
-                           Text="upcoming"
-                           Foreground="{StaticResource TextForegroundBrush}"
-                           FontSize="{StaticResource ElementFontSize}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-
-            </Grid>
-
-            <!-- Back Button -->
-            <Button Content="Back"
+                <!-- Back Button -->
+                <Button Content="Back"
                     Click="Back_Click"
                     Style="{StaticResource CustomButtonStyle}"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Margin="0,10,0,0"/>
-        </StackPanel>
+                    Margin="0,20,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
+
 </UserControl>
