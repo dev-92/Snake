@@ -19,7 +19,8 @@
             <RowDefinition Height="300"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
+        <!-- ============= HEADER ============= -->
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
@@ -30,12 +31,12 @@
             VerticalAlignment="Center">
         </TextBlock>
 
-
         <StackPanel 
             Orientation="Vertical"
             Grid.Column="0"
             Grid.Row="1">
-            
+
+            <!-- ============= START_BUTTON ============= -->
             <Button 
                 x:Name="StartButton"
                 Content="Start Game"
@@ -46,6 +47,7 @@
                 VerticalAlignment="Top">
             </Button>
 
+            <!-- ============= SETTINGS_BUTTON ============= -->
             <Button 
                 Content="Settings"
                 Click="Settings_Click"
