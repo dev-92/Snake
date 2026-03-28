@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="SnakeUi.MVVM.View.Settings.AudioSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SnakeUi.MVVM.View.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SettingsResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- ========================================== -->
+        <!-- ============= AUDIO_SETTINGS ============= -->
+        <!-- ========================================== -->
+        
+        <Grid Margin="0,5" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{StaticResource FirstColWidth}"/>
+                <ColumnDefinition Width="{StaticResource SecColWidth}"/>
+                <ColumnDefinition Width="{StaticResource ThdColWidth}"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ============= HEADER ============= -->
+            <TextBlock 
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"             
+                Text="Audio"
+                Foreground="{StaticResource TextForegroundBrush}"
+                FontSize="{StaticResource ElementFontSize}"
+                Margin="{StaticResource NewCategoryMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+
+
+            <!-- ============= MUSIC_VOLUME ============= -->
+            <TextBlock Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Music Vol"
+                        Foreground="{StaticResource TextForegroundBrush}"
+                        FontSize="{StaticResource ElementFontSize}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left" />
+
+            <Slider x:Name="MusicSlider"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Minimum="0"
+                        Maximum="100"
+                        Margin="{StaticResource SliderMargin}"
+                        Value="{x:Bind MusicVol, Mode=TwoWay}"
+                        TickFrequency="10"
+                        TickPlacement="BottomRight"
+                        StepFrequency="1"
+                        Width="200"
+                        ValueChanged="MusicSlider_ValueChanged"/>
+
+            <TextBlock Text="{x:Bind MusicVol, Mode=OneWay}"
+                           Grid.Column="2"
+                           Grid.Row="1"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           Width="50"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center" />
+
+            <!-- ============= EFFECT_VOLUME ============= -->
+            <TextBlock Grid.Column="0"
+                           Grid.Row="2"
+                           Text="Effect Vol"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left" />
+
+            <Slider x:Name="EffectSlider"
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Minimum="0"
+                        Maximum="100"
+                        Margin="{StaticResource SliderMargin}"
+                        Value="{x:Bind EffectVol, Mode=TwoWay}"
+                        TickFrequency="10"
+                        TickPlacement="BottomRight"
+                        StepFrequency="1"
+                        Width="200"
+                        ValueChanged="EffectSlider_ValueChanged"/>
+
+            <TextBlock Text="{x:Bind EffectVol, Mode=OneWay}"
+                           Grid.Column="2"
+                           Grid.Row="2"
+                           Foreground="{StaticResource TextForegroundBrush}"
+                           FontSize="{StaticResource ElementFontSize}"
+                           Width="50"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</UserControl>

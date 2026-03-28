@@ -20,7 +20,8 @@
                 <RowDefinition Height="300"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-
+            
+            <!-- ============= HEADER ============= -->
             <TextBlock 
                 Grid.Column="0"
                 Grid.Row="0"
@@ -36,6 +37,7 @@
                 Grid.Row="1"
                 Orientation="Vertical">
                 
+                <!-- ============= TRY_AGAIN_BUTTON ============= -->
                 <Button 
                      Content="Try Again"
                      Click="TryAgain_Click"
@@ -45,7 +47,8 @@
                      VerticalAlignment="Center">
                     
                 </Button>
-
+                
+                <!-- ============= MAIN_MENU_BUTTON ============= -->
                 <Button 
                      Content="MainMenu"
                      Click="MainMenu_Click"

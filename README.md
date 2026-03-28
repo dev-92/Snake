@@ -1,6 +1,6 @@
 # Snake MVVM Project
 
-![Coverage](https://img.shields.io/badge/coverage-18%25-orange) [![Core Unit Tests](https://github.com/dev-92/Snake/actions/workflows/RunSnakeCoreTests.yml/badge.svg)](https://github.com/dev-92/Snake/actions/workflows/RunSnakeCoreTests.yml)
+![Coverage](https://img.shields.io/badge/Coverage-18%25-orange) [![Core Unit Tests](https://github.com/dev-92/Snake/actions/workflows/RunSnakeCoreTests.yml/badge.svg)](https://github.com/dev-92/Snake/actions/workflows/RunSnakeCoreTests.yml)
 
 A modern implementation of a **Snake-inspired game** with multiple collectible prey items, designed as my first **MVVM (Model-View-ViewModel) project**.  
 This project was created **as a learning project** to take my first steps in **design patterns and software architecture**, with an emphasis on **clean code** and **testability**.  

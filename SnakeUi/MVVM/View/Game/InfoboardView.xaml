@@ -28,7 +28,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Speedfactor -->
+        <!-- ============= SPEED_FACTOR ============= -->
         <Border
             Grid.Column="0"
             Grid.Row="0"
@@ -51,7 +51,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Score -->
+        <!-- ============= SCORE ============= -->
         <Border
             Grid.Column="1"
             Grid.Row="0"
@@ -76,7 +76,7 @@
             </StackPanel>
         </Border>
 
-        <!-- LengthOfSnake -->
+        <!-- ============= LENGTH_OF_SNAKE ============= -->
         <Border
             Grid.Column="2"
             Grid.Row="0"
@@ -100,7 +100,7 @@
             </StackPanel>
         </Border>
 
-        <!-- HighScore -->
+        <!-- ============= HIGHSCORE ============= -->
         <Border
             Grid.Column="3"
             Grid.Row="0"

@@ -7,22 +7,22 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
-    <Page Update="Resources\ColorThemes\CyberpunkColorsTheme.xaml">
+    <Page Update="MVVM\View\Settings\SettingsResources.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\ColorThemes\OceanTechColorsTheme.xaml">
+    <Page Update="MVVM\View\Settings\OtherSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\ColorThemes\RetroColorsTheme.xaml">
+    <Page Update="MVVM\View\Settings\AudioSettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MVVM\View\Settings\DesignSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\CustomButtonStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\CustomComboBox.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MVVM\View\MainMenu\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MVVM\View\GameOverView.xaml">
