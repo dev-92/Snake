@@ -126,11 +126,18 @@ namespace SnakeCore.Controller
             this._infoboardModel.Score -= this._infoboardModel.SpeedFactor * CollectableConfig.Bomb.BASE_SCORE;
         }
 
+        /// <summary>
+        /// Adds the given number of elements to the snakes tail
+        /// </summary>
+        /// <param name="length"></param>
         private void AddTailExtension(int length)
         {
             this._pendingTailExtensions.Add(length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Update()
         {
             for (int i = this._pendingTailExtensions.Count - 1; i >= 0; i--)
