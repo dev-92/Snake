@@ -39,14 +39,14 @@ namespace SnakeUi.Services
         private GameMusicType? _currentMusicType = null;
         private readonly List<MediaPlayer> _activeEffects = new();
 
-        private double _effectVolume = 0.8;
+        private double _effectVolume = 0.15;
         public double EffectVolume
         {
             get => this._effectVolume;
             set => this._effectVolume = value;
         }
 
-        private double _musicVolume = 0.4;
+        private double _musicVolume = 0.05;
         public double MusicVolume
         {
             get => this._musicVolume;

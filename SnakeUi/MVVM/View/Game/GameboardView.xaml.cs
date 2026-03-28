@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using SnakeCore.Config;
 using SnakeCore.Model.Entity;
 using SnakeUi.Config;
-
+using System;
 using System.Collections.Generic;
 
 namespace SnakeUi.MVVM.View
@@ -44,8 +44,8 @@ namespace SnakeUi.MVVM.View
         {
             for (int i = 0; i < GameSettings.SideLength; i++)
             {
-                this.GameboardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(UiConstants.CELL_HEIGHT) });
-                this.GameboardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(UiConstants.CELL_WIDTH) });
+                this.GameboardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                this.GameboardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
         }
 

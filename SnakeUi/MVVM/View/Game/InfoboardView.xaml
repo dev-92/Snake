@@ -9,117 +9,82 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <x:Double x:Key="InfoFontSize">28</x:Double>
-        <x:Double x:Key="ValueFontSize">28</x:Double>
+        <x:Double x:Key="ValueFontSize">32</x:Double>
         <CornerRadius x:Key="CornerRadius">10</CornerRadius>
-        <Thickness x:Key="ImageMargin">50,0,0,0</Thickness>
-        <Thickness x:Key="ValueMargin">30,0,0,0</Thickness>
+        <Thickness x:Key="IconTextMargin">15,0,0,0</Thickness>
     </UserControl.Resources>
 
-    <Grid Margin="0,0,0,5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="{StaticResource GlobalWindowWidth}" 
+              Height="{StaticResource InfoboardHeight}" 
+              Margin="0,10,0,10">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- ============= SPEED_FACTOR ============= -->
-        <Border
-            Grid.Column="0"
-            Grid.Row="0"
-            CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource ButtonBackgroundBrush}"
-            Margin="0,0,5,0">
+            <!-- ============= SPEED_FACTOR ============= -->
+            <Border Grid.Column="0" 
+                    CornerRadius="{StaticResource CornerRadius}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/Infoboard/speed.png" Width="35" Height="35" />
+                    <TextBlock FontSize="{StaticResource ValueFontSize}"
+                               Margin="{StaticResource IconTextMargin}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               VerticalAlignment="Center"
+                               Text="{x:Bind InfoboardModel.SpeedFactor, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
 
-            <StackPanel Orientation="Horizontal">
-                <Image
-                    Source="/Assets/Infoboard/speed.png"
-                    Width="30"
-                    Height="30"
-                    Margin="{StaticResource ImageMargin}"/>
+            <!-- ============= SCORE ============= -->
+            <Border Grid.Column="1" 
+                    CornerRadius="{StaticResource CornerRadius}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/Infoboard/score.png" Width="35" Height="35" />
+                    <TextBlock FontSize="{StaticResource ValueFontSize}"
+                               Margin="{StaticResource IconTextMargin}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               VerticalAlignment="Center"
+                               Text="{x:Bind InfoboardModel.Score, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
 
-                <TextBlock 
-                    FontSize="{StaticResource ValueFontSize}"
-                    Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    Text="{x:Bind InfoboardModel.SpeedFactor , Mode=OneWay}" />
-            </StackPanel>
-        </Border>
+            <!-- ============= LENGTH_OF_SNAKE ============= -->
+            <Border Grid.Column="2" 
+                    CornerRadius="{StaticResource CornerRadius}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/Infoboard/length.png" Width="45" Height="45" />
+                    <TextBlock FontSize="{StaticResource ValueFontSize}"
+                               Margin="{StaticResource IconTextMargin}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               VerticalAlignment="Center"
+                               Text="{x:Bind InfoboardModel.LengthOfSnake, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
 
-        <!-- ============= SCORE ============= -->
-        <Border
-            Grid.Column="1"
-            Grid.Row="0"
-            CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource ButtonBackgroundBrush}"
-            Margin="0,0,5,0">
-            <StackPanel Orientation="Horizontal">
-                
-                <Image
-                    Source="/Assets/Infoboard/score.png"
-                    Width="30"
-                    Height="30"
-                    Margin="{StaticResource ImageMargin}" 
-                    />
-
-                <TextBlock 
-                    FontSize="{StaticResource ValueFontSize}"
-                    Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    Text="{x:Bind InfoboardModel.Score , Mode=OneWay}" />
-                
-            </StackPanel>
-        </Border>
-
-        <!-- ============= LENGTH_OF_SNAKE ============= -->
-        <Border
-            Grid.Column="2"
-            Grid.Row="0"
-            CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource ButtonBackgroundBrush}"
-            Margin="0,0,5,0">
-            <StackPanel Orientation="Horizontal">
-                
-                <Image
-                    Source="/Assets/Infoboard/length.png"
-                    Width="40"
-                    Height="40"
-                    Margin="{StaticResource ImageMargin}" />
-                
-                <TextBlock 
-                    FontSize="{StaticResource ValueFontSize}"
-                    Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    Text="{x:Bind InfoboardModel.LengthOfSnake , Mode=OneWay}" />
-                
-            </StackPanel>
-        </Border>
-
-        <!-- ============= HIGHSCORE ============= -->
-        <Border
-            Grid.Column="3"
-            Grid.Row="0"
-            CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource ButtonBackgroundBrush}">
-            <StackPanel Orientation="Horizontal">
-                
-                <Image
-                    Source="/Assets/Infoboard/crown.png"
-                    Width="30"
-                    Height="30"
-                    Margin="{StaticResource ImageMargin}"/>
-
-                <TextBlock 
-                    FontSize="{StaticResource ValueFontSize}"
-                    Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource TextForegroundBrush}"
-                    Text="---" />
-            </StackPanel>
-        </Border>
-    </Grid>
+            <!-- ============= HIGHSCORE ============= -->
+            <Border Grid.Column="3" 
+                    CornerRadius="{StaticResource CornerRadius}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/Assets/Infoboard/crown.png" Width="35" Height="35" />
+                    <TextBlock FontSize="{StaticResource ValueFontSize}"
+                               Margin="{StaticResource IconTextMargin}"
+                               Foreground="{StaticResource TextForegroundBrush}"
+                               VerticalAlignment="Center"
+                               Text="---" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Viewbox>
 </UserControl>

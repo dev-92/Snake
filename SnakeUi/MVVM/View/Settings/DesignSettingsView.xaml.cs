@@ -34,6 +34,11 @@ internal sealed partial class DesignSettingsView : UserControl
         this.ThemeSelectionChanged?.Invoke();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <returns></returns>
     private ColorTheme GetChosenColorTheme(object sender)
     {
         if (sender is not ComboBox themeBox)
