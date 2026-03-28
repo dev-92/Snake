@@ -8,22 +8,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="{StaticResource ContentMarginForCustomBar}" 
+          Background="{StaticResource ViewBackgroundBrush}">
+        
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="300"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-
+            
+            <!-- ============= HEADER ============= -->
             <TextBlock 
                 Grid.Column="0"
                 Grid.Row="0"
-                Text="GameOver"
-                FontSize="50"
+                Text="Game Over"
+                Foreground="{StaticResource TextForegroundBrush}"
+                FontSize="{StaticResource HeaderFontSize}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
             </TextBlock>
@@ -33,20 +37,22 @@
                 Grid.Row="1"
                 Orientation="Vertical">
                 
+                <!-- ============= TRY_AGAIN_BUTTON ============= -->
                 <Button 
-                     Content="Try again"
+                     Content="Try Again"
                      Click="TryAgain_Click"
-                     FontSize="36"
-                     Margin="0,50"
+                     Style="{StaticResource CustomButtonStyle}"
+                     Margin="0,25"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
                     
                 </Button>
-
+                
+                <!-- ============= MAIN_MENU_BUTTON ============= -->
                 <Button 
                      Content="MainMenu"
                      Click="MainMenu_Click"
-                     FontSize="36"
+                     Style="{StaticResource CustomButtonStyle}"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
                 </Button>

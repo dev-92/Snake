@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Media;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 using SnakeCore.Enums;
 using SnakeCore.Model.Entity;
@@ -17,8 +18,8 @@ public partial class CellViewModel : INotifyPropertyChanged
 {
     public CellModel CellModel { get; set; }
 
-    private SolidColorBrush _emptyColorBrush = new(HexColorConverter.ColorFromHex(UiConstants.EMPTY_CELL_HEX_COLOR));
-    private SolidColorBrush _snakeColorBrush = new(HexColorConverter.ColorFromHex(UiConstants.SNAKE_HEX_COLOR));
+    private SolidColorBrush _emptyColorBrush = (SolidColorBrush)Application.Current.Resources["EmptyCellBrush"];
+    private SolidColorBrush _snakeColorBrush = (SolidColorBrush)Application.Current.Resources["SnakeCellBrush"];
 
     private Brush? _backgroundBrush { get; set; }
     public Brush? BackgroundBrush

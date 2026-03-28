@@ -14,9 +14,6 @@
         <CornerRadius x:Key="CornerRadius">10</CornerRadius>
         <Thickness x:Key="ImageMargin">50,0,0,0</Thickness>
         <Thickness x:Key="ValueMargin">30,0,0,0</Thickness>
-        <SolidColorBrush x:Key="BorderBackground" Color="#2f3640" />
-        <SolidColorBrush x:Key="LabelTextColor" Color="#7f8fa6" />
-        <SolidColorBrush x:Key="ValueTextColor" Color="#dcdde1" />
     </UserControl.Resources>
 
     <Grid Margin="0,0,0,5">
@@ -31,12 +28,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Speedfactor -->
+        <!-- ============= SPEED_FACTOR ============= -->
         <Border
             Grid.Column="0"
             Grid.Row="0"
             CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource BorderBackground}"
+            Background="{StaticResource ButtonBackgroundBrush}"
             Margin="0,0,5,0">
 
             <StackPanel Orientation="Horizontal">
@@ -49,17 +46,17 @@
                 <TextBlock 
                     FontSize="{StaticResource ValueFontSize}"
                     Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource ValueTextColor}"
+                    Foreground="{StaticResource TextForegroundBrush}"
                     Text="{x:Bind InfoboardModel.SpeedFactor , Mode=OneWay}" />
             </StackPanel>
         </Border>
 
-        <!-- Score -->
+        <!-- ============= SCORE ============= -->
         <Border
             Grid.Column="1"
             Grid.Row="0"
             CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource BorderBackground}"
+            Background="{StaticResource ButtonBackgroundBrush}"
             Margin="0,0,5,0">
             <StackPanel Orientation="Horizontal">
                 
@@ -73,18 +70,18 @@
                 <TextBlock 
                     FontSize="{StaticResource ValueFontSize}"
                     Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource ValueTextColor}"
+                    Foreground="{StaticResource TextForegroundBrush}"
                     Text="{x:Bind InfoboardModel.Score , Mode=OneWay}" />
                 
             </StackPanel>
         </Border>
 
-        <!-- LengthOfSnake -->
+        <!-- ============= LENGTH_OF_SNAKE ============= -->
         <Border
             Grid.Column="2"
             Grid.Row="0"
             CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource BorderBackground}"
+            Background="{StaticResource ButtonBackgroundBrush}"
             Margin="0,0,5,0">
             <StackPanel Orientation="Horizontal">
                 
@@ -97,18 +94,18 @@
                 <TextBlock 
                     FontSize="{StaticResource ValueFontSize}"
                     Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource ValueTextColor}"
+                    Foreground="{StaticResource TextForegroundBrush}"
                     Text="{x:Bind InfoboardModel.LengthOfSnake , Mode=OneWay}" />
                 
             </StackPanel>
         </Border>
 
-        <!-- HighScore -->
+        <!-- ============= HIGHSCORE ============= -->
         <Border
             Grid.Column="3"
             Grid.Row="0"
             CornerRadius="{StaticResource CornerRadius}"
-            Background="{StaticResource BorderBackground}">
+            Background="{StaticResource ButtonBackgroundBrush}">
             <StackPanel Orientation="Horizontal">
                 
                 <Image
@@ -120,7 +117,7 @@
                 <TextBlock 
                     FontSize="{StaticResource ValueFontSize}"
                     Margin="{StaticResource ValueMargin}"
-                    Foreground="{StaticResource ValueTextColor}"
+                    Foreground="{StaticResource TextForegroundBrush}"
                     Text="---" />
             </StackPanel>
         </Border>

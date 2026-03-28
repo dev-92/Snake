@@ -24,7 +24,7 @@ namespace SnakeUi.MVVM.View
         private readonly PointInt32 _windowOpeningPos = new PointInt32(0, 0);
         private Thickness _margin = new Thickness(10, 40, 10, 10);
 
-        private AppStateManager _appStateManager { get; set; } = new AppStateManager(AudioManager.Instance);
+        private AppStateManager _appStateManager { get; set; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -35,6 +35,27 @@ namespace SnakeUi.MVVM.View
 
             this._appStateManager.PropertyChanged += this.SetCurrentScreen;
             this._appStateManager.AppState = AppState.MainMenu;
+        }
+
+
+        /// <summary>
+        /// Configures the window title, icon, size, position, and behavior (non-resizable, non-maximizable).
+        /// </summary>
+        private void SetWindowConfiguration()
+        {
+            this.AppWindow.Title = UiConstants.WINDOW_TITLE;
+
+            this.AppWindow.Resize(new SizeInt32(UiConstants.WINDOW_WIDTH, UiConstants.WINDOW_HEIGHT));
+            this.AppWindow.Move(this._windowOpeningPos);
+
+            if (this.AppWindow.Presenter is OverlappedPresenter presenter)
+            {
+                presenter.IsResizable = false;
+                presenter.IsMaximizable = false;
+            }
+
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(this.CustomTitleBar);
         }
 
         /// <summary>
@@ -69,26 +90,6 @@ namespace SnakeUi.MVVM.View
                     this.ContentGrid.Children.Add(new SettingsView(this._appStateManager));
                     break;
             }
-        }
-
-        /// <summary>
-        /// Configures the window title, icon, size, position, and behavior (non-resizable, non-maximizable).
-        /// </summary>
-        private void SetWindowConfiguration()
-        {
-            this.AppWindow.Title = UiConstants.WINDOW_TITLE;
-
-            this.AppWindow.Resize(new SizeInt32(UiConstants.WINDOW_WIDTH, UiConstants.WINDOW_HEIGHT));
-            this.AppWindow.Move(this._windowOpeningPos);
-
-            if (this.AppWindow.Presenter is OverlappedPresenter presenter)
-            {
-                presenter.IsResizable = false;
-                presenter.IsMaximizable = false;
-            }
-
-            this.ExtendsContentIntoTitleBar = true;
-            this.SetTitleBar(this.CustomTitleBar);
         }
 
         /// <summary>

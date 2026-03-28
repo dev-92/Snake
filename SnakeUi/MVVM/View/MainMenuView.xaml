@@ -8,46 +8,50 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="{StaticResource ContentMarginForCustomBar}" 
+          Background="{StaticResource ViewBackgroundBrush}">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions> 
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
+        <!-- ============= HEADER ============= -->
         <TextBlock 
             Grid.Column="0"
             Grid.Row="0"
+            Foreground="{StaticResource TextForegroundBrush}"
             Text="SnakeGame"
-            FontSize="50"
+            FontSize="{StaticResource HeaderFontSize}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
         </TextBlock>
-
 
         <StackPanel 
             Orientation="Vertical"
             Grid.Column="0"
             Grid.Row="1">
-            
+
+            <!-- ============= START_BUTTON ============= -->
             <Button 
                 x:Name="StartButton"
                 Content="Start Game"
                 Click="StartGame_Click"
-                FontSize="36"
+                Style="{StaticResource CustomButtonStyle}"
                 Margin="0,25"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>
 
+            <!-- ============= SETTINGS_BUTTON ============= -->
             <Button 
                 Content="Settings"
                 Click="Settings_Click"
-                FontSize="36"
-                Margin="0,25"
+                Style="{StaticResource CustomButtonStyle}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top">
             </Button>

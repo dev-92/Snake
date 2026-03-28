@@ -17,7 +17,7 @@ namespace SnakeUi.Controller
     /// </summary>
     public class GameManager
     {
-        private GameEngine _gameEngine { get; set; } = new(AudioManager.Instance);
+        private GameEngine _gameEngine { get; set; } = new();
         private DateTime _lastUpdate { get; set; } = DateTime.Now;
         public List<CellModel> Cells
         {
@@ -31,10 +31,9 @@ namespace SnakeUi.Controller
             this.InfoboardModel = this._gameEngine.InfoboardModel;
             CompositionTarget.Rendering += this.OnRendering;
 
-            this._gameEngine.GameOver += () =>
-            {
-                this.OnGameOver?.Invoke();  
-            };
+            this._gameEngine.GameOver += () => this.OnGameOver?.Invoke();
+
+            this._gameEngine.ItemCollected += (soundEffectType) => this.PlayEffect(soundEffectType);      
         }
 
 
@@ -44,6 +43,7 @@ namespace SnakeUi.Controller
         public void StartGame()
         {
             this._gameEngine.Run();
+            AudioManager.Instance.PlayMusic(GameMusicType.GameLoop);
         }
 
         /// <summary>
@@ -52,12 +52,18 @@ namespace SnakeUi.Controller
         public void StopGame()
         {
             this._gameEngine.Stop();
+            AudioManager.Instance.PlayMusic(GameMusicType.MenuLoop);
         }
 
         public void Reset()
         {
             this._gameEngine.Reset();
             this.InfoboardModel = this._gameEngine.InfoboardModel;
+        }
+
+        private void PlayEffect(SoundEffectType effectType)
+        {
+            AudioManager.Instance.PlayEffect(effectType);
         }
 
         /// <summary>

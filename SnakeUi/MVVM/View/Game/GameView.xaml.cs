@@ -1,7 +1,5 @@
 using Microsoft.UI.Xaml.Controls;
-using SnakeCore.Model.Entity;
 using SnakeUi.Controller;
-using System.Collections.Generic;
 
 namespace SnakeUi.MVVM.View
 {
@@ -24,9 +22,6 @@ namespace SnakeUi.MVVM.View
 
             this.AddGameboardTo(this.UiLayout);
             this.AddInfoboardTo(this.UiLayout);
-
-            this.Content = this.UiLayout;
-            this.UiLayout.Focus(Microsoft.UI.Xaml.FocusState.Programmatic);
         }
 
         /// <summary>
