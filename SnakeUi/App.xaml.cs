@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.UI.Xaml;
+using SnakeUi.Config;
 using SnakeUi.MVVM.View;
 
 namespace SnakeUi
@@ -22,8 +23,22 @@ namespace SnakeUi
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            this.SynchronizeRessources();
+
             this._window = new MainWindow();
             this._window.Activate();
+        }
+
+        /// <summary>
+        /// Synchronizes (global) ressources like the global window height with classes like <see cref="UiConstants"/>
+        /// </summary>
+        private void SynchronizeRessources()
+        {
+            this.Resources["GlobalWindowWidth"] = (double)UiConstants.WINDOW_WIDTH;
+            this.Resources["GlobalWindowHeight"] = (double)UiConstants.WINDOW_HEIGHT;
+
+            this.Resources["InfoboardHeight"] = (double)UiConstants.INFOBOARD_HEIGHT;
+            this.Resources["GameboardSize"] = (double)UiConstants.GAMEBOARD_SIZE;
         }
     }
 }

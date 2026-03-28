@@ -8,5 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="GameboardGrid"></Grid>
+    <Grid>
+        <Viewbox Stretch="Uniform">
+            <Grid x:Name="GameboardGrid" 
+                  Width="{StaticResource GameboardSize}" 
+                  Height="{StaticResource GameboardSize}" />
+        </Viewbox>
+    </Grid>
+    
 </UserControl>
